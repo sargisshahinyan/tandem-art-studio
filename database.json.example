@@ -1,0 +1,16 @@
+{
+  "dev": {
+    "driver"  : "pg",
+    "user"    : "{{USER_NAME}}",
+    "password": "{{PASSWORD}}",
+    "host"    : "{{HOST}}",
+    "database": "{{DATABASE}}"
+  },
+  "prod": {
+    "driver"  : "pg",
+    "user"    : "{{USER_NAME}}",
+    "password": "{{PASSWORD}}",
+    "host"    : "{{HOST}}",
+    "database": "{{DATABASE}}"
+  }
+}
