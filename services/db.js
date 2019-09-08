@@ -1,5 +1,5 @@
-import { Pool } from 'pg';
-import dbCredentials from '../database';
+const { Pool } = require('pg');
+const dbCredentials = require('../database');
 const {
   dev: {
     user,
@@ -17,7 +17,7 @@ const pool = new Pool({
   port: 5432,
 });
 
-export async function doAction(data) {
+module.exports = async function doAction(data) {
   const client = await pool.connect();
   try {
     const res = await Promise.all(
@@ -30,6 +30,4 @@ export async function doAction(data) {
   } catch (e) {
     client.release();
   }
-}
-
-export default doAction;
+};

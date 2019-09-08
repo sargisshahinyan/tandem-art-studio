@@ -1,18 +1,20 @@
-import express from 'express';
+const express = require('express');
+const { renderReactPage } = require('../utils');
+
+const PagesSvc = require('../services/PagesSvc');
+
 const router = express.Router();
-import { renderReactPage } from '../utils';
 
-import PagesSvc from '../services/PagesSvc';
+router.get('*', async (req, res) => {
+  try {
+    const { rows: pagesData } = await PagesSvc.getPagesData();
 
-router.get((req, res) => {
-  console.log(123456);
-  PagesSvc.getPagesData();
-  renderReactPage()
-    .then(res.send.bind(res))
-    .catch(e => {
-      console.error(e);
-      res.status(500).send('An error occurred');
-    });
+    const content = await renderReactPage(pagesData);
+    res.send(content);
+  } catch (e) {
+    console.error(e);
+    res.status(500).send('An error occurred');
+  }
 });
 
-export default router;
+module.exports = router;

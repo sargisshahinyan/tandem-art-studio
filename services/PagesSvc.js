@@ -1,9 +1,11 @@
-import doAction from './db';
+const doAction = require('./db');
 
-export default class PagesSvc {
-  static getPagesData() {
-    doAction({
+class PagesSvc {
+  static async getPagesData() {
+    return (await doAction({
       query: ['SELECT * FROM pages'],
-    }).then(console.log.bind(console));
+    }))[0];
   }
 }
+
+module.exports = PagesSvc;

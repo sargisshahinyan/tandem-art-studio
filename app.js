@@ -1,10 +1,10 @@
-import createError from 'http-errors';
-import express from 'express';
-import path from 'path';
-import cookieParser from 'cookie-parser';
-import logger from 'morgan';
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
 
-import routes from './routes';
+const routes = require('./routes');
 
 const app = express();
 
@@ -14,7 +14,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'assets')));
 
-app.use(/^(?!\/(api|static)).*/, routes);
+app.use(/^(?!\/(static|api)).*/, routes);
 
 app.use(express.static(path.join(__dirname, 'build')));
 
