@@ -25,7 +25,6 @@ exports.up = function(db) {
     ],
     pages = [
       [
-        '/',
         JSON.stringify({
           mainBackground: '/img/main/main-background.png',
           secondaryBackground: '/img/main/secondary-background.png',
@@ -39,7 +38,6 @@ exports.up = function(db) {
         }),
       ],
       [
-        '/about',
         JSON.stringify({
           mainBackground: '/img/services/main/main-background.png',
           secondaryBackground: '/img/services/main/secondary-background.png',
@@ -53,7 +51,6 @@ exports.up = function(db) {
         }),
       ],
       [
-        '/gallery',
         JSON.stringify({
           items: [
             {
@@ -72,7 +69,6 @@ exports.up = function(db) {
         }),
       ],
       [
-        '/team',
         JSON.stringify({
           mainBackground: '/img/services/main/main-background.png',
           secondaryBackground: '/img/services/main/secondary-background.png',
@@ -128,7 +124,6 @@ exports.up = function(db) {
         }),
       ],
       [
-        '/services',
         JSON.stringify({
           mainBackground: '/img/services/main/main-background.png',
           secondaryBackground: '/img/services/main/secondary-background.png',
@@ -205,7 +200,6 @@ exports.up = function(db) {
         }),
       ],
       [
-        '/clients',
         JSON.stringify({
           mainBackground: '/img/services/main/main-background.png',
           secondaryBackground: '/img/services/main/secondary-background.png',
@@ -280,15 +274,12 @@ exports.up = function(db) {
         }),
       ],
       [
-        '/contact',
         '{}',
       ],
       [
-        '/contacts/details',
         '{}',
       ],
       [
-        '/portfolio',
         JSON.stringify({
           rows_count: 10,
           columns_count: 10,
@@ -316,14 +307,13 @@ exports.up = function(db) {
         db.runSql(`
           CREATE TABLE pages (
             id SERIAL PRIMARY KEY,
-            path VARCHAR(2048) NOT NULL,
             data JSON
           );
         `)
       ))
       .then(() => (
         db.runSql(`
-          INSERT INTO "pages" ("path", "data")
+          INSERT INTO "pages" ("data")
           VALUES ${convertArrayToSql(pages)}
         `)
       ))

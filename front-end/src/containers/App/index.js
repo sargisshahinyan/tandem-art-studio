@@ -5,10 +5,12 @@ import createStore from '../../store';
 
 import Routes from '../Routes';
 
+import './styles.scss';
+
 export function App(props) {
   return (
     <Provider store={createStore(props)}>
-      <Routes {...props} />
+      <Routes />
     </Provider>
   );
 }

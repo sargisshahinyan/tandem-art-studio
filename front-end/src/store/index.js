@@ -3,14 +3,14 @@ import thunkMiddleware from 'redux-thunk';
 
 import rootReducer from '../reducers';
 
-const store = createStore(
-  rootReducer,
-  undefined,
-  applyMiddleware(thunkMiddleware),
-);
-
-export  function configureStore() {
-  return store;
+export function configureStore(props) {
+  return createStore(
+    rootReducer,
+    {
+      pages: props.pages || {},
+    },
+    applyMiddleware(thunkMiddleware),
+  );
 }
 
 export default configureStore;

@@ -7,8 +7,8 @@ import Portfoio from '../Portfolio';
 export function Routes() {
   return (
     <Fragment>
-      <Route exact path="/" component={Home} />
       <Route exact path="/portfolio" component={Portfoio} />
+      <Route exact path="/" component={Home} />
     </Fragment>
   );
 }

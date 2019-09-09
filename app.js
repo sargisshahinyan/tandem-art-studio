@@ -13,10 +13,16 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'assets')));
+app.use(require('cors')());
+
+Object.defineProperty(global, 'APP_PATH', {
+  value: path.resolve(__dirname),
+});
 
 app.use(/^(?!\/(static|api)).*/, routes);
-
 app.use(express.static(path.join(__dirname, 'build')));
+
+app.use('/api', require('./api'));
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

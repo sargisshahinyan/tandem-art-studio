@@ -20,10 +20,15 @@ export function renderReactPage(props = {}) {
       );
 
       return resolve(
-        data.replace(
-          '<div id="root"></div>',
-          `<div id="root">${ReactDOMServer.renderToString(element)}</div>`,
-        )
+        data
+          .replace(
+            '<script id="props"></script>',
+            `<script id="props">window.__INITIAL__DATA__= ${JSON.stringify(props)}</script>`,
+          )
+          .replace(
+            '<div id="root"></div>',
+            `<div id="root">${ReactDOMServer.renderToString(element)}</div>`,
+          )
       );
     })
   });

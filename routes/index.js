@@ -7,9 +7,11 @@ const router = express.Router();
 
 router.get('*', async (req, res) => {
   try {
-    const { rows: pagesData } = await PagesSvc.getPagesData();
+    const pagesData = await PagesSvc.getPagesData();
 
-    const content = await renderReactPage(pagesData);
+    const content = await renderReactPage({
+      pages: pagesData,
+    });
     res.send(content);
   } catch (e) {
     console.error(e);
