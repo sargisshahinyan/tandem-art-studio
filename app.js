@@ -4,8 +4,6 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 
-const routes = require('./routes');
-
 const app = express();
 
 app.use(logger('dev'));
@@ -18,6 +16,9 @@ app.use(require('cors')());
 Object.defineProperty(global, 'APP_PATH', {
   value: path.resolve(__dirname),
 });
+
+const routes = require(`${APP_PATH}/routes`);
+require(`${APP_PATH}/config/initData`)();
 
 app.use(/^(?!\/(static|api)).*/, routes);
 app.use(express.static(path.join(__dirname, 'build')));
