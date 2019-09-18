@@ -1,0 +1,71 @@
+/* Header styles */
+
+@import "mixin";
+@import "fonts";
+
+header{
+  .header{
+    padding-top: 20px;
+    @include flexbox();
+    @include justify-content(space-between);
+    @include align-items(center);
+    & > div{
+      &.logo{
+        a{
+          display: block;
+          width: 84.6px;
+          height: 50px;
+          img{
+            max-width: 100%;
+          }
+        }
+      }
+      &.menu{
+        & > ul{
+          & > li{
+            display: inline-block;
+            vertical-align: middle;
+            position: relative;
+            @include transition();
+            & > a{
+              display: block;
+              padding: 10px 15px;
+              font-family: $verdana_b;
+              @include transition();
+            }
+            & > ul{
+              display: none;
+              position: absolute;
+              left: 0;
+              top: 100%;
+              width: 100%;
+              & > li{
+
+                & > a{
+                  display: block;
+                  font-family: $verdana_b;
+                  color: rgba(255, 255, 255, 0.3);
+                  padding: 4px 0 4px 15px;
+                  font-size: 12px;
+                  white-space: nowrap;
+                  @include transition();
+                  &:hover{
+                    color: rgba(255, 255, 255, 0.6);
+                  }
+                }
+              }
+            }
+            &:hover{
+              & > a{
+                background: #000;
+              }
+              & > ul{
+                display: block;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

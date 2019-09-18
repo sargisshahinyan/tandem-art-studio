@@ -1,0 +1,28 @@
+@import "mixin";
+@import "fonts";
+
+.basic_footer{
+  position: absolute;
+  bottom: 20px;
+  width: 100%;
+  .socialize{
+    display: inline-block;
+    ul{
+      li{
+        display: inline-block;
+        vertical-align: middle;
+        a{
+          display: block;
+          img{
+            height: 20px;
+          }
+          &:hover{
+          }
+        }
+        &:not(:first-child){
+          margin-left: 5px;
+        }
+      }
+    }
+  }
+}
