@@ -13,19 +13,16 @@ exports.setup = function(options, seedLink) {
 };
 
 exports.up = function(db) {
-  return db.runSql(`
-    CREATE TABLE admins (
-      id SERIAL PRIMARY KEY,
-      name VARCHAR(50) NOT NULL,
-      username VARCHAR(50) NOT NULL,
-      password VARCHAR(64) NOT NULL
-    );
-  `);
+  return (
+    db.runSql(`
+      CREATE UNIQUE INDEX admin_username_idx ON admins (username);
+    `)
+  );
 };
 
 exports.down = function(db) {
   return db.runSql(`
-    DROP TABLE admins;
+    DROP INDEX IF EXISTS admin_username_idx;
   `);
 };
 

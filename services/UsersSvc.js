@@ -8,9 +8,12 @@ class UsersSvc {
   }
 
   static async adminExists() {
-    const [{ rows: [{ count }] }] = await doAction({
-      query: [`SELECT COUNT(*) AS count FROM ${this.ADMIN_TABLE}`],
-    });
+    const [{ rows: [{ count }] }] = await doAction([
+      {
+        method: 'query',
+        args: [`SELECT COUNT(*) AS count FROM ${this.ADMIN_TABLE}`],
+      }
+    ]);
 
     return Boolean(parseInt(count, 10));
   }
@@ -18,12 +21,24 @@ class UsersSvc {
   static async addAdmin({ name, username, password }) {
     password = EncryptionSvc.cryptText(password);
 
-    await doAction({
-      query: [
-        `INSERT INTO ${this.ADMIN_TABLE} ("name", "username", "password") VALUES ($1, $2, $3)`,
-        [name, username, password]
-      ],
-    });
+    const [{ rowCount }] = await doAction([
+      {
+        method: 'query',
+        args: [`SELECT id FROM ${this.ADMIN_TABLE} WHERE username = $1`, [username]],
+      }
+    ]);
+
+    if (rowCount) throw new Error(`User with username ${username} exists`);
+
+    await doAction([
+      {
+        method: 'query',
+        args: [
+          `INSERT INTO ${this.ADMIN_TABLE} ("name", "username", "password") VALUES ($1, $2, $3)`,
+          [name, username, password]
+        ],
+      }
+    ]);
   }
 }
 

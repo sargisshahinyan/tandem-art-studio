@@ -21,7 +21,7 @@ module.exports = async function doAction(data) {
   const client = await pool.connect();
   try {
     const res = await Promise.all(
-      Object.entries(data).map(([method, args]) => (
+      data.map(({ method, args }) => (
         client[method](...args)
       ))
     );

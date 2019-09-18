@@ -6,6 +6,10 @@ const logger = require('morgan');
 
 const app = express();
 
+// view engine setup
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
+
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -19,6 +23,8 @@ Object.defineProperty(global, 'APP_PATH', {
 
 const routes = require(`${APP_PATH}/routes`);
 require(`${APP_PATH}/config/initData`)();
+
+app.use('/admin', require(`${APP_PATH}/routes/admin`));
 
 app.use(/^(?!\/(static|api)).*/, routes);
 app.use(express.static(path.join(__dirname, 'build')));
