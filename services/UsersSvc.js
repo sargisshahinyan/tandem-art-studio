@@ -8,13 +8,13 @@ const { ACCESS_TOKEN, REFRESH_TOKEN } = require(`${APP_PATH}/constants/tokenType
 class UsersSvc {
   static get ACCESS_TOKEN_EXP_DATE() {
     const expDate = new Date;
-    expDate.setSeconds(expDate.getSeconds() + 60);
+    expDate.setMinutes(expDate.getMinutes() + 60);
 
     return expDate.toISOString();
   }
   static get REFRESH_TOKEN_EXP_DATE() {
     const expDate = new Date;
-    expDate.setDate(expDate.getDate() + 60);
+    expDate.setDate(expDate.getDate() + 30);
 
     return expDate.toISOString();
   }
@@ -90,8 +90,69 @@ class UsersSvc {
     return EncryptionSvc.createJWT(header, payload);
   }
 
-  validateAdmin() {
+  static async validateAdmin(token) {
+    const result = EncryptionSvc.validateJWT(token);
+    const err = Promise.reject({
+      message: 'Invalid token',
+    });
 
+    if (!result) return err;
+
+    const { payload } = result;
+    const { iss, access_token } = payload;
+
+    const [{ rows }] = await doAction([{
+      method: 'query',
+      args: [
+        `SELECT admin_id AS id FROM admin_tokens WHERE token = $1 AND type = $2`,
+        [access_token.token, ACCESS_TOKEN]
+      ]
+    }]);
+
+    if (!rows.length) return err;
+
+    const [{ id }] = rows;
+
+    if (Number(iss) !== Number(id)) return err;
+
+    return payload;
+  }
+
+  static async updateTokens(id, accessToken, refreshToken) {
+    const err = Promise.reject({
+      message: 'Invalid token',
+    });
+
+    if (new Date(refreshToken.expDate) < new Date()) return err;
+
+    const [{ rows }] = await doAction([{
+      method: 'query',
+      args: [
+        `SELECT admin_id AS id FROM admin_tokens WHERE token = $1 AND type = $2 AND admin_id = $3`,
+        [refreshToken.token, REFRESH_TOKEN, id]
+      ]
+    }]);
+
+    if (!rows.length) return err;
+
+    await doAction([
+      {
+        method: 'query',
+        args: [
+            `DELETE FROM admin_tokens WHERE token = $1 AND type = $2 AND admin_id = $3`,
+          [refreshToken.token, REFRESH_TOKEN, id]
+        ]
+      },
+      {
+        method: 'query',
+        args: [
+          `DELETE FROM admin_tokens WHERE token = $1 AND type = $2 AND admin_id = $3`,
+          [accessToken.token, ACCESS_TOKEN, id]
+        ]
+      }
+    ]);
+
+    return await this.generateAdminToken({ id });
   }
 }
 
