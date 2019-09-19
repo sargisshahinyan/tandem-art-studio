@@ -26,7 +26,7 @@ require(`${APP_PATH}/config/initData`)();
 
 app.use('/admin', require(`${APP_PATH}/routes/admin`));
 
-app.use(/^(?!\/(static|api)).*/, routes);
+app.use(/^(?!\/(static|api|fonts|images|styles)).*/, routes);
 app.use(express.static(path.join(__dirname, 'build')));
 
 app.use('/api', require('./api'));
