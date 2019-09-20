@@ -1,0 +1,11 @@
+<aside class="menu">
+    <nav>
+        <ul>
+            <% NAV_TABS.forEach(tab => { %>
+                <li class="tab <%= tab.path === activePath ? 'active' : '' %>">
+                    <a href="<%= tab.path %>"><%= tab.title %></a>
+                </li>
+            <% }) %>
+        </ul>
+    </nav>
+</aside>

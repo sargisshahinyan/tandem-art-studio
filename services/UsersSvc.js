@@ -104,7 +104,7 @@ class UsersSvc {
     const [{ rows }] = await doAction([{
       method: 'query',
       args: [
-        `SELECT admin_id AS id FROM admin_tokens WHERE token = $1 AND type = $2`,
+        'SELECT admin_id AS id FROM admin_tokens WHERE token = $1 AND type = $2',
         [access_token.token, ACCESS_TOKEN]
       ]
     }]);
@@ -128,31 +128,57 @@ class UsersSvc {
     const [{ rows }] = await doAction([{
       method: 'query',
       args: [
-        `SELECT admin_id AS id FROM admin_tokens WHERE token = $1 AND type = $2 AND admin_id = $3`,
+        'SELECT exp_date FROM admin_tokens WHERE token = $1 AND type = $2 AND admin_id = $3',
         [refreshToken.token, REFRESH_TOKEN, id]
       ]
     }]);
 
     if (!rows.length) return err;
 
+    const [{ exp_date }] = rows;
+
+    if (new Date(exp_date) < Date.now()) return err;
+
     await doAction([
       {
         method: 'query',
         args: [
-            `DELETE FROM admin_tokens WHERE token = $1 AND type = $2 AND admin_id = $3`,
+          'DELETE FROM admin_tokens WHERE token = $1 AND type = $2 AND admin_id = $3',
           [refreshToken.token, REFRESH_TOKEN, id]
         ]
       },
       {
         method: 'query',
         args: [
-          `DELETE FROM admin_tokens WHERE token = $1 AND type = $2 AND admin_id = $3`,
+          'DELETE FROM admin_tokens WHERE token = $1 AND type = $2 AND admin_id = $3',
           [accessToken.token, ACCESS_TOKEN, id]
         ]
       }
     ]);
 
     return await this.generateAdminToken({ id });
+  }
+
+  static async authAdmin({ username, password }) {
+    password = EncryptionSvc.cryptText(password);
+
+    const [{ rows, rowCount }] = await doAction([
+      {
+        method: 'query',
+        args: [
+          `SELECT id, name, username, password FROM ${this.ADMIN_TABLE} WHERE username = $1`,
+          [username]
+        ]
+      }
+    ]);
+
+    if (!rowCount) return Promise.reject({ message: 'There is no user with such username' });
+
+    const [user] = rows;
+
+    if (user.password !== password) return Promise.reject({ message: `Wrong password for username ${username}` });
+
+    return user;
   }
 }
 

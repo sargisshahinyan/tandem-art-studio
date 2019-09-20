@@ -1,0 +1,37 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+form.auth {
+    max-width: 400px;
+    margin: 40px auto;
+}
+main.wrapper {
+    display: flex;
+}
+.menu {
+    background-color: #222d32;
+    height: 100vh;
+    padding: 20px 0;
+    width: 230px;
+}
+.menu ul {
+    padding: 0;
+}
+.menu .tab {
+    list-style: none;
+}
+.menu .tab:hover, .menu .tab.active {
+    background-color: #182126;
+}
+.menu .tab a {
+    color: white;
+    margin: 15px 0;
+    padding: 5px 0 5px 40px;
+    display: block;
+    text-decoration: none !important;
+}
+.container {
+    width: calc(100% - 230px);
+}

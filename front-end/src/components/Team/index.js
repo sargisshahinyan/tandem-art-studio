@@ -5,7 +5,7 @@ import BasicFooter from '../BasicFooter';
 
 import './styles.scss';
 
-export function Team() {
+export function Team({ title, description }) {
 	return (
 		<article>
 			<div className="bg_sim_styles bg_team" />
@@ -13,9 +13,7 @@ export function Team() {
 			<main className="our_team">
 				<div className="title">
 					<div className="wrapper">
-						<h1>
-							Our Team
-						</h1>
+						<h1>Our Team</h1>
 					</div>
 				</div>
 				<div className="team_items items_similar_styles">
@@ -23,7 +21,7 @@ export function Team() {
 						<div className="content">
 							<div>
 								<div className="item_img">
-									<img src="images/team/photo_1.svg" />
+									<img src="/images/team/photo_1.svg" alt="Member" />
 								</div>
 								<div className="item_name">
 									<span>
@@ -38,7 +36,7 @@ export function Team() {
 							</div>
 							<div>
 								<div className="item_img">
-									<img src="images/team/photo_2.svg" />
+									<img src="/images/team/photo_2.svg" alt="Member" />
 								</div>
 								<div className="item_name">
 									<span>
@@ -53,7 +51,7 @@ export function Team() {
 							</div>
 							<div>
 								<div className="item_img">
-									<img src="images/team/photo_3.svg" />
+									<img src="/images/team/photo_3.svg" alt="Member" />
 								</div>
 								<div className="item_name">
 									<span>
@@ -68,7 +66,7 @@ export function Team() {
 							</div>
 							<div>
 								<div className="item_img">
-									<img src="images/team/photo_4.svg" />
+									<img src="/images/team/photo_4.svg" alt="Member" />
 								</div>
 								<div className="item_name">
 									<span>
@@ -83,7 +81,7 @@ export function Team() {
 							</div>
 							<div>
 								<div className="item_img">
-									<img src="images/team/photo_5.svg" />
+									<img src="/images/team/photo_5.svg" alt="Member" />
 								</div>
 								<div className="item_name">
 									<span>
@@ -98,7 +96,7 @@ export function Team() {
 							</div>
 							<div>
 								<div className="item_img">
-									<img src="images/team/photo_6.svg" />
+									<img src="/images/team/photo_6.svg" alt="Member" />
 								</div>
 								<div className="item_name">
 									<span>
@@ -113,7 +111,7 @@ export function Team() {
 							</div>
 							<div>
 								<div className="item_img">
-									<img src="images/team/photo_7.svg" />
+									<img src="/images/team/photo_7.svg" alt="Member" />
 								</div>
 								<div className="item_name">
 									<span>
@@ -128,7 +126,7 @@ export function Team() {
 							</div>
 							<div>
 								<div className="item_img">
-									<img src="images/team/photo_8.svg" />
+									<img src="/images/team/photo_8.svg" alt="Member" />
 								</div>
 								<div className="item_name">
 									<span>
@@ -143,7 +141,7 @@ export function Team() {
 							</div>
 							<div>
 								<div className="item_img">
-									<img src="images/team/photo_9.svg" />
+									<img src="/images/team/photo_9.svg" alt="Member" />
 								</div>
 								<div className="item_name">
 									<span>
@@ -162,34 +160,8 @@ export function Team() {
 				<div className="text_content">
 					<div className="wrapper">
 						<div className="content">
-							<h3>
-								DESIGN. IT’S IN OUR BLOOD... IT’S EVERYTHING.
-							</h3>
-							<p>
-								Design is different here. We come
-								to work each day inspired by the
-								future and eager to be a part of it.
-								When people use our designs, we want
-								them to wonder how they ever lived
-								without them. We try hard to simplify
-								and improve our customers’ lives.
-								Our design team is a mix of experience
-								and drive, engineering and art. This
-								young, talented team rejuvenates our
-								product every year. They never settle
-								for anything less than unique collections
-								of the highest quality. Tandem Art studio
-								team of industrial and graphic designers
-								collaborate with your firm to create
-								uniquely engaging experiences. First,
-								we get to know you and how you want to
-								interact with your customers. Then we
-								use that knowledge to help co-create
-								brands that will resonate in a crowded
-								marketplace and tailor innovative product
-								solutions that work for your development,
-								marketing and business operations.
-							</p>
+							<h3>{title}</h3>
+							<p>{description}</p>
 						</div>
 					</div>
 				</div>
