@@ -1,12 +1,40 @@
 import React from 'react';
+import Slider from 'react-slick';
 
 import Header from '../Header';
 import BasicFooter from '../BasicFooter';
 import Signature from '../Signature';
 
+import { clients } from '../../data/clients';
+
 import './styles.scss';
 
 export function Clients() {
+  let amountInSlide = 6;
+
+  if (typeof window === 'object') {
+    switch (true) {
+      case window.innerWidth < 767:
+        amountInSlide = 3;
+        break;
+    }
+  }
+
+  const settings = {
+    dots: true,
+    infinite: false,
+    speed: 500,
+    slidesToShow: amountInSlide,
+    slidesToScroll: amountInSlide,
+    prevArrow: <img src="/images/icons/arrow-left.svg" alt="Left arrow" />,
+    nextArrow: <img src="/images/icons/arrow-right.svg" alt="Right arrow" />,
+    appendDots: dots => (
+      <div>
+        <ul className='slide-dots'>{dots}</ul>
+      </div>
+    ),
+  };
+
   return (
     <article>
       <div className="bg_sim_styles bg_clients" />
@@ -18,7 +46,19 @@ export function Clients() {
           </div>
         </div>
         <div className="clients_slider">
-          <div className="slider" />
+          <div className="slider">
+            <Slider {...settings}>
+              {clients.map((client, i) => (
+                <div key={i} className="slide_item">
+                  <img
+                    src={client}
+                    alt="Client"
+                    className="client_logo"
+                  />
+                </div>
+              ))}
+            </Slider>
+          </div>
         </div>
         <div className="text_content">
           <div className="wrapper">

@@ -15,10 +15,10 @@ export const PAGES = [
     id: 2,
     component: About,
   },
-  {
+  /*{
     id: 3,
     component: Gallery,
-  },
+  },*/
   {
     id: 4,
     component: Team,

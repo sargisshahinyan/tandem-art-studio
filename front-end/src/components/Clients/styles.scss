@@ -1,1 +1,15 @@
+.slide_item {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  padding: 0 10px;
+  .client_logo {
+    max-height: 100px;
+    max-width: 100%;
+    filter: saturate(0);
+    &:hover {
+      filter: saturate(1);
+    }
+  }
+}
 
