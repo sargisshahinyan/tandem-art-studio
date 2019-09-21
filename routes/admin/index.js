@@ -56,7 +56,7 @@ router.get(new RegExp(`\/(${NAV_TABS.map(tab => tab.path).join('|')})`), (req, r
   res.render('admin/main');
 });
 
-router.post('/about', async (req, res) => {
+router.post(/\/(about|team|services|clients)/, async (req, res) => {
   try {
     await PagesSvc.updatePageData(req.path, req.body);
     res.redirect(req.originalUrl);

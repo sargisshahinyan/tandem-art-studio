@@ -8,7 +8,7 @@ const { ACCESS_TOKEN, REFRESH_TOKEN } = require(`${APP_PATH}/constants/tokenType
 class UsersSvc {
   static get ACCESS_TOKEN_EXP_DATE() {
     const expDate = new Date;
-    expDate.setMinutes(expDate.getMinutes() + 60);
+    expDate.setMinutes(expDate.getMinutes() + 30);
 
     return expDate.toISOString();
   }

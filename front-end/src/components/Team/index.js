@@ -3,6 +3,8 @@ import React from 'react';
 import Header from '../Header';
 import BasicFooter from '../BasicFooter';
 
+import { convertText } from '../../utils';
+
 import './styles.scss';
 
 export function Team({ title, description }) {
@@ -161,7 +163,7 @@ export function Team({ title, description }) {
 					<div className="wrapper">
 						<div className="content">
 							<h3>{title}</h3>
-							<p>{description}</p>
+							<p>{convertText(description)}</p>
 						</div>
 					</div>
 				</div>

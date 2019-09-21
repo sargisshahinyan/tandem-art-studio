@@ -4,7 +4,7 @@
     box-sizing: border-box;
 }
 textarea {
-    min-height: 400px;
+    min-height: 300px;
     resize: none;
 }
 form.auth {

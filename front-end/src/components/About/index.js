@@ -4,6 +4,8 @@ import Header from '../Header';
 import BasicFooter from '../BasicFooter';
 import Signature from '../Signature';
 
+import { convertText } from '../../utils';
+
 import './styles.scss';
 
 export function About({ description }) {
@@ -20,7 +22,7 @@ export function About({ description }) {
 				<div className="text_content with_bg">
 					<div className="wrapper">
 						<div className="content">
-							<p>{description}</p>
+							<p>{convertText(description)}</p>
 						</div>
 					</div>
 				</div>

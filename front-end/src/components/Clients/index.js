@@ -7,9 +7,11 @@ import Signature from '../Signature';
 
 import { clients } from '../../data/clients';
 
+import { convertText } from '../../utils';
+
 import './styles.scss';
 
-export function Clients() {
+export function Clients({ title, description }) {
   let amountInSlide = 6;
 
   if (typeof window === 'object') {
@@ -63,30 +65,8 @@ export function Clients() {
         <div className="text_content">
           <div className="wrapper">
             <div className="content">
-              <h2>Our Clients are our priority</h2>
-              <p>
-                Innovation is born from collaboration
-                and diverse perspectives.
-                <br />
-                We exist to serve organizations that
-                are making a positive social impact.
-                We bring teams of creative and technical
-                talent together to help our clients
-                achieve their mission. We work to ensure
-                that every project reflects our client’s
-                individual needs, vision, and unique
-                identity combined with our marketing and
-                creative guidance.Every project begins
-                with understanding the goal. We guide you
-                through each step of our process while
-                meeting deadlines and challenges set
-                forth to accomplish these goals.
-                Ultimately your success is our success.
-                We believe that great design and effective
-                communication are key ingredients for
-                <br />
-                improving our lives and the world around us.
-              </p>
+              <h2>{title}</h2>
+              <p>{convertText(description)}</p>
             </div>
           </div>
         </div>

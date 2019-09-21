@@ -3,9 +3,11 @@ import React from 'react';
 import BasicFooter from '../BasicFooter';
 import Header from '../Header';
 
+import { convertText } from '../../utils';
+
 import './styles.scss';
 
-export function Services() {
+export function Services({ description }) {
 	return (
 		<article>
 			<div className="bg_sim_styles bg_services" />
@@ -209,16 +211,7 @@ export function Services() {
 				<div className="text_content">
 					<div className="wrapper">
 						<div className="content">
-							<p>
-								We"re game changers, inspired by our clients’
-								businesses and our community. We believe in standing up
-								for what we believe. So our work always stands
-								out because it always stands for something.
-								<br />
-								Everything we do is driven by this principle to
-								create more powerful, memorable connections
-								between your brand and your customers and fans.
-							</p>
+							<p>{convertText(description)}</p>
 						</div>
 					</div>
 				</div>
