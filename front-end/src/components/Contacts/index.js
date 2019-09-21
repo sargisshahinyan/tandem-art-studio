@@ -10,7 +10,7 @@ export function Contacts() {
     <article>
       <div className="bg_sim_styles bg_contact_us" />
       <Header />
-      <main className="contact_us">
+      <main className="contact_us centering_content">
         <div className="title">
           <div className="wrapper">
             <h1>Contact with us</h1>

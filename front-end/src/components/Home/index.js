@@ -10,14 +10,14 @@ export function Home({ slidePaths }) {
 	return (
 		<article>
 			<div className="bg_sim_styles bg_index" />
+			<div className="home_carousel">
+				<CustomCarousel
+					items={slidePaths}
+				/>
+			</div>
 			<Header />
 			<main className="index_content">
 				<div className="middle_bg" />
-				<div className="home_carousel">
-          <CustomCarousel
-            items={slidePaths}
-          />
-				</div>
 			</main>
 			<BasicFooter />
 		</article>

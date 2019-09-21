@@ -10,7 +10,7 @@ export function Services() {
 		<article>
 			<div className="bg_sim_styles bg_services" />
 			<Header />
-			<main className="our_services">
+			<main className="our_services centering_content">
 				<div className="title">
 					<div className="wrapper">
 						<h1>Our Services</h1>
