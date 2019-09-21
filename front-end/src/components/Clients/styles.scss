@@ -1,14 +1,42 @@
-.slide_item {
-  display: inline-flex !important;
-  align-items: center;
-  justify-content: center;
-  padding: 0 10px;
-  .client_logo {
-    max-height: 100px;
-    max-width: 100%;
-    filter: saturate(0);
-    &:hover {
-      filter: saturate(1);
+@import "mixin";
+@import "fonts";
+
+.clients_slider{
+  .slick-slider{
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 0 15px;
+    .slick-slide{
+      height: 80px;
+      line-height: 80px;
+      & > div{
+        height: inherit;
+        line-height: inherit;
+        .slide_item {
+          height: inherit;
+          line-height: inherit;
+          -webkit-box-sizing: border-box;
+          -moz-box-sizing: border-box;
+          box-sizing: border-box;
+          padding: 0 15px;
+          text-align: center;
+          img.client_logo {
+            max-height: 100%;
+            max-width: 100%;
+            display: inline-block;
+            vertical-align: middle;
+            filter: saturate(0);
+            @include transition(.1s);
+            &:hover {
+              filter: saturate(1);
+            }
+          }
+        }
+      }
+    }
+    .slick-dots{
+      display: none;
     }
   }
 }

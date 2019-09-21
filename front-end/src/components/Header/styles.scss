@@ -4,6 +4,9 @@
 @import "fonts";
 
 header{
+  z-index: 2;
+  position: relative;
+  height: 70px;
   .header{
     padding-top: 20px;
     @include flexbox();
@@ -37,9 +40,9 @@ header{
               display: none;
               position: absolute;
               left: 0;
-              top: calc(100% - 5px);
+              top: 100%;
               width: 100%;
-              padding-top: 5px;
+              z-index: 2;
               & > li{
                 & > a{
                   display: block;
@@ -55,7 +58,7 @@ header{
                 }
               }
             }
-            &.hover{
+            &:hover{
               & > a{
                 background: #000;
               }
