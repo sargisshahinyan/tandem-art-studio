@@ -12,7 +12,7 @@ export function Team({ title, description }) {
 		<article>
 			<div className="bg_sim_styles bg_team" />
 			<Header />
-			<main className="our_team">
+			<main className="our_team centering_content">
 				<div className="title">
 					<div className="wrapper">
 						<h1>Our Team</h1>

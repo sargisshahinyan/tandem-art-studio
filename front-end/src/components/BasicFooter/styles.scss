@@ -1,12 +1,16 @@
 @import "mixin";
 @import "fonts";
 
+footer{
+  z-index: 1;
+}
 .basic_footer{
   position: absolute;
   bottom: 20px;
-  width: 100%;
+  width: 25%;
   .socialize{
     display: inline-block;
+    z-index: 2;
     ul{
       li{
         display: inline-block;

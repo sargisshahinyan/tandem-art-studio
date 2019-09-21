@@ -41,7 +41,7 @@ export function Clients({ title, description }) {
     <article>
       <div className="bg_sim_styles bg_clients" />
       <Header />
-      <main className="our_clients">
+      <main className="our_clients centering_content">
         <div className="title">
           <div className="wrapper">
             <h1>Our Clients</h1>

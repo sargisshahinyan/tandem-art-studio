@@ -124,13 +124,12 @@ a{
   }
 }
 
-
 /* Body styles */
 
 article{
   position: relative;
   height: 100vh;
-
+  z-index: auto;
   .bg_sim_styles{
     position: absolute;
     top: 0;
@@ -195,10 +194,8 @@ main{
     }
   }
   &.about_content{
-    height: calc(100vh - 150px);
-    padding-top: 50px;
     .text_content{
-      margin-top: 50px;
+      margin-top: 30px;
       .content{
         p{
           margin-top: 0;
@@ -206,14 +203,12 @@ main{
       }
     }
     .signature{
-      margin-top: 50px;
+      margin-top: 30px;
     }
   }
   &.our_clients{
-    height: calc(100vh - 150px);
-    padding-top: 50px;
     .clients_slider{
-      margin-top: 20px;
+      margin-top: 30px;
       position: relative;
       background: url("/images/backgrounds/bg_middle.png") no-repeat center center;
       -webkit-background-size: cover;
@@ -224,7 +219,7 @@ main{
       }
     }
     .text_content{
-      margin-top: 20px;
+      margin-top: 30px;
       .content{
         p{
           max-width: 85%;
@@ -234,14 +229,12 @@ main{
       }
     }
     .signature{
-      margin-top: 20px;
+      margin-top: 30px;
     }
   }
   &.our_services{
-    height: calc(100vh - 150px);
-    padding-top: 50px;
     .service_items{
-      margin-top: 20px;
+      margin-top: 30px;
       min-height: 240px;
       .content{
         padding-top: 20px;
@@ -309,7 +302,7 @@ main{
       }
     }
     .text_content{
-      margin-top: 20px;
+      margin-top: 30px;
       .content{
         p{
           margin-top: 0;
@@ -321,10 +314,8 @@ main{
     }
   }
   &.our_team{
-    height: calc(100vh - 150px);
-    padding-top: 50px;
     .team_items{
-      margin-top: 20px;
+      margin-top: 30px;
       min-height: 240px;
       .content{
         padding-top: 20px;
@@ -382,7 +373,7 @@ main{
       }
     }
     .text_content{
-      margin-top: 20px;
+      margin-top: 30px;
       .content{
         p{
           max-width: 66%;
@@ -393,8 +384,6 @@ main{
     }
   }
   &.contact_us{
-    height: calc(100vh - 150px);
-    padding-top: 30px;
     .form_content{
       margin-top: 30px;
       position: relative;
@@ -499,23 +488,13 @@ main{
   }
 }
 
-// Styles overriding of react slick
 
-.slide-dots {
-  li {
-    button {
-      height: 15px !important;
-      width: 15px !important;
-      @include prefix-name(50%);
-      background-color: rgba(255, 255, 255, 0.1) !important;
-      &:before {
-        display: none;
-      }
-    }
-    &.slick-active {
-      button {
-        background-color: rgba(255, 255, 255, 0.3) !important;
-      }
-    }
-  }
+
+.centering_content{
+  position: absolute;
+  left: 0;
+  top: 50%;
+  @include prefix-name(transform, translate(0, -50%));
+  width: 100%;
+  height: auto;
 }

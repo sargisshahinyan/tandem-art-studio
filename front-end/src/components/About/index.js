@@ -13,7 +13,7 @@ export function About({ description }) {
 		<article>
 			<div className="bg_sim_styles bg_about" />
 			<Header />
-			<main className="about_content">
+			<main className="about_content centering_content">
 				<div className="title">
 					<div className="wrapper">
 						<h1>About Us</h1>
