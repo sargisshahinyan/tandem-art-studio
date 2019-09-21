@@ -38,16 +38,32 @@ router.use(authCheckingMiddleware);
 router.use(async (req, res, next) => {
   res.locals.NAV_TABS = NAV_TABS.map(tab => ({
     ...tab,
-    path: `${req.baseUrl}${tab.path}`,
+    path: `${req.baseUrl}/${tab.path}`,
   }));
   res.locals.activePath = req.originalUrl;
-  res.locals.pages = await PagesSvc.getPagesData();
+  res.locals.activePage = req.path;
+  res.locals.baseUrl = req.baseUrl;
+  const pages = await PagesSvc.getPagesData(req.path);
+
+  if (!pages || !pages.length) return next();
+
+  res.locals.page = pages[0].data;
 
   next();
 });
 
-router.get(new RegExp(`/(${NAV_TABS.map(tab => tab.path).join('|')})`), (req, res) => {
+router.get(new RegExp(`\/(${NAV_TABS.map(tab => tab.path).join('|')})`), (req, res) => {
   res.render('admin/main');
+});
+
+router.post('/about', async (req, res) => {
+  try {
+    await PagesSvc.updatePageData(req.path, req.body);
+    res.redirect(req.originalUrl);
+  } catch (e) {
+    console.error(e);
+    next();
+  }
 });
 
 router.get('*', (req, res) => {

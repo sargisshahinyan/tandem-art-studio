@@ -4,8 +4,25 @@
     <body>
         <main class="wrapper">
             <% include leftBar.ejs %>
-            <article class="container">
-
+            <article class="container-fluid">
+                <% if (activePage === '/home') { %>
+                    <% include home.ejs %>
+                <% } %>
+                <% if (activePage === '/about') { %>
+                    <% include about.ejs %>
+                <% } %>
+                <% if (activePage === '/team') { %>
+                    <% include team.ejs %>
+                <% } %>
+                <% if (activePage === '/services') { %>
+                    <% include services.ejs %>
+                <% } %>
+                <% if (activePage === '/clients') { %>
+                    <% include clients.ejs %>
+                <% } %>
+                <% if (activePage === '/portfolio') { %>
+                    <% include portfolio.ejs %>
+                <% } %>
             </article>
         </main>
     </body>

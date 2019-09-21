@@ -6,3 +6,6 @@ node_modules/
 
 # database configuration file
 database.json
+
+# front end build
+build

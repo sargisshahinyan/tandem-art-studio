@@ -3,6 +3,10 @@
     padding: 0;
     box-sizing: border-box;
 }
+textarea {
+    min-height: 400px;
+    resize: none;
+}
 form.auth {
     max-width: 400px;
     margin: 40px auto;
@@ -15,6 +19,7 @@ main.wrapper {
     height: 100vh;
     padding: 20px 0;
     width: 230px;
+    overflow: auto;
 }
 .menu ul {
     padding: 0;
@@ -34,4 +39,6 @@ main.wrapper {
 }
 .container {
     width: calc(100% - 230px);
+    height: 100vh;
+    overflow: auto;
 }

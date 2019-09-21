@@ -13,12 +13,8 @@
             </div>
             <button type="submit" class="btn btn-primary">Log In</button>
         </form>
-        <%
-            if (typeof error === 'object') {
-        %>
+        <% if (typeof error === 'object') {%>
             <div class="text-danger h5 text-center"><%= error.message %></div>
-        <%
-            }
-        %>
+        <% } %>
     </body>
 </html>

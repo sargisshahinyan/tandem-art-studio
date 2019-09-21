@@ -5,27 +5,27 @@ module.exports = {
   NAV_TABS: [
     {
       title: 'Home',
-      path: '/home',
+      path: 'home',
     },
     {
       title: 'About us',
-      path: '/about',
+      path: 'about',
+    },
+    {
+      title: 'Our Team',
+      path: 'team',
     },
     {
       title: 'Our Services',
-      path: '/services',
+      path: 'services',
     },
     {
       title: 'Our Clients',
-      path: '/clients',
-    },
-    {
-      title: 'Contact with Us',
-      path: '/contact',
+      path: 'clients',
     },
     {
       title: 'Portfolio',
-      path: '/portfolio',
+      path: 'portfolio',
     },
   ],
 };
