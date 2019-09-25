@@ -1,10 +1,19 @@
-import React, { Fragment } from 'react';
+import React from 'react';
+import { Switch, Route } from 'react-router-dom';
 
-export function Portfolio() {
+import Header from '../../components/Header';
+import MainPortfolio from '../../components/MainPortfolio';
+
+export function Portfolio({ match: { path } }) {
   return (
-    <Fragment>
-      123
-    </Fragment>
+    <article>
+      <Header />
+      <div className="bg_sim_styles bg_index" />
+      <Switch>
+        <Route exact path={`${path}`} component={MainPortfolio} />
+        <Route exact path={`${path}/:id`} />
+      </Switch>
+    </article>
   );
 }
 

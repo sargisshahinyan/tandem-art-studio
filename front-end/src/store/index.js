@@ -12,6 +12,9 @@ export function configureStore(props) {
         scrolling: false,
         goToPage: () => {},
       },
+      portfolios: {
+        list: props.portfolios || [],
+      },
     },
     applyMiddleware(thunkMiddleware),
   );

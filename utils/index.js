@@ -23,7 +23,7 @@ export function renderReactPage(props = {}) {
         data
           .replace(
             '<script id="props"></script>',
-            `<script id="props">window.__INITIAL__DATA__= ${JSON.stringify(props)}</script>`,
+            `<script id="props">window.__INITIAL__DATA_=${JSON.stringify(props)}</script>`,
           )
           .replace(
             '<div id="root"></div>',

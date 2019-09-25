@@ -21,10 +21,14 @@ router.get('/', async (req, res) => {
 
 router.get('/portfolio', async (req, res) => {
   try {
-    const pagesData = await PagesSvc.getPagesData();
+    const [pagesData, portfolios] = await Promise.all([
+      PagesSvc.getPagesData(),
+      PagesSvc.getPortfolios(),
+    ]);
 
     const content = await renderReactPage({
       pages: pagesData,
+      portfolios,
     });
     res.send(content);
   } catch (e) {

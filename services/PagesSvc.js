@@ -20,7 +20,7 @@ class PagesSvc {
     return rows;
   }
 
-  static async getPortfolios({ page = 1, per = 50 }) {
+  static async getPortfolios({ page = 1, per = 200 } = {}) {
     const [{ rows }] = await doAction([
       {
         method: 'query',

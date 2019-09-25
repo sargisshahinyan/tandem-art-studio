@@ -1,0 +1,20 @@
+.portfolio {
+  position: relative;
+  z-index: 1000;
+  display: grid;
+  grid-gap: 5px;
+  .portfolio-item {
+    overflow: hidden;
+    img {
+      object-fit: cover;
+      width: 100%;
+      height: 100%;
+      transition: all 0.5s;
+      &:hover {
+        margin-left: -5%;
+        width: 110%;
+        height: 110%;
+      }
+    }
+  }
+}

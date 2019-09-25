@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import Slider from 'react-slick';
 
 import Header from '../Header';
@@ -11,70 +11,72 @@ import { convertText } from '../../utils';
 
 import './styles.scss';
 
-export function Clients({ title, description }) {
-  let amountInSlide = 9;
+export const Clients = memo(
+  function Clients({ title, description }) {
+    let amountInSlide = 9;
 
-  if (typeof window === 'object') {
-    switch (true) {
-      case window.innerWidth < 767:
-        amountInSlide = 3;
-        break;
+    if (typeof window === 'object') {
+      switch (true) {
+        case window.innerWidth < 767:
+          amountInSlide = 3;
+          break;
+      }
     }
-  }
 
-  const settings = {
-    dots: true,
-    infinite: false,
-    speed: 500,
-    slidesToShow: amountInSlide,
-    slidesToScroll: amountInSlide,
-    prevArrow: <img src="/images/icons/arrow-left.svg" alt="Left arrow" />,
-    nextArrow: <img src="/images/icons/arrow-right.svg" alt="Right arrow" />,
-    appendDots: dots => (
-      <div>
-        <ul className='slide-dots'>{dots}</ul>
-      </div>
-    ),
-  };
+    const settings = {
+      dots: true,
+      infinite: false,
+      speed: 500,
+      slidesToShow: amountInSlide,
+      slidesToScroll: amountInSlide,
+      prevArrow: <img src="/images/icons/arrow-left.svg" alt="Left arrow" />,
+      nextArrow: <img src="/images/icons/arrow-right.svg" alt="Right arrow" />,
+      appendDots: dots => (
+        <div>
+          <ul className='slide-dots'>{dots}</ul>
+        </div>
+      ),
+    };
 
-  return (
-    <article>
-      <div className="bg_sim_styles bg_clients" />
-      <Header />
-      <main className="our_clients centering_content">
-        <div className="title">
-          <div className="wrapper">
-            <h1>Our Clients</h1>
-          </div>
-        </div>
-        <div className="clients_slider">
-          <div className="slider">
-            <Slider {...settings}>
-              {clients.map((client, i) => (
-                <div key={i} className="slide_item">
-                  <img
-                    src={client}
-                    alt="Client"
-                    className="client_logo"
-                  />
-                </div>
-              ))}
-            </Slider>
-          </div>
-        </div>
-        <div className="text_content">
-          <div className="wrapper">
-            <div className="content">
-              <h2>{title}</h2>
-              <p>{convertText(description)}</p>
+    return (
+      <article>
+        <div className="bg_sim_styles bg_clients" />
+        <Header />
+        <main className="our_clients centering_content">
+          <div className="title">
+            <div className="wrapper">
+              <h1>Our Clients</h1>
             </div>
           </div>
-        </div>
-        <Signature />
-      </main>
-      <BasicFooter />
-    </article>
-  );
-}
+          <div className="clients_slider">
+            <div className="slider">
+              <Slider {...settings}>
+                {clients.map((client, i) => (
+                  <div key={i} className="slide_item">
+                    <img
+                      src={client}
+                      alt="Client"
+                      className="client_logo"
+                    />
+                  </div>
+                ))}
+              </Slider>
+            </div>
+          </div>
+          <div className="text_content">
+            <div className="wrapper">
+              <div className="content">
+                <h2>{title}</h2>
+                <p>{convertText(description)}</p>
+              </div>
+            </div>
+          </div>
+          <Signature />
+        </main>
+        <BasicFooter />
+      </article>
+    );
+  }
+);
 
 export default Clients;
