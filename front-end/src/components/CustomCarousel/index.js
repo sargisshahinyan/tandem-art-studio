@@ -27,7 +27,7 @@ export function CustomCarousel({ items }) {
         <img
           key={i}
           className="carousel-item"
-          src={'http://localhost:3000' + src}
+          src={src}
           alt="Slide"
         />
       ))}
