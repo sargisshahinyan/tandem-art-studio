@@ -1,1 +1,21 @@
+@import "mixin";
+@import "fonts";
 
+main{
+  &.about_content{
+    .text_content{
+      margin-top: 50px;
+      .content{
+        p{
+          margin-top: 0;
+        }
+      }
+      &.with_bg{
+        padding: 60px 30px;
+      }
+    }
+    .signature{
+      margin-top: 50px;
+    }
+  }
+}

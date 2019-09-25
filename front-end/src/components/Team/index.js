@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactWOW from 'react-wow';
 
 import Header from '../Header';
 import BasicFooter from '../BasicFooter';
@@ -21,21 +22,23 @@ export function Team({ title, description }) {
         <div className="team_items items_similar_styles">
           <div className="wrapper">
             <div className="content">
-              <div>
-                <div className="item_img">
-                  <img src="/images/team/photo_1.svg" alt="Member" />
+              <ReactWOW animation='fadeIn' delay="5s">
+                <div className="wow bounceIn">
+                  <div className="item_img">
+                    <img src="/images/team/photo_1.svg" alt="Member" />
+                  </div>
+                  <div className="item_name">
+                    <span>
+                      Hayk Hovhannisyan
+                    </span>
+                  </div>
+                  <div className="item_description">
+                    <p>
+                      Founder and CEO Director of advertising
+                    </p>
+                  </div>
                 </div>
-                <div className="item_name">
-									<span>
-										Hayk Hovhannisyan
-									</span>
-                </div>
-                <div className="item_description">
-                  <p>
-                    Founder and CEO Director of advertising
-                  </p>
-                </div>
-              </div>
+              </ReactWOW>
               <div>
                 <div className="item_img">
                   <img src="/images/team/photo_2.svg" alt="Member" />

@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactWOW from 'react-wow';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
@@ -27,11 +28,13 @@ export function Header({ goToPage }) {
     <header>
       <div className="wrapper">
         <div className="header">
-          <div className="logo">
-            <Link to="/" onClick={() => goToPage(0)}>
-              <img src="/images/logo.svg" alt="Logo" />
-            </Link>
-          </div>
+          <ReactWOW animation='fadeIn' delay=".5s" isVisible={true}>
+            <div className="logo">
+              <Link to="/" onClick={() => goToPage(0)}>
+                <img src="/images/logo.svg" alt="Logo" />
+              </Link>
+            </div>
+          </ReactWOW>
           <div className="menu">
             <ul>
               <li>

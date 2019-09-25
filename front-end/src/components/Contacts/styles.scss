@@ -1,1 +1,108 @@
+@import "mixin";
+@import "fonts";
 
+main{
+  &.contact_us{
+    .form_content{
+      margin-top: 50px;
+      position: relative;
+      background: url("/images/backgrounds/bg_middle.png") no-repeat center center;
+      -webkit-background-size: cover;
+      background-size: cover;
+      min-height: 200px;
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      box-sizing: border-box;
+      padding: 60px;
+      .content{
+        @include flexbox();
+        @include justify-content(space-between);
+        @include flex-wrap(wrap);
+        & > div{
+          input{
+            height: 60px;
+            line-height: 60px;
+          }
+          textarea{
+            height: 100%;
+            resize: none;
+          }
+          input,
+          textarea{
+            background: #131418;
+            color: #ffffff;
+            width: 100%;
+            max-height: 100%;
+            padding: 15px;
+            font-family: $myriad_pro_r;
+            ::-webkit-input-placeholder {
+              color: rgba(255, 255, 255, 0.4);
+            }
+            ::-moz-placeholder {
+              color: rgba(255, 255, 255, 0.4);
+            }
+            :-ms-input-placeholder {
+              color: rgba(255, 255, 255, 0.4);
+            }
+            :-moz-placeholder {
+              color: rgba(255, 255, 255, 0.4);
+            }
+            border: none;
+            outline: none;
+          }
+          & > div{
+          }
+          &.inputs{
+            flex: 1;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+            padding-right: 15px;
+            & > div{
+              &:not(:first-child){
+                margin-top: 15px;
+              }
+            }
+          }
+          &.message{
+            flex: 1.2;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+            padding-left: 15px;
+            position: relative;
+            & > div{
+              &.message_content{
+                background: #131418;
+                height: 100%;
+                textarea{
+                  max-height: 70%;
+                }
+              }
+              &.send_button_position{
+                position: absolute;
+                bottom: 15px;
+                right: 15px;
+                button{
+                  @include transition();
+                  cursor: pointer;
+                  border: none;
+                  outline: none;
+                  background: #004246;
+                  color: rgba(255, 255, 255, 0.7);
+                  padding: 6px 20px;
+                  font-family: $myriad_pro_b;
+                  font-size: 20px;
+                  line-height: 24px;
+                  &:hover{
+                    color: #ffffff;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
