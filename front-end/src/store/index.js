@@ -7,7 +7,11 @@ export function configureStore(props) {
   return createStore(
     rootReducer,
     {
-      pages: props.pages || {},
+      pages: {
+        pagesList: props.pages || [],
+        scrolling: false,
+        goToPage: () => {},
+      },
     },
     applyMiddleware(thunkMiddleware),
   );

@@ -12,7 +12,7 @@ import { convertText } from '../../utils';
 import './styles.scss';
 
 export function Clients({ title, description }) {
-  let amountInSlide = 6;
+  let amountInSlide = 9;
 
   if (typeof window === 'object') {
     switch (true) {

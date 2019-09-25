@@ -1,66 +1,67 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import './styles.scss';
 
+export function Header({ goToPage }) {
+  const servicesTabs = [
+    {
+      content: 'About us',
+    },
+    {
+      content: 'Our team',
+    },
+    {
+      content: 'Our services',
+    },
+    {
+      content: 'Our clients',
+    },
+    {
+      content: 'Contact us',
+    },
+  ];
 
-export function Header() {
   return (
     <header>
       <div className="wrapper">
         <div className="header">
           <div className="logo">
-            <a href="">
+            <Link to="/" onClick={() => goToPage(0)}>
               <img src="/images/logo.svg" alt="Logo" />
-            </a>
+            </Link>
           </div>
           <div className="menu">
             <ul>
               <li>
-                <a href="">
+                <Link to="/portfolio">
                   Portfolio
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="">
+                <Link to="/">
                   Services
-                </a>
+                </Link>
                 <ul>
-                  <li>
-                    <a href="">
-                      About us
-                    </a>
-                  </li>
-                  <li>
-                    <a href="">
-                      Our team
-                    </a>
-                  </li>
-                  <li>
-                    <a href="">
-                      Our services
-                    </a>
-                  </li>
-                  <li>
-                    <a href="">
-                      Our clients
-                    </a>
-                  </li>
-                  <li>
-                    <a href="">
-                      Contact us
-                    </a>
-                  </li>
+                  {servicesTabs.map(({ content }, i) => (
+                    <li key={i}>
+                      <Link to="/" onClick={() => goToPage(i + 1)}>
+                        {content}
+                      </Link>
+                    </li>
+                  ))}
                 </ul>
               </li>
               <li>
-                <a href="">
+                <Link to="/">
                   Contacts
-                </a>
+                </Link>
                 <ul>
                   <li>
-                    <a href="">
+                    <Link to="/">
                       About us
-                    </a>
+                    </Link>
                   </li>
                 </ul>
               </li>
@@ -72,4 +73,10 @@ export function Header() {
   );
 }
 
-export default Header;
+function mapToStateProps({ pages }) {
+  return {
+    goToPage: pages.goToPage,
+  };
+}
+
+export default connect(mapToStateProps)(Header);

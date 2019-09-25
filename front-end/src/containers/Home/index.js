@@ -4,6 +4,8 @@ import ReactPageScroller from 'react-page-scroller';
 
 import { PAGES } from '../../data/home';
 
+import { setPagesData, setGoToPage } from '../../actions/pages';
+
 import PagesSvc from '../../services/PagesSvc';
 
 export class Home extends PureComponent {
@@ -21,9 +23,15 @@ export class Home extends PureComponent {
   }
 
   async componentDidMount() {
+    const { setGoToPage } = this.props;
+
+    if (this.reactPageScroller.current) setGoToPage(this.reactPageScroller.current.goToPage);
+
     if (this.pageDataExists) return;
+    const { setPagesData } = this.props;
 
     const pages = await PagesSvc.getPagesData();
+    setPagesData(pages);
 
     this.setState({
       pages: this.getPagesData(pages),
@@ -41,8 +49,6 @@ export class Home extends PureComponent {
   render() {
     const { pages, loading } = this.state;
 
-    if (loading) return null;
-
     return (
       <ReactPageScroller
         ref={this.reactPageScroller}
@@ -57,8 +63,15 @@ export class Home extends PureComponent {
 
 function mapToStateProps({ pages }) {
   return {
-    pages,
+    pages: pages.pagesList,
   };
 }
 
-export default connect(mapToStateProps)(Home);
+function mapToDispatchProps(dispatch) {
+  return {
+    setPagesData: data => dispatch(setPagesData(data)),
+    setGoToPage: fn => dispatch(setGoToPage(fn))
+  };
+}
+
+export default connect(mapToStateProps, mapToDispatchProps)(Home);
