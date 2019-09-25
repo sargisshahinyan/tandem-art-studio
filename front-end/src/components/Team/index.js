@@ -25,7 +25,7 @@ export function Team({ title, description }) {
               <ReactWOW animation='fadeIn' delay="5s">
                 <div className="wow bounceIn">
                   <div className="item_img">
-                    <img src="/images/team/photo_1.svg" alt="Member" />
+                    <img src="/images/team/photo_1.png" alt="Member" />
                   </div>
                   <div className="item_name">
                     <span>
@@ -41,7 +41,7 @@ export function Team({ title, description }) {
               </ReactWOW>
               <div>
                 <div className="item_img">
-                  <img src="/images/team/photo_2.svg" alt="Member" />
+                  <img src="/images/team/photo_2.png" alt="Member" />
                 </div>
                 <div className="item_name">
 									<span>
@@ -56,7 +56,7 @@ export function Team({ title, description }) {
               </div>
               <div>
                 <div className="item_img">
-                  <img src="/images/team/photo_3.svg" alt="Member" />
+                  <img src="/images/team/photo_3.png" alt="Member" />
                 </div>
                 <div className="item_name">
 									<span>
@@ -71,7 +71,7 @@ export function Team({ title, description }) {
               </div>
               <div>
                 <div className="item_img">
-                  <img src="/images/team/photo_4.svg" alt="Member" />
+                  <img src="/images/team/photo_4.png" alt="Member" />
                 </div>
                 <div className="item_name">
 									<span>
@@ -86,7 +86,7 @@ export function Team({ title, description }) {
               </div>
               <div>
                 <div className="item_img">
-                  <img src="/images/team/photo_5.svg" alt="Member" />
+                  <img src="/images/team/photo_5.png" alt="Member" />
                 </div>
                 <div className="item_name">
 									<span>
@@ -101,7 +101,7 @@ export function Team({ title, description }) {
               </div>
               <div>
                 <div className="item_img">
-                  <img src="/images/team/photo_6.svg" alt="Member" />
+                  <img src="/images/team/photo_6.png" alt="Member" />
                 </div>
                 <div className="item_name">
 									<span>
@@ -116,7 +116,7 @@ export function Team({ title, description }) {
               </div>
               <div>
                 <div className="item_img">
-                  <img src="/images/team/photo_7.svg" alt="Member" />
+                  <img src="/images/team/photo_7.png" alt="Member" />
                 </div>
                 <div className="item_name">
 									<span>
@@ -131,7 +131,7 @@ export function Team({ title, description }) {
               </div>
               <div>
                 <div className="item_img">
-                  <img src="/images/team/photo_8.svg" alt="Member" />
+                  <img src="/images/team/photo_8.png" alt="Member" />
                 </div>
                 <div className="item_name">
 									<span>
@@ -146,7 +146,7 @@ export function Team({ title, description }) {
               </div>
               <div>
                 <div className="item_img">
-                  <img src="/images/team/photo_9.svg" alt="Member" />
+                  <img src="/images/team/photo_9.png" alt="Member" />
                 </div>
                 <div className="item_name">
 									<span>
