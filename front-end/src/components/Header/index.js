@@ -1,4 +1,5 @@
 import React, { memo } from 'react';
+import ReactWOW from 'react-wow';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
@@ -28,11 +29,13 @@ export const Header = memo(
       <header>
         <div className="wrapper">
           <div className="header">
-            <div className="logo">
-              <Link to="/" onClick={() => goToPage(0)}>
-                <img src="/images/logo.svg" alt="Logo" />
-              </Link>
-            </div>
+            <ReactWOW animation='fadeIn' delay=".5s" isVisible={true}>
+              <div className="logo">
+                <Link to="/" onClick={() => goToPage(0)}>
+                  <img src="/images/logo.svg" alt="Logo" />
+                </Link>
+              </div>
+            </ReactWOW>
             <div className="menu">
               <ul>
                 <li>
@@ -52,18 +55,6 @@ export const Header = memo(
                         </Link>
                       </li>
                     ))}
-                  </ul>
-                </li>
-                <li>
-                  <Link to="/">
-                    Contacts
-                  </Link>
-                  <ul>
-                    <li>
-                      <Link to="/">
-                        About us
-                      </Link>
-                    </li>
                   </ul>
                 </li>
               </ul>

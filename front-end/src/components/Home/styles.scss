@@ -27,20 +27,36 @@
     .slide-dots {
       li {
         button {
+          @include transition();
           height: 15px !important;
           width: 15px !important;
           @include prefix-name(50%);
-          background-color: rgba(255, 255, 255, 0.3) !important;
+          background-color: rgba(255, 255, 255, 0.4) !important;
           &:before {
             display: none;
           }
         }
         &.slick-active {
           button {
-            background-color: rgba(255, 255, 255, 0.5) !important;
+            background-color: rgba(255, 255, 255, 0.8) !important;
+          }
+        }
+        &:hover{
+          button{
+            background-color: rgba(255, 255, 255, 0.6) !important;
           }
         }
       }
+    }
+  }
+}
+
+main{
+  &.index_content{
+    position: relative;
+    height: calc(100vh - 150px);
+    .middle_bg{
+      min-height: 40vh;
     }
   }
 }

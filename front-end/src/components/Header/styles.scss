@@ -11,9 +11,9 @@ header{
     padding-top: 20px;
     @include flexbox();
     @include justify-content(space-between);
-    @include align-items(center);
     & > div{
       &.logo{
+        padding-top: 10px;
         a{
           display: block;
           width: 85px;

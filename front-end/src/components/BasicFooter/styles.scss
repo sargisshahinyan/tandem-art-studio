@@ -16,15 +16,18 @@ footer{
         display: inline-block;
         vertical-align: middle;
         a{
+          @include transition();
           display: block;
+          opacity: .65;
           img{
             height: 20px;
           }
           &:hover{
+            opacity: 1;
           }
         }
         &:not(:first-child){
-          margin-left: 5px;
+          margin-left: 6px;
         }
       }
     }

@@ -12,22 +12,22 @@ export const BasicFooter = memo(
               <ul>
                 <li>
                   <a href="">
-                    <img src="/images/icons/ic_be.svg" alt="be-icon" />
+                    <img src="/images/icons/ic_be.png" alt="be-icon" />
                   </a>
                 </li>
                 <li>
                   <a href="">
-                    <img src="/images/icons/ic_fb.svg" alt="fb-icon" />
+                    <img src="/images/icons/ic_fb.png" alt="fb-icon" />
                   </a>
                 </li>
                 <li>
                   <a href="">
-                    <img src="/images/icons/ic_in.svg" alt="in-icon" />
+                    <img src="/images/icons/ic_in.png" alt="in-icon" />
                   </a>
                 </li>
                 <li>
                   <a href="">
-                    <img src="/images/icons/ic_mail.svg" alt="mail-icon" />
+                    <img src="/images/icons/ic_mail.png" alt="mail-icon" />
                   </a>
                 </li>
               </ul>

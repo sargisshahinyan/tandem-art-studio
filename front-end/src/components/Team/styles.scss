@@ -1,1 +1,75 @@
+@import "mixin";
+@import "fonts";
 
+main{
+  &.our_team{
+    .team_items{
+      margin-top: 50px;
+      min-height: 240px;
+      .content{
+        padding-top: 40px;
+        padding-bottom: 40px;
+        & > div{
+          padding-top: 10px;
+          padding-bottom: 10px;
+          & > div{
+            &.item_img{
+              width: 140px;
+              height: 140px;
+              overflow: hidden;
+              @include prefix-name(50%);
+              img{
+                max-width: 100%;
+                @include prefix-name(50%);
+                transform: scale(1);
+                filter: saturate(0);
+                @include transition();
+              }
+            }
+            &.item_name{
+              margin-top: 5px;
+              max-width: 140px;
+              span{
+                font-family: $verdana_r;
+                font-size: 11px;
+              }
+            }
+            &.item_description{
+              margin-top: 5px;
+              max-width: 140px;
+              p{
+                font-family: $verdana_r;
+                font-size: 10px;
+                line-height: 1.4;
+                color: rgba(255, 255, 255, 0.4);
+              }
+            }
+          }
+          &:hover{
+            & > div{
+              &.item_img{
+                overflow: hidden;
+                @include prefix-name(50%);
+                img{
+                  @include prefix-name(50%);
+                  filter: saturate(1);
+                  transform: scale(1.1);
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    .text_content{
+      margin-top: 50px;
+      .content{
+        p{
+          max-width: 66%;
+          margin-left: auto;
+          margin-right: auto;
+        }
+      }
+    }
+  }
+}
