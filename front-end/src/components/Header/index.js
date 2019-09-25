@@ -57,6 +57,18 @@ export const Header = memo(
                     ))}
                   </ul>
                 </li>
+                <li>
+                  <Link to="/">
+                    Contacts
+                  </Link>
+                  <ul>
+                    <li>
+                      <Link to="/">
+                        About us
+                      </Link>
+                    </li>
+                  </ul>
+                </li>
               </ul>
             </div>
           </div>
