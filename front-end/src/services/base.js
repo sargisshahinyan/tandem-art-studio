@@ -1,7 +1,21 @@
 import axios from 'axios';
 
+const origin = '';
+
 const instance = axios.create({
-  baseURL: '/api',
+  baseURL: origin + '/api',
+});
+
+origin && instance.interceptors.response.use((response) => {
+  const { data } = response;
+
+  if (typeof data === 'object') {
+    let serialized = JSON.stringify(data);
+    serialized = serialized.replace(/(\/img)/g, origin + '$1');
+    response.data = JSON.parse(serialized);
+  }
+
+  return response;
 });
 
 export default instance;

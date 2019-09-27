@@ -1,10 +1,12 @@
-import { SET_PAGES_DATA, SET_GOTO_PAGE } from '../actions/pages';
+import { getPagesInitialData } from '../data/home/initialData';
 
-const initialState = {
-  pagesList: [],
-  scrolling: false,
-  goToPage: () => {},
-};
+import {
+  SET_PAGES_DATA,
+  SET_GOTO_PAGE,
+  SET_ACTIVE_PAGE,
+} from '../actions/pages';
+
+const initialState = getPagesInitialData();
 
 export default (state = initialState, { type, payload }) => {
   switch (type) {
@@ -17,6 +19,11 @@ export default (state = initialState, { type, payload }) => {
       return {
         ...state,
         goToPage: payload,
+      };
+    case SET_ACTIVE_PAGE:
+      return {
+        ...state,
+        activePage: payload,
       };
     default:
       return state;
