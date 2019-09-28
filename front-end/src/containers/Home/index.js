@@ -2,9 +2,9 @@ import React, { PureComponent, createRef } from 'react';
 import { connect } from 'react-redux';
 import ReactPageScroller from 'react-page-scroller';
 
-import { PAGES } from '../../data/home';
+import { PAGES, SWIPE_DURATION } from '../../data/home';
 
-import { setGoToPage, setActivePage } from '../../actions/pages';
+import { setGoToPage, setActivePage, toggleScrollingState } from '../../actions/pages';
 
 export class Home extends PureComponent {
   constructor(props) {
@@ -18,14 +18,18 @@ export class Home extends PureComponent {
   }
 
   render() {
-    const { setActivePage } = this.props;
+    const { pageOnChange } = this.props;
     const pages = PAGES.map(page => ({
       ...page,
       data: this.props.pages.find(({ id }) => page.id === id).data,
     }));
 
     return (
-      <ReactPageScroller ref={this.reactPageScroller} pageOnChange={setActivePage}>
+      <ReactPageScroller
+        ref={this.reactPageScroller}
+        pageOnChange={pageOnChange}
+        animationTimer={SWIPE_DURATION}
+      >
         {pages.map(({ id, data, component: Component }, i) => (
           <Component
             key={id}
@@ -48,7 +52,19 @@ function mapToDispatchProps(dispatch) {
   return {
     setGoToPage: fn => dispatch(setGoToPage(fn)),
     setActivePage: num => dispatch(setActivePage(num)),
+    toggleScrollingState: () => dispatch(toggleScrollingState()),
   };
 }
 
-export default connect(mapToStateProps, mapToDispatchProps)(Home);
+function mergeProps(stateProps, { setActivePage, toggleScrollingState, ...otherDispatch }) {
+  return {
+    ...stateProps,
+    ...otherDispatch,
+    pageOnChange: num => {
+      setActivePage(num);
+      toggleScrollingState();
+    },
+  };
+}
+
+export default connect(mapToStateProps, mapToDispatchProps, mergeProps)(Home);

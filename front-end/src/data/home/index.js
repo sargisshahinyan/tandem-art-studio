@@ -46,3 +46,5 @@ function mapToStateProps({ pages }, { pageNumber }) {
 }
 
 PAGES.forEach(page => page.component = connect(mapToStateProps)(page.component));
+
+export const SWIPE_DURATION = 1000;

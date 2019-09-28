@@ -4,6 +4,7 @@ import {
   SET_PAGES_DATA,
   SET_GOTO_PAGE,
   SET_ACTIVE_PAGE,
+  TOGGLE_SCROLLING_STATE,
 } from '../actions/pages';
 
 const initialState = getPagesInitialData();
@@ -24,6 +25,11 @@ export default (state = initialState, { type, payload }) => {
       return {
         ...state,
         activePage: payload,
+      };
+    case TOGGLE_SCROLLING_STATE:
+      return {
+        ...state,
+        scrolling: payload,
       };
     default:
       return state;

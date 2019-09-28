@@ -3,5 +3,6 @@ export function getPagesInitialData(pagesList = []) {
     pagesList: Array.isArray(pagesList) ? pagesList : [],
     goToPage: () => {},
     activePage: 1,
+    scrolling: false,
   };
 }

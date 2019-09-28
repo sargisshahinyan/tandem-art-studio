@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import './styles.scss';
 
 export const Header = memo(
-  function Header({ goToPage, active = true }) {
+  function Header({ goToPage, scrolling }) {
     const servicesTabs = [
       {
         content: 'About us',
@@ -33,7 +33,7 @@ export const Header = memo(
               animationIn="fadeIn"
               animationInDelay="1000"
               animationOut="fadeOut"
-              isVisible={active}
+              isVisible={!scrolling}
             >
               <div className="logo">
                 <Link to="/" onClick={() => goToPage(0)}>
