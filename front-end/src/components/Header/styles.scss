@@ -11,7 +11,7 @@ header{
     padding-top: 20px;
     @include flexbox();
     @include justify-content(space-between);
-    & > div{
+    div{
       &.logo{
         padding-top: 10px;
         a{
@@ -36,15 +36,15 @@ header{
               font-family: $verdana_b;
               @include transition();
             }
-            & > ul{
+            ul{
               display: none;
               position: absolute;
               left: 0;
               top: 100%;
               width: 100%;
               z-index: 2;
-              & > li{
-                & > a{
+              li{
+                a{
                   display: block;
                   font-family: $verdana_b;
                   color: rgba(255, 255, 255, 0.3);
@@ -59,10 +59,10 @@ header{
               }
             }
             &:hover{
-              & > a{
+              a{
                 background: #000;
               }
-              & > ul{
+              ul{
                 display: block;
               }
             }

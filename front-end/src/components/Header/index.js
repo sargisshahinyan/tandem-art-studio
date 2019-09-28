@@ -1,12 +1,12 @@
 import React, { memo } from 'react';
-import ReactWOW from 'react-wow';
 import { connect } from 'react-redux';
+import { Animated } from 'react-animated-css';
 import { Link } from 'react-router-dom';
 
 import './styles.scss';
 
 export const Header = memo(
-  function Header({ goToPage }) {
+  function Header({ goToPage, active = true }) {
     const servicesTabs = [
       {
         content: 'About us',
@@ -29,13 +29,18 @@ export const Header = memo(
       <header>
         <div className="wrapper">
           <div className="header">
-            <ReactWOW animation='fadeIn' delay=".5s" isVisible={true}>
+            <Animated
+              animationIn="fadeIn"
+              animationInDelay="1000"
+              animationOut="fadeOut"
+              isVisible={active}
+            >
               <div className="logo">
                 <Link to="/" onClick={() => goToPage(0)}>
                   <img src="/images/logo.svg" alt="Logo" />
                 </Link>
               </div>
-            </ReactWOW>
+            </Animated>
             <div className="menu">
               <ul>
                 <li>
@@ -50,9 +55,11 @@ export const Header = memo(
                   <ul>
                     {servicesTabs.map(({ content }, i) => (
                       <li key={i}>
-                        <Link to="/" onClick={() => goToPage(i + 1)}>
-                          {content}
-                        </Link>
+                        <Animated animationIn="fadeInRight" animationInDelay={(i + 1) * 100}>
+                          <Link to="/" onClick={() => goToPage(i + 1)}>
+                            {content}
+                          </Link>
+                        </Animated>
                       </li>
                     ))}
                   </ul>
@@ -81,6 +88,7 @@ export const Header = memo(
 function mapToStateProps({ pages }) {
   return {
     goToPage: pages.goToPage,
+    scrolling: pages.scrolling,
   };
 }
 

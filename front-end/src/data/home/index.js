@@ -1,3 +1,5 @@
+import { connect } from 'react-redux';
+
 import Home from '../../components/Home';
 import About from '../../components/About';
 import Clients from '../../components/Clients';
@@ -36,3 +38,11 @@ export const PAGES = [
     component: Contacts,
   }
 ];
+
+function mapToStateProps({ pages }, { pageNumber }) {
+  return {
+    active: pages.activePage === pageNumber,
+  };
+}
+
+PAGES.forEach(page => page.component = connect(mapToStateProps)(page.component));

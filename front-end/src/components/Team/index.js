@@ -1,6 +1,5 @@
 import React from 'react';
-import { Animated } from "react-animated-css";
-import { connect } from 'react-redux';
+import { Animated } from 'react-animated-css';
 
 import Header from '../Header';
 import BasicFooter from '../BasicFooter';
@@ -51,7 +50,7 @@ export function Team({ title, description, active }) {
   return (
     <article>
       <div className="bg_sim_styles bg_team" />
-      <Header />
+      <Header active={active} />
       <main className="our_team centering_content">
         <div className="title">
           <div className="wrapper">
@@ -62,13 +61,13 @@ export function Team({ title, description, active }) {
           <div className="wrapper">
             <div className="content">
               {members.map((member, i) => (
-                <Animated key={i}  animationIn="bounceInRight" animationOut="fadeOut" animationInDelay={i * 100} isVisible={active}>
+                <Animated key={i} animationIn="fadeInRight" animationOut="fadeOut" animationInDelay={(i + 1) * 50} isVisible={active}>
                   <div className="member_container">
                     <div className="item_img">
                       <img src={member.avatar} alt="Member" />
                     </div>
                     <div className="item_name">
-                    <span>{member.name}</span>
+                      <span>{member.name}</span>
                     </div>
                     <div className="item_description">
                       <p>{member.position}</p>
@@ -93,10 +92,4 @@ export function Team({ title, description, active }) {
   );
 }
 
-function mapToStateProps({ pages }, { pageNumber }) {
-  return {
-    active: pages.activePage === pageNumber,
-  };
-}
-
-export default connect(mapToStateProps)(Team);
+export default Team;
