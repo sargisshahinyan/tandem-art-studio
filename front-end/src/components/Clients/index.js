@@ -10,17 +10,18 @@ import { clients } from '../../data/clients';
 import { convertText } from '../../utils';
 
 import './styles.scss';
+import {connect} from 'react-redux';
 
 export const Clients = memo(
-  function Clients({ title, description }) {
-    let amountInSlide = 9;
+  function Clients({ title, description, width }) {
+    let amountInSlide;
 
-    if (typeof window === 'object') {
-      switch (true) {
-        case window.innerWidth < 767:
-          amountInSlide = 3;
-          break;
-      }
+    switch (true) {
+      case width < 767:
+        amountInSlide = 3;
+        break;
+      default:
+        amountInSlide = 9;
     }
 
     const settings = {
@@ -79,4 +80,10 @@ export const Clients = memo(
   }
 );
 
-export default Clients;
+function mapToStateProps({ common: { width } }) {
+  return {
+    width,
+  };
+}
+
+export default connect(mapToStateProps)(Clients);

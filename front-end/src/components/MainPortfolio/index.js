@@ -19,14 +19,15 @@ export class MainPortfolio extends PureComponent {
     let {
       data,
       portfolios,
+      width,
       match: { path },
     } = this.props;
 
-    const {
+    const { '1': {
       rows_count,
       columns_count,
       row_height,
-    } = data;
+    } } = data;
 
     const style = {
       gridTemplateRows: `repeat(${rows_count}, ${row_height})`,
@@ -35,29 +36,34 @@ export class MainPortfolio extends PureComponent {
 
     return (
       <div className="portfolio" style={style}>
-        {portfolios.map(portfolio => (
-          <Link
-            key={portfolio.id}
-            to={`${path}/${portfolio.id}`}
-            className="portfolio-item"
-            style={{
-              gridColumn: coordinatesToGrid(portfolio.x_coords),
-              gridRow: coordinatesToGrid(portfolio.y_coords),
-            }}
-          >
-            <img src={portfolio.presentable_picture} alt="Portfolio" />
-          </Link>
-        ))}
+        {portfolios.map(portfolio => {
+          const { x_coords, y_coords } = portfolio.sizes.find(({ starts_from }) => starts_from < width);
+
+          return (
+            <Link
+              key={portfolio.id}
+              to={`${path}/${portfolio.id}`}
+              className="portfolio-item"
+              style={{
+                gridColumn: coordinatesToGrid(x_coords),
+                gridRow: coordinatesToGrid(y_coords),
+              }}
+            >
+              <img src={portfolio.presentable_picture} alt="Portfolio" />
+            </Link>
+          );
+        })}
       </div>
     );
   }
 }
 
-function mapToStateProps({ pages, portfolios }) {
+function mapToStateProps({ pages, portfolios, common: { width } }) {
   const { data } = pages.pagesList.find(item => item.path === '/portfolio') || {};
 
   return {
     data,
+    width,
     portfolios: portfolios.list,
   };
 }

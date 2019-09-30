@@ -37,7 +37,7 @@ main.wrapper {
     display: block;
     text-decoration: none !important;
 }
-.container {
+.container-fluid {
     width: calc(100% - 230px);
     height: 100vh;
     overflow: auto;

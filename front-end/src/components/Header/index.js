@@ -31,7 +31,7 @@ export const Header = memo(
           <div className="header">
             <Animated
               animationIn="fadeIn"
-              animationInDelay="1000"
+              animationInDelay={1000}
               animationOut="fadeOut"
               isVisible={!scrolling}
             >
