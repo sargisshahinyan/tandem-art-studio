@@ -21,7 +21,6 @@ exports.up = function (db) {
         ALTER TABLE portfolio DROP COLUMN row_height;
         ALTER TABLE portfolio_images DROP COLUMN x_coords;
         ALTER TABLE portfolio_images DROP COLUMN y_coords;
-        ALTER TABLE portfolio_images DROP COLUMN row_height;
       `)
       .then(() => (
         db.runSql(`
@@ -69,7 +68,6 @@ exports.down = function (db) {
         ALTER TABLE portfolio ADD COLUMN row_height VARCHAR(25) NOT NULL DEFAULT '50px';
         ALTER TABLE portfolio_images ADD COLUMN x_coords VARCHAR(11) NOT NULL DEFAULT '10-10';
         ALTER TABLE portfolio_images ADD COLUMN y_coords VARCHAR(11) NOT NULL DEFAULT '10-10';
-        ALTER TABLE portfolio_images ADD COLUMN row_height VARCHAR(25) NOT NULL DEFAULT '50px';
       `)
       .then(() => (
         db.runSql(`
