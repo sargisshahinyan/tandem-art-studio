@@ -2,6 +2,7 @@ const express = require('express');
 const { renderReactPage } = require(`${APP_PATH}/utils`);
 
 const PagesSvc = require('../services/PagesSvc');
+const PortfolioSvc = require('../services/PortfolioSvc');
 
 const router = express.Router();
 
@@ -23,7 +24,7 @@ router.get('/portfolio', async (req, res) => {
   try {
     const [pagesData, portfolios] = await Promise.all([
       PagesSvc.getPagesData(),
-      PagesSvc.getPortfolios(),
+      PortfolioSvc.getPortfolios(),
     ]);
 
     const content = await renderReactPage({

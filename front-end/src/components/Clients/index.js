@@ -17,7 +17,7 @@ export const Clients = memo(
     let amountInSlide;
 
     switch (true) {
-      case width < 767:
+      case width < 768:
         amountInSlide = 3;
         break;
       default:

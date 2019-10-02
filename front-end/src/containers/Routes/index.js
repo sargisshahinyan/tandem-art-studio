@@ -8,7 +8,6 @@ import Home from '../Home';
 import Portfoio from '../Portfolio';
 
 export class Routes extends PureComponent {
-
   componentDidMount() {
     const { loadPagesData, pagesList } = this.props;
     if (!pagesList.length) loadPagesData();

@@ -50,6 +50,17 @@ class PagesSvc {
     return rows;
   }
 
+  static async getPageSizes() {
+    const [{ rows }] = await doAction([
+      {
+        method: 'query',
+        args: ['SELECT * FROM sizes'],
+      }
+    ]);
+
+    return rows;
+  }
+
   static async updatePageData(path, data) {
     if (typeof path !== 'string' || typeof data !== 'object') {
       console.error('Arguments: ', path, data);

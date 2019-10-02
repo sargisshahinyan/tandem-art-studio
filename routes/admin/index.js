@@ -3,6 +3,7 @@ const router = express.Router();
 
 const UsersSvc = require(`${APP_PATH}/services/UsersSvc`);
 const PagesSvc = require(`${APP_PATH}/services/PagesSvc`);
+const PortfolioSvc = require(`${APP_PATH}/services/PortfolioSvc`);
 
 const { TOKEN_EXPIRATION_TIME, TOKEN_COOKIE_KEY, NAV_TABS } = require(`${APP_PATH}/constants`);
 
@@ -50,6 +51,20 @@ router.use(async (req, res, next) => {
   res.locals.page = pages[0].data;
 
   next();
+});
+
+router.get('/portfolio', async (req, res, next) => {
+  try {
+    const [portfolio, sizes] = await Promise.all([
+      PortfolioSvc.getPortfolios(),
+      PagesSvc.getPageSizes(),
+    ]);
+    res.locals.portfolio = portfolio;
+    res.locals.sizes = sizes;
+    next();
+  } catch (e) {
+    next(e);
+  }
 });
 
 router.get(new RegExp(`\/(${NAV_TABS.map(tab => tab.path).join('|')})`), (req, res) => {
