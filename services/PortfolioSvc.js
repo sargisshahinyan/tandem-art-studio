@@ -25,7 +25,7 @@ class PortfolioSvc {
           LIMIT $1 OFFSET $2;`,
           [per, page - 1],
         ],
-      }
+      },
     ]);
 
     return rows;

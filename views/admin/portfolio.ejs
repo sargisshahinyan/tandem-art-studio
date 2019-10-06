@@ -1,62 +1,83 @@
-<form action="<%= baseUrl %>/portfolio" method="post">
-    <div class="form-group">
-        <label for="title">Title</label>
-        <input
-            id="title"
-            name="title"
-            type="text"
-            class="form-control"
-            placeholder="Title"
-            required
-        />
-    </div>
-    <div class="form-group">
-        <label for="description">Description</label>
-        <textarea
-            id="description"
-            name="description"
-            class="form-control"
-            placeholder="Description"
-            required
-        ></textarea>
-    </div>
-    <div class="form-group">
-        <label for="presentablePicture">Presentable picture</label>
-        <input
-            id="presentablePicture"
-            name="presentablePicture"
-            class="form-control"
-            placeholder="Presentable picture"
-            type="file"
-            accept="image/*"
-            required
-        />
-    </div>
-    <div class="form-group">
-        <label for="mainPicture">Main picture</label>
-        <input
-            id="mainPicture"
-            name="mainPicture"
-            class="form-control"
-            placeholder="Main picture"
-            type="file"
-            accept="image/*"
-            required
-        />
-    </div>
+<article class="ml-2 mr-2">
+    <section>
+        <h3>Global configs</h3>
+        <div class="row">
+            <div class="form-group col-6">
+                <label for="sizes">Sizes</label>
+                <select
+                    id="sizes"
+                    name="sizes"
+                    class="form-control"
+                >
+                    <% sizes.forEach(({ id, name }) => { %>
+                        <option value="<%= id %>"><%= name %></option>
+                    <% }) %>
+                </select>
+            </div>
+        </div>
+    </section>
+    <form action="<%= baseUrl %>/portfolio" method="post">
+        <h3>Add new</h3>
+        <div class="form-group">
+            <label for="title">Title</label>
+            <input
+                id="title"
+                name="title"
+                type="text"
+                class="form-control"
+                placeholder="Title"
+                required
+            />
+        </div>
+        <div class="form-group">
+            <label for="description">Description</label>
+            <textarea
+                id="description"
+                name="description"
+                class="form-control"
+                placeholder="Description"
+                required
+            ></textarea>
+        </div>
+        <div class="form-group">
+            <label for="presentablePicture">Presentable picture</label>
+            <input
+                id="presentablePicture"
+                name="presentablePicture"
+                class="form-control"
+                placeholder="Presentable picture"
+                type="file"
+                accept="image/*"
+                required
+            />
+        </div>
+        <div class="form-group">
+            <label for="mainPicture">Main picture</label>
+            <input
+                id="mainPicture"
+                name="mainPicture"
+                class="form-control"
+                placeholder="Main picture"
+                type="file"
+                accept="image/*"
+                required
+            />
+        </div>
 
-    <div class="form-group">
-        <label for="xGrid">Main picture</label>
-        <input
-            id="xGrid"
-            name="xGrid"
-            class="form-control"
-            placeholder="Main picture"
-            required
-        />
-    </div>
-    <button type="submit" class="btn btn-primary">Add</button>
-</form>
+        <div class="form-group">
+            <label for="xGrid">Main picture</label>
+            <input
+                id="xGrid"
+                name="xGrid"
+                class="form-control"
+                placeholder="Main picture"
+                required
+            />
+        </div>
+        <button type="submit" class="btn btn-primary">Add</button>
+    </form>
+</article>
+
 <script src="/js/fileHelpers.js"></script>
 <script src="/js/imageAutopresenter.js"></script>
 <script>
