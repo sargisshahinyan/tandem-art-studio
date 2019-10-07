@@ -180,10 +180,12 @@ main{
     top: 50%;
     left: 0;
     @include prefix-name(transform, translate(0, -50%));
-    background: url("/images/backgrounds/bg_middle.png") no-repeat center center;
+    background: url("/images/backgrounds/bg_middle.png") no-repeat;
     -webkit-background-size: cover;
     background-size: cover;
     width: 100%;
+    background-position: top;
+    animation: MoveUpDown 30s infinite alternate;
   }
 }
 
@@ -194,4 +196,13 @@ main{
   @include prefix-name(transform, translate(0, -50%));
   width: 100%;
   height: auto;
+}
+
+@keyframes MoveUpDown {
+  0%, 100% {
+    background-position: top;
+  }
+  50% {
+    background-position: bottom;
+  }
 }
