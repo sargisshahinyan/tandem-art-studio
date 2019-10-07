@@ -1,4 +1,4 @@
-Array.prototype.slice.call(document.querySelectorAll('input[type="file"]')).forEach(function (element) {
+Array.prototype.slice.call(document.querySelectorAll('input[type="file"][accept="image/*"]')).forEach(function (element) {
   var img = new Image();
   img.style.display = 'none';
 

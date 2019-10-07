@@ -55,11 +55,11 @@ router.use(async (req, res, next) => {
 
 router.get('/portfolio', async (req, res, next) => {
   try {
-    const [portfolio, sizes] = await Promise.all([
+    const [portfolios, sizes] = await Promise.all([
       PortfolioSvc.getPortfolios(),
       PagesSvc.getPageSizes(),
     ]);
-    res.locals.portfolio = portfolio;
+    res.locals.portfolios = portfolios;
     res.locals.sizes = sizes;
     next();
   } catch (e) {
