@@ -65,7 +65,7 @@ export const Header = memo(
                   </ul>
                 </li>
                 <li>
-                  <Link to="/">
+                  <Link to="/contact">
                     Contacts
                   </Link>
                   <ul>
