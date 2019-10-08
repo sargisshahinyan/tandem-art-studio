@@ -1,21 +1,62 @@
-<article class="ml-2 mr-2">
+<article>
     <section>
         <h3>Global configs</h3>
         <div class="row">
-            <div class="form-group col-6">
-                <label for="sizes">Sizes</label>
-                <select
-                    id="sizes"
-                    name="sizes"
-                    class="form-control"
-                >
-                    <% sizes.forEach(({ id, name }) => { %>
-                        <option value="<%= id %>"><%= name %></option>
-                    <% }) %>
-                </select>
+            <div class="col-6">
+                <div class="form-group">
+                    <label for="sizes">Sizes</label>
+                    <select
+                        id="sizes"
+                        name="sizes"
+                        class="form-control"
+                    >
+                        <% sizes.forEach(({ id, name }) => { %>
+                            <option value="<%= id %>"><%= name %></option>
+                        <% }) %>
+                    </select>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="form-group">
+                    <label for="rowsCount">Rows Count</label>
+                    <input
+                        id="rowsCount"
+                        type="number"
+                        class="form-control"
+                        placeholder="Rows Count"
+                        min="1"
+                        required
+                    />
+                </div>
+                <div class="form-group">
+                    <label for="colsCount">Columns Count</label>
+                    <input
+                        id="colsCount"
+                        type="number"
+                        class="form-control"
+                        placeholder="Columns Count"
+                        min="1"
+                        required
+                    />
+                </div>
+                <div class="form-group">
+                    <label for="rowHeightGlobal">Row height</label>
+                    <input
+                        id="rowHeightGlobal"
+                        type="number"
+                        class="form-control"
+                        placeholder="Row height"
+                        min="1"
+                        required
+                    />
+                </div>
+            </div>
+            <div class="col-12">
+                <button class="btn btn-primary">Save</button>
             </div>
         </div>
     </section>
+    <hr />
     <form action="<%= baseUrl %>/portfolio" method="post">
         <h3>Add new</h3>
         <div class="form-group">
@@ -76,12 +117,43 @@
         </div>
         <button type="submit" class="btn btn-primary">Add</button>
     </form>
+    <hr />
+    <section>
+       <h3>Current list</h3>
+       <ul class="list-group">
+           <% portfolios.forEach(({ title }) => { %>
+               <li class="list-group-item"><%= title %></li>
+           <% }) %>
+       </ul>
+    </section>
 </article>
 
 <script src="/js/fileHelpers.js"></script>
 <script src="/js/imageAutopresenter.js"></script>
 <script>
+  (function () {
+    var globalData = <%- JSON.stringify(page) %>
+
+    var rowsCount = document.getElementById('rowsCount');
+    var colsCount = document.getElementById('colsCount');
+    var rowHeightGlobal = document.getElementById('rowHeightGlobal');
+
+    var sizes = document.getElementById('sizes');
+
     document.querySelector('form').addEventListener('submit', function (e) {
       e.preventDefault();
     });
+
+    sizes.addEventListener('change', _fillGlobalStyles);
+    _fillGlobalStyles();
+
+    function _fillGlobalStyles() {
+      var size = sizes.value;
+      var selectedData = globalData[size];
+
+      rowsCount.value = selectedData.rows_count;
+      colsCount.value = selectedData.columns_count;
+      rowHeightGlobal.value = parseInt(selectedData.row_height);
+    }
+  })();
 </script>
