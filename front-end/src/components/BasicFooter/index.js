@@ -4,7 +4,7 @@ import { Animated } from 'react-animated-css';
 import './styles.scss';
 
 export const BasicFooter = memo(
-  function BasicFooter({ goToPage, scrolling }) {
+  function BasicFooter({ goToPage, active }) {
     return (
       <footer className="basic_footer">
         <div className="wrapper">
@@ -12,7 +12,7 @@ export const BasicFooter = memo(
             animationIn="fadeIn"
             animationInDelay={300}
             animationOut="fadeOut"
-            isVisible={!scrolling}
+            isVisible={!active}
           >
             <div className="footer_content">
               <div className="socialize">
