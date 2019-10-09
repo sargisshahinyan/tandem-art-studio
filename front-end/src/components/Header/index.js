@@ -52,19 +52,19 @@ export const Header = memo(
               isVisible={!scrolling}
             >
               <div className="menu">
-                <ul>
-                  <li>
+                <ul className="menu_list">
+                  <li className="menu_list_item">
                     <Link to="/portfolio">
                       Portfolio
                     </Link>
                   </li>
-                  <li>
+                  <li className="menu_list_item">
                     <Link to="/">
                       Services
                     </Link>
-                    <ul>
+                    <ul className="submenu_list">
                       {servicesTabs.map(({ content }, i) => (
-                        <li key={i}>
+                        <li className="submenu_list_item" key={i}>
                           <Animated animationIn="fadeInRight" animationInDelay={(i + 1) * 100}>
                             <Link to="/" onClick={() => goToPage(i + 1)}>
                               {content}
@@ -74,13 +74,13 @@ export const Header = memo(
                       ))}
                     </ul>
                   </li>
-                  <li>
+                  <li className="menu_list_item">
                     <Link to="/">
                       Contacts
                     </Link>
-                    <ul>
+                    <ul className="submenu_list">
                       {contactTabs.map(({ content }, i) => (
-                        <li key={i}>
+                        <li className="submenu_list_item" key={i}>
                           <Animated animationIn="fadeInRight" animationInDelay={(i + 1) * 100}>
                             <Link to="/">
                               About us

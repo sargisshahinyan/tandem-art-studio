@@ -24,8 +24,8 @@ header{
         }
       }
       &.menu{
-        & > ul{
-          & > li{
+        ul.menu_list{
+          li.menu_list_item{
             display: inline-block;
             vertical-align: middle;
             position: relative;
@@ -36,14 +36,14 @@ header{
               font-family: $verdana_b;
               @include transition();
             }
-            ul{
+            ul.submenu_list{
               display: none;
               position: absolute;
               left: 0;
               top: 100%;
               width: 100%;
               z-index: 2;
-              li{
+              li.submenu_list_item{
                 a{
                   display: block;
                   font-family: $verdana_b;
@@ -59,10 +59,10 @@ header{
               }
             }
             &:hover{
-              a{
+              & > a{
                 background: #000;
               }
-              ul{
+              ul.submenu_list{
                 display: block;
               }
             }
