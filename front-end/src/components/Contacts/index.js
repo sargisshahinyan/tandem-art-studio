@@ -2,7 +2,7 @@ import React, { memo } from 'react';
 import { Animated } from 'react-animated-css';
 
 import Header from '../Header';
-import BasicFooter from '../BasicFooter';
+import LargeFooter from '../LargeFooter';
 
 import './styles.scss';
 
@@ -65,7 +65,7 @@ export const Contacts = memo(
             </div>
           </div>
         </main>
-        <BasicFooter/>
+        <LargeFooter/>
       </article>
     );
   }
