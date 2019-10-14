@@ -1,42 +1,77 @@
 import React, { memo } from 'react';
+import { connect } from 'react-redux';
+import { Animated } from 'react-animated-css';
+import { Link } from 'react-router-dom';
 
 import './styles.scss';
 
 export const BasicFooter = memo(
-  function BasicFooter() {
+  function BasicFooter({ goToPage, active }) {
+    function goToPageWrapper(e) {
+      e.preventDefault();
+
+      const pageIndex = window.location.pathname === '/' ? 5 : 2;
+      goToPage(pageIndex);
+    }
+
     return (
       <footer className="basic_footer">
         <div className="wrapper">
-          <div className="footer_content">
-            <div className="socialize">
-              <ul>
-                <li>
-                  <a href="">
-                    <img src="/images/icons/ic_be.png" alt="be-icon" />
-                  </a>
-                </li>
-                <li>
-                  <a href="">
-                    <img src="/images/icons/ic_fb.png" alt="fb-icon" />
-                  </a>
-                </li>
-                <li>
-                  <a href="">
-                    <img src="/images/icons/ic_in.png" alt="in-icon" />
-                  </a>
-                </li>
-                <li>
-                  <a href="">
-                    <img src="/images/icons/ic_mail.png" alt="mail-icon" />
-                  </a>
-                </li>
-              </ul>
+          <Animated
+            animationIn="fadeIn"
+            animationInDelay={300}
+            animationOut="fadeOut"
+            isVisible={!active}
+          >
+            <div className="footer_content">
+              <div className="socialize">
+                <ul>
+                  <li>
+                    <a
+                      href="https://www.behance.net/haykarturi5dcd"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <img src="/images/icons/ic_be.png" alt="be-icon" />
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="https://www.facebook.com/designstudioTandem/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <img src="/images/icons/ic_fb.png" alt="fb-icon" />
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="https://www.instagram.com/tandem_artstudio"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <img src="/images/icons/ic_in.png" alt="in-icon" />
+                    </a>
+                  </li>
+                  <li>
+                    <Link to="/" onClick={goToPageWrapper}>
+                      <img src="/images/icons/ic_mail.png" alt="mail-icon" />
+                    </Link>
+                  </li>
+                </ul>
+              </div>
             </div>
-          </div>
+          </Animated>
         </div>
       </footer>
     );
   }
 );
 
-export default BasicFooter;
+function mapToStateProps({ pages }) {
+  return {
+    goToPage: pages.goToPage,
+  };
+}
+
+export default connect(mapToStateProps)(BasicFooter);

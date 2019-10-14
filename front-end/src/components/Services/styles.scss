@@ -9,62 +9,53 @@ main{
       .content{
         padding-top: 30px;
         padding-bottom: 30px;
-        & > div{
+        .service_item{
           padding-top: 20px;
           padding-bottom: 20px;
-          & > div{
+          .item_img{
+            width: 180px;
+            height: 100px;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+            padding: 10px;
+            img{
+              height: 80px;
+            }
+          }
+          .item_name{
             @include transition();
-            &.item_img{
-              width: 180px;
-              height: 100px;
-              -webkit-box-sizing: border-box;
-              -moz-box-sizing: border-box;
-              box-sizing: border-box;
-              padding: 10px;
-              img{
-                height: 80px;
-              }
+            margin-top: 10px;
+            max-width: 180px;
+            background: #013846;
+            height: 32px;
+            line-height: 32px;
+            @include prefix-name(2px);
+            overflow: hidden;
+            span{
+              font-family: $myriad_pro_b;
+              color: #ffffff;
+              height: 16px;
+              line-height: 16px;
             }
-            &.item_name{
-              margin-top: 10px;
-              max-width: 180px;
-              background: #013846;
-              height: 32px;
-              line-height: 32px;
-              @include prefix-name(2px);
-              overflow: hidden;
-              span{
-                font-family: $myriad_pro_b;
-                color: #ffffff;
-                height: 16px;
-                line-height: 16px;
-              }
-            }
-            &.item_description{
-              max-width: 180px;
-              margin-top: 10px;
-              ul{
-                li{
-                  font-family: $verdana_r;
-                  font-size: 11px;
-                  line-height: 1.4;
-                  color: rgba(255, 255, 255, 0.4);
-                }
+          }
+          .item_description{
+            max-width: 180px;
+            margin-top: 10px;
+            ul{
+              li{
+                font-family: $verdana_r;
+                font-size: 11px;
+                line-height: 1.4;
+                color: rgba(255, 255, 255, 0.4);
               }
             }
           }
           &:hover{
-            & > div{
-              &.item_img{
-                img{
-
-                }
-              }
-              &.item_name{
-                background: #cccfcf;
-                span{
-                  color: #013746;
-                }
+            .item_name{
+              background: #cccfcf;
+              span{
+                color: #013746;
               }
             }
           }

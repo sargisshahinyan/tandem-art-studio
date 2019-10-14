@@ -1,4 +1,5 @@
 import React from 'react';
+import { Animated } from 'react-animated-css';
 
 import BasicFooter from '../BasicFooter';
 import Header from '../Header';
@@ -7,11 +8,75 @@ import { convertText } from '../../utils';
 
 import './styles.scss';
 
-export function Services({ description }) {
+export function Services({ description, active }) {
+  const services = [{
+    icon: '/images/services/strategy_planning.svg',
+    name: 'Strategy Planning',
+    description: [
+      'Analytics & Research',
+      'Business Strategy',
+      'Information Architecture',
+      'Naming & Tagline'
+    ]
+  }, {
+    icon: '/images/services/brand_identities.svg',
+    name: 'Brand Identities',
+    description: [
+      'Identity Design',
+      'Logo Creation',
+      'Art Direction', 'Art Direction',
+      'Photography']
+  }, {
+    icon: '/images/services/digital_design.svg',
+    name: 'Digital Design',
+    description: [
+      'Web, Mobile & App Design',
+      'UI & UX Design',
+      'Responsive Design',
+      'Content Strategy'
+    ]
+  }, {
+    icon: '/images/services/graphic_design.svg',
+    name: 'Graphic Design',
+    description: [
+      'Multimedia Design',
+      'Print Design',
+      'Packaging Design',
+      'Design'
+    ]
+  }, {
+    icon: '/images/services/advertising.svg',
+    name: 'Advertising',
+    description: [
+      'Campaign Creation',
+      'Concept Creation',
+      'Copywriting',
+      'Art Direction'
+    ]
+  }, {
+    icon: '/images/services/illustration.svg',
+    name: 'Illustration',
+    description: [
+      'Advertising',
+      'Editorial',
+      'Publishing',
+      'Print'
+    ]
+  }, {
+    icon: '/images/services/development.svg',
+    name: 'Development',
+    description: [
+      'Frontend Development',
+      'Backend Development',
+      'Quality Assurance',
+      'Maintenance'
+    ]
+  }];
+
   return (
     <article>
       <div className="bg_sim_styles bg_services" />
-      <Header />
+      <Header active={active} />
       <main className="our_services centering_content">
         <div className="title">
           <div className="wrapper">
@@ -21,190 +86,29 @@ export function Services({ description }) {
         <div className="service_items items_similar_styles">
           <div className="wrapper">
             <div className="content">
-              <div>
-                <div className="item_img">
-                  <img src="/images/services/strategy_planning.svg" alt="Service icon" />
-                </div>
-                <div className="item_name">
-									<span>
-										Strategy Planning
-									</span>
-                </div>
-                <div className="item_description">
-                  <ul>
-                    <li>
-                      Analytics & Research
-                    </li>
-                    <li>
-                      Business Strategy
-                    </li>
-                    <li>
-                      Information Architecture
-                    </li>
-                    <li>
-                      Naming & Tagline
-                    </li>
-                  </ul>
-                </div>
-              </div>
-              <div>
-                <div className="item_img">
-                  <img src="/images/services/brand_identities.svg" alt="Service icon" />
-                </div>
-                <div className="item_name">
-									<span>
-										Brand Identities
-									</span>
-                </div>
-                <div className="item_description">
-                  <ul>
-                    <li>
-                      Identity Design
-                    </li>
-                    <li>
-                      Logo Creation
-                    </li>
-                    <li>
-                      Art Direction
-                    </li>
-                    <li>
-                      Photography
-                    </li>
-                  </ul>
-                </div>
-              </div>
-              <div>
-                <div className="item_img">
-                  <img src="/images/services/digital_design.svg" alt="Service icon" />
-                </div>
-                <div className="item_name">
-									<span>
-										Digital Design
-									</span>
-                </div>
-                <div className="item_description">
-                  <ul>
-                    <li>
-                      Web, Mobile & App Design
-                    </li>
-                    <li>
-                      UI & UX Design
-                    </li>
-                    <li>
-                      Responsive Design
-                    </li>
-                    <li>
-                      Content Strategy
-                    </li>
-                  </ul>
-                </div>
-              </div>
-              <div>
-                <div className="item_img">
-                  <img src="/images/services/graphic_design.svg" alt="Service icon" />
-                </div>
-                <div className="item_name">
-									<span>
-										Graphic Design
-									</span>
-                </div>
-                <div className="item_description">
-                  <ul>
-                    <li>
-                      Multimedia Design
-                    </li>
-                    <li>
-                      Print Design
-                    </li>
-                    <li>
-                      Packaging Design
-                    </li>
-                    <li>
-                      Design
-                    </li>
-                  </ul>
-                </div>
-              </div>
-              <div>
-                <div className="item_img">
-                  <img src="/images/services/advertising.svg" alt="Service icon" />
-                </div>
-                <div className="item_name">
-									<span>
-										Advertising
-									</span>
-                </div>
-                <div className="item_description">
-                  <ul>
-                    <li>
-                      Campaign Creation
-                    </li>
-                    <li>
-                      Concept Creation
-                    </li>
-                    <li>
-                      Copywriting
-                    </li>
-                    <li>
-                      Art Direction
-                    </li>
-                  </ul>
-                </div>
-              </div>
-              <div>
-                <div className="item_img">
-                  <img src="/images/services/illustration.svg" alt="Service icon" />
-                </div>
-                <div className="item_name">
-									<span>
-										Illustration
-									</span>
-                </div>
-                <div className="item_description">
-                  <ul>
-                    <li>
-                      Advertising
-                    </li>
-                    <li>
-                      Editorial
-                    </li>
-                    <li>
-                      Publishing
-                    </li>
-                    <li>
-                      Print
-                    </li>
-                  </ul>
-                </div>
-              </div>
-              <div>
-                <div className="item_img">
-                  <img src="/images/services/development.svg" alt="Service icon" />
-                </div>
-                <div className="item_name">
-									<span>
-										Development
-										Development
-										Development
-									</span>
-                </div>
-                <div className="item_description">
-                  <ul>
-                    <li>
-                      Frontend Development
-                    </li>
-                    <li>
-                      Backend Development
-                    </li>
-                    <li>
-                      Quality Assurance
-                    </li>
-                    <li>
-                      Maintenance
-                    </li>
-                  </ul>
-                </div>
-              </div>
+              {services.map((service, i) => (
+                <Animated key={i} animationIn="fadeIn" animationOut="fadeOut" animationInDelay={500 + i * 100} isVisible={active}>
+                  <div className="service_item">
+                    <div className="item_img">
+                      <img src={service.icon} alt="Service icon" />
+                    </div>
+                    <div className="item_name">
+                      <span>
+                        {service.name}
+                      </span>
+                    </div>
+                    <div className="item_description">
+                      <ul>
+                        {service.description.map((el, i) => (
+                          <li key={i}>
+                            {el}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+                </Animated>
+              ))}
             </div>
           </div>
         </div>
