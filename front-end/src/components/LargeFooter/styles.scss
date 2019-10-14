@@ -1,0 +1,220 @@
+@import "mixin";
+@import "fonts";
+
+footer{
+  z-index: 1;
+}
+.large_footer{
+  position: absolute;
+  bottom: 10px;
+  width: 100%;
+  .top_side{
+    .footer_content{
+      @include flexbox();
+      @include justify-content(space-between);
+      @include align-items(center);
+      .socialize{
+        display: inline-block;
+        z-index: 2;
+        ul{
+          li{
+            display: inline-block;
+            vertical-align: middle;
+            a{
+              @include transition();
+              display: block;
+              opacity: .65;
+              img{
+                height: 20px;
+              }
+              &:hover{
+                opacity: 1;
+              }
+            }
+            &:not(:first-child){
+              margin-left: 6px;
+            }
+          }
+        }
+      }
+      .right_side{
+        .img{
+          max-width: 320px;
+          img{
+            max-width: 100%;
+          }
+        }
+      }
+    }
+  }
+  .middle_side{
+    margin-top: 10px;
+    .content_with_background{
+      position: relative;
+      background: url("/images/backgrounds/bg_middle.png") no-repeat center center;
+      -webkit-background-size: cover;
+      background-size: cover;
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      box-sizing: border-box;
+      padding: 10px 0;
+      @include flexbox();
+      @include justify-content(space-between);
+      @include align-items(center);
+      .images_and_links{
+        .images{
+          display: inline-block;
+          vertical-align: middle;
+          .img{
+            max-width: 80px;
+            display: inline-block;
+            vertical-align: middle;
+            img{
+              max-width: 100%;
+            }
+            &:not(:first-child){
+              margin-left: 20px;
+            }
+          }
+        }
+        .links{
+          margin-left: 20px;
+          display: inline-block;
+          vertical-align: middle;
+          .link{
+            cursor: pointer;
+            line-height: 22px;
+            .icon{
+              display: inline-block;
+              vertical-align: middle;
+              width: 25px;
+              height: 18px;
+              &.icon_mail{
+                background: url("/images/icons/ic_link_mail.png") no-repeat center center;
+                -webkit-background-size: contain;
+                background-size: contain;
+              }
+              &.icon_facebook{
+                background: url("/images/icons/ic_link_facebook.png") no-repeat center center;
+                -webkit-background-size: contain;
+                background-size: contain;
+              }
+              &.icon_instagram{
+                background: url("/images/icons/ic_link_instagram.png") no-repeat center center;
+                -webkit-background-size: contain;
+                background-size: contain;
+              }
+              &.icon_tel{
+                background: url("/images/icons/ic_link_tel.png") no-repeat center center;
+                -webkit-background-size: contain;
+                background-size: contain;
+              }
+              &.icon_whatsapp{
+                background: url("/images/icons/ic_link_whatsapp.png") no-repeat center center;
+                -webkit-background-size: contain;
+                background-size: contain;
+              }
+              &.icon_viber{
+                background: url("/images/icons/ic_link_viber.png") no-repeat center center;
+                -webkit-background-size: contain;
+                background-size: contain;
+              }
+            }
+            .text{
+              @include transition();
+              display: inline-block;
+              vertical-align: middle;
+              margin-left: 10px;
+              margin-right: 10px;
+              font-family: $verdana_r;
+              font-size: 10px;
+            }
+            &.link_mail{
+              &:hover{
+                .icon{
+                  @include transition();
+                  &.icon_mail{
+                    background: url("/images/icons/ic_link_mail_hover.png") no-repeat center center;
+                    -webkit-background-size: contain;
+                    background-size: contain;
+                  }
+                }
+              }
+            }
+            &.link_facebook{
+              &:hover{
+                .icon{
+                  @include transition();
+                  &.icon_facebook{
+                    background: url("/images/icons/ic_link_facebook_hover.png") no-repeat center center;
+                    -webkit-background-size: contain;
+                    background-size: contain;
+                  }
+                }
+              }
+            }
+            &.link_instagram{
+              &:hover{
+                .icon{
+                  @include transition();
+                  &.icon_instagram{
+                    background: url("/images/icons/ic_link_instagram_hover.png") no-repeat center center;
+                    -webkit-background-size: contain;
+                    background-size: contain;
+                  }
+                }
+              }
+            }
+            &.link_tel_whatsapp_viber{
+              &:hover{
+                .icon{
+                  @include transition();
+                  &.icon_tel{
+                    background: url("/images/icons/ic_link_tel_hover.png") no-repeat center center;
+                    -webkit-background-size: contain;
+                    background-size: contain;
+                  }
+                  &.icon_whatsapp{
+                    background: url("/images/icons/ic_link_whatsapp_hover.png") no-repeat center center;
+                    -webkit-background-size: contain;
+                    background-size: contain;
+                  }
+                  &.icon_viber{
+                    background: url("/images/icons/ic_link_viber_hover.png") no-repeat center center;
+                    -webkit-background-size: contain;
+                    background-size: contain;
+                  }
+                }
+              }
+            }
+            &:hover{
+              .text{
+                color: #ffffff;
+              }
+            }
+          }
+        }
+      }
+      .logo{
+        padding-top: 10px;
+        a{
+          display: block;
+          width: 124px;
+          height: 75px;
+          img{
+            max-width: 100%;
+          }
+        }
+      }
+    }
+  }
+  .bottom_side{
+    margin-top: 10px;
+    span{
+      font-family: $verdana_r;
+      font-size: 12px;
+      line-height: 20px;
+      color: #ffffff;
+    }
+  }
+}

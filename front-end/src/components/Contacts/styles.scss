@@ -18,7 +18,8 @@ main{
         @include flexbox();
         @include justify-content(space-between);
         @include flex-wrap(wrap);
-        & > div{
+        .inputs,
+        .message{
           input{
             height: 60px;
             line-height: 60px;
@@ -50,27 +51,34 @@ main{
             border: none;
             outline: none;
           }
-          & > div{
-          }
-          &.inputs{
-            flex: 1;
-            -webkit-box-sizing: border-box;
-            -moz-box-sizing: border-box;
-            box-sizing: border-box;
-            padding-right: 15px;
+        }
+        .inputs{
+          flex: 1;
+          -webkit-box-sizing: border-box;
+          -moz-box-sizing: border-box;
+          box-sizing: border-box;
+          padding-right: 15px;
+          .input_items{
             & > div{
               &:not(:first-child){
                 margin-top: 15px;
               }
             }
           }
-          &.message{
-            flex: 1.2;
-            -webkit-box-sizing: border-box;
-            -moz-box-sizing: border-box;
-            box-sizing: border-box;
-            padding-left: 15px;
-            position: relative;
+        }
+        .message{
+          flex: 1.2;
+          -webkit-box-sizing: border-box;
+          -moz-box-sizing: border-box;
+          box-sizing: border-box;
+          padding-left: 15px;
+          position: relative;
+          & > div{
+            height: 100%;
+            background: #131418;
+          }
+          .message_items{
+            height: 100%;
             & > div{
               &.message_content{
                 background: #131418;

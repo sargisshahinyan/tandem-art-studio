@@ -24,14 +24,18 @@ export const Header = memo(
         content: 'Contact us',
       },
     ];
-
+    const contactTabs = [
+      {
+        content: 'About us',
+      }
+    ];
     return (
       <header>
         <div className="wrapper">
           <div className="header">
             <Animated
               animationIn="fadeIn"
-              animationInDelay={1000}
+              animationInDelay={300}
               animationOut="fadeOut"
               isVisible={!scrolling}
             >
@@ -41,43 +45,54 @@ export const Header = memo(
                 </Link>
               </div>
             </Animated>
-            <div className="menu">
-              <ul>
-                <li>
-                  <Link to="/portfolio">
-                    Portfolio
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/">
-                    Services
-                  </Link>
-                  <ul>
-                    {servicesTabs.map(({ content }, i) => (
-                      <li key={i}>
-                        <Animated animationIn="fadeInRight" animationInDelay={(i + 1) * 100}>
-                          <Link to="/" onClick={() => goToPage(i + 1)}>
-                            {content}
-                          </Link>
-                        </Animated>
-                      </li>
-                    ))}
-                  </ul>
-                </li>
-                <li>
-                  <Link to="/contact">
-                    Contacts
-                  </Link>
-                  <ul>
-                    <li>
-                      <Link to="/">
-                        About us
-                      </Link>
-                    </li>
-                  </ul>
-                </li>
-              </ul>
-            </div>
+            <Animated
+              animationIn="fadeIn"
+              animationInDelay={300}
+              animationOut="fadeOut"
+              isVisible={!scrolling}
+            >
+              <div className="menu">
+                <ul className="menu_list">
+                  <li className="menu_list_item">
+                    <Link to="/portfolio">
+                      Portfolio
+                    </Link>
+                  </li>
+                  <li className="menu_list_item">
+                    <Link to="/">
+                      Services
+                    </Link>
+                    <ul className="submenu_list">
+                      {servicesTabs.map(({ content }, i) => (
+                        <li className="submenu_list_item" key={i}>
+                          <Animated animationIn="fadeInRight" animationInDelay={(i + 1) * 100}>
+                            <Link to="/" onClick={() => goToPage(i + 1)}>
+                              {content}
+                            </Link>
+                          </Animated>
+                        </li>
+                      ))}
+                    </ul>
+                  </li>
+                  <li className="menu_list_item">
+                    <Link to="/">
+                      Contacts
+                    </Link>
+                    <ul className="submenu_list">
+                      {contactTabs.map(({ content }, i) => (
+                        <li className="submenu_list_item" key={i}>
+                          <Animated animationIn="fadeInRight" animationInDelay={(i + 1) * 100}>
+                            <Link to="/">
+                              About us
+                            </Link>
+                          </Animated>
+                        </li>
+                      ))}
+                    </ul>
+                  </li>
+                </ul>
+              </div>
+            </Animated>
           </div>
         </div>
       </header>
