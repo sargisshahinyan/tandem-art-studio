@@ -20,22 +20,34 @@ export const LargeFooter = memo(
                 <div className="socialize">
                   <ul>
                     <li>
-                      <a href="">
+                      <a
+                        href="https://www.behance.net/haykarturi5dcd"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
                         <img src="/images/icons/ic_be.png" alt="be-icon" />
                       </a>
                     </li>
                     <li>
-                      <a href="">
+                      <a
+                        href="https://www.facebook.com/designstudioTandem/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
                         <img src="/images/icons/ic_fb.png" alt="fb-icon" />
                       </a>
                     </li>
                     <li>
-                      <a href="">
+                      <a
+                        href="https://www.instagram.com/tandem_artstudio"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
                         <img src="/images/icons/ic_in.png" alt="in-icon" />
                       </a>
                     </li>
                     <li>
-                      <a href="">
+                      <a href="/">
                         <img src="/images/icons/ic_mail.png" alt="mail-icon" />
                       </a>
                     </li>

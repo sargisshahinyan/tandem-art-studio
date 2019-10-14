@@ -27,7 +27,13 @@ export const Header = memo(
     const contactTabs = [
       {
         content: 'About us',
-      }
+      },
+      {
+        content: 'Location',
+      },
+      {
+        content: 'Contact us',
+      },
     ];
     return (
       <header>
@@ -75,15 +81,15 @@ export const Header = memo(
                     </ul>
                   </li>
                   <li className="menu_list_item">
-                    <Link to="/">
+                    <Link to="/contact">
                       Contacts
                     </Link>
                     <ul className="submenu_list">
                       {contactTabs.map(({ content }, i) => (
                         <li className="submenu_list_item" key={i}>
                           <Animated animationIn="fadeInRight" animationInDelay={(i + 1) * 100}>
-                            <Link to="/">
-                              About us
+                            <Link to="/contact" onClick={() => goToPage(i)}>
+                              {content}
                             </Link>
                           </Animated>
                         </li>
