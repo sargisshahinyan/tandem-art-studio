@@ -1,23 +1,48 @@
 Array.prototype.slice.call(document.querySelectorAll('input[type="file"][accept="image/*"]')).forEach(function (element) {
-  var img = new Image();
-  img.style.display = 'none';
+  var imgContainer = document.createElement('div');
 
   if (element.nextElementSibling) {
-    element.parentElement.insertBefore(img, element.nextElementSibling);
+    element.parentElement.insertBefore(imgContainer, element.nextElementSibling);
   } else {
-    element.parentElement.appendChild(img);
+    element.parentElement.appendChild(imgContainer);
   }
 
   element.addEventListener('change', function () {
-    convertFileToImage(element.files[0])
-      .then(function (src) {
-        img.style.display = 'block';
-        img.src = src;
+    var imageRequests = [];
+
+    for (let i = 0; i < element.files.length; i++) {
+      imageRequests.push(
+        convertFileToImage(element.files[i])
+      );
+    }
+
+    imgContainer.innerHTML = '';
+
+    Promise.all(imageRequests)
+      .then(function (sources) {
+        sources.forEach(function (src) {
+          var imageItem = document.createElement('div');
+          imageItem.className = 'row';
+          imageItem.style['min-height'] = '200px';
+          imageItem.style.margin = '10px 0';
+          var imageWrapper = document.createElement('div');
+          imageWrapper.className = 'col-6';
+
+          var img = new Image();
+          img.src = src;
+          img.className = 'img-fluid';
+          imageWrapper.appendChild(img);
+          imageItem.appendChild(imageWrapper);
+
+          if (element.classList.contains('portfolio-images')) {
+            var coordsTemplate = document.getElementById('img-coords');
+
+            imageItem.appendChild(coordsTemplate.content.cloneNode(true));
+          }
+
+          imgContainer.appendChild(imageItem);
+        });
       })
-      .catch(function (err) {
-        console.log(err);
-        img.style.display = 'none';
-        img.src = '';
-      })
+      .catch(new Function);
   });
 });

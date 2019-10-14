@@ -1,3 +1,25 @@
+<template id="img-coords">
+    <div class="col-6">
+        <div class="form-group">
+            <label>X Coords</label>
+            <input
+                name="xCoords"
+                class="form-control xCoords"
+                placeholder="X Coords"
+                required
+            />
+        </div>
+        <div class="form-group">
+            <label>Y Coords</label>
+            <input
+                name="yCoords"
+                class="form-control yCoords"
+                placeholder="Y Coords"
+                required
+            />
+        </div>
+    </div>
+</template>
 <article>
     <section>
         <h3>Global configs</h3>
@@ -18,9 +40,9 @@
             </div>
             <div class="col-6">
                 <div class="form-group">
-                    <label for="rowsCount">Rows Count</label>
+                    <label for="rowsCountGlobal">Rows Count</label>
                     <input
-                        id="rowsCount"
+                        id="rowsCountGlobal"
                         type="number"
                         class="form-control"
                         placeholder="Rows Count"
@@ -29,9 +51,9 @@
                     />
                 </div>
                 <div class="form-group">
-                    <label for="colsCount">Columns Count</label>
+                    <label for="colsCountGlobal">Columns Count</label>
                     <input
-                        id="colsCount"
+                        id="colsCountGlobal"
                         type="number"
                         class="form-control"
                         placeholder="Columns Count"
@@ -52,13 +74,15 @@
                 </div>
             </div>
             <div class="col-12">
-                <button class="btn btn-primary">Save</button>
+                <button class="btn btn-primary" id="update">Update</button>
             </div>
         </div>
     </section>
-    <hr />
+    <hr /><hr />
     <form action="<%= baseUrl %>/portfolio" method="post">
         <h3>Add new</h3>
+        <hr />
+        <h4>Basic info</h4>
         <div class="form-group">
             <label for="title">Title</label>
             <input
@@ -104,20 +128,87 @@
                 required
             />
         </div>
-
+        <hr />
+        <h4>Position in page</h4>
+        <div class="row">
+            <div class="form-group col-6">
+                <label for="xCoords">X Coords</label>
+                <input
+                    id="xCoords"
+                    name="xCoords"
+                    class="form-control"
+                    placeholder="X Coords"
+                    required
+                />
+            </div>
+            <div class="form-group col-6">
+                <label for="yCoords">Y Coords</label>
+                <input
+                    id="yCoords"
+                    name="yCoords"
+                    class="form-control"
+                    placeholder="Y Coords"
+                    required
+                />
+            </div>
+        </div>
+        <hr />
+        <h4>Grid system</h4>
+        <div class="row">
+            <div class="form-group col-4">
+                <label for="rowsCount">Rows Count</label>
+                <input
+                    id="rowsCount"
+                    type="number"
+                    class="form-control"
+                    placeholder="Rows Count"
+                    min="1"
+                    value="10"
+                    required
+                />
+            </div>
+            <div class="form-group col-4">
+                <label for="colsCount">Columns Count</label>
+                <input
+                    id="colsCount"
+                    type="number"
+                    class="form-control"
+                    placeholder="Columns Count"
+                    min="1"
+                    value="10"
+                    required
+                />
+            </div>
+            <div class="form-group col-4">
+                <label for="rowHeightGlobal">Row height</label>
+                <input
+                    id="rowHeightGlobal"
+                    type="number"
+                    class="form-control"
+                    placeholder="Row height"
+                    min="1"
+                    value="50"
+                    required
+                />
+            </div>
+        </div>
+        <hr />
         <div class="form-group">
-            <label for="xGrid">Main picture</label>
+            <label for="images">Images</label>
             <input
-                id="xGrid"
-                name="xGrid"
-                class="form-control"
-                placeholder="Main picture"
+                id="images"
+                name="images"
+                class="form-control portfolio-images"
+                placeholder="Images"
+                type="file"
+                accept="image/*"
+                multiple
                 required
             />
         </div>
         <button type="submit" class="btn btn-primary">Add</button>
     </form>
-    <hr />
+    <hr /><hr />
     <section>
        <h3>Current list</h3>
        <ul class="list-group">
@@ -133,9 +224,10 @@
 <script>
   (function () {
     var globalData = <%- JSON.stringify(page) %>
+    var baseUrl = '<%= baseUrl %>';
 
-    var rowsCount = document.getElementById('rowsCount');
-    var colsCount = document.getElementById('colsCount');
+    var rowsCount = document.getElementById('rowsCountGlobal');
+    var colsCount = document.getElementById('colsCountGlobal');
     var rowHeightGlobal = document.getElementById('rowHeightGlobal');
 
     var sizes = document.getElementById('sizes');
@@ -146,6 +238,25 @@
 
     sizes.addEventListener('change', _fillGlobalStyles);
     _fillGlobalStyles();
+
+    document.getElementById('update').addEventListener('click', function () {
+      var body = Object.assign({}, globalData);
+
+      body[sizes.value] = {
+        rows_count: rowsCount.value,
+        columns_count: colsCount.value,
+        row_height: rowHeightGlobal.value + 'px'
+      }
+
+      axios.put(baseUrl + '/portfolio', body).then(function (res) {
+        globalData = res.data;
+      });
+    });
+
+    document.querySelector('form').addEventListener('submit', function (e) {
+      e.preventDefault();
+      console.log(1);
+    });
 
     function _fillGlobalStyles() {
       var size = sizes.value;

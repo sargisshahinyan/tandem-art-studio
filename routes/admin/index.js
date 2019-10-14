@@ -71,13 +71,23 @@ router.get(new RegExp(`\/(${NAV_TABS.map(tab => tab.path).join('|')})`), (req, r
   res.render('admin/main');
 });
 
+router.put('/portfolio', async (req, res) => {
+  try {
+    await PagesSvc.updatePageData(req.path, req.body);
+    res.json(req.body);
+  } catch (e) {
+    console.error(e);
+    next(e);
+  }
+});
+
 router.post(/\/(about|team|services|clients)/, async (req, res) => {
   try {
     await PagesSvc.updatePageData(req.path, req.body);
     res.redirect(req.originalUrl);
   } catch (e) {
     console.error(e);
-    next();
+    next(e);
   }
 });
 
