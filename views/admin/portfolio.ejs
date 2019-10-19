@@ -1,5 +1,5 @@
 <template id="img-coords">
-    <div class="col-6">
+    <div class="col-6 image-grid-data">
         <div class="form-group">
             <label>X Coords</label>
             <input
@@ -180,9 +180,9 @@
                 />
             </div>
             <div class="form-group col-4">
-                <label for="rowHeightGlobal">Row height</label>
+                <label for="rowHeight">Row height</label>
                 <input
-                    id="rowHeightGlobal"
+                    id="rowHeight"
                     type="number"
                     class="form-control"
                     placeholder="Row height"
@@ -253,9 +253,35 @@
       });
     });
 
-    document.querySelector('form').addEventListener('submit', function (e) {
+    document.querySelector('form').addEventListener('submit', async function (e) {
       e.preventDefault();
-      console.log(1);
+
+      const body = {
+        title: document.getElementById('title').value,
+        description: document.getElementById('description').value,
+        presentablePicture: await convertFileToImage(document.getElementById('presentablePicture').files[0]),
+        mainPicture: await convertFileToImage(document.getElementById('mainPicture').files[0]),
+        xCoords: document.getElementById('xCoords').value,
+        yCoords: document.getElementById('yCoords').value,
+        rowsCount: document.getElementById('rowsCount').value,
+        columnsCount: document.getElementById('colsCount').value,
+        rowHeight: document.getElementById('rowHeight').value + 'px',
+      };
+
+      const images = await Promise.all(
+        Array.from(document.getElementById('images').files).map(async file => ({
+          image: await convertFileToImage(file),
+        }))
+      );
+
+      Array.from(document.getElementsByClassName('image-grid-data')).forEach((el, i) => {
+        images[i].xCoords = el.querySelector('.xCoords').value;
+        images[i].yCoords = el.querySelector('.yCoords').value;
+      });
+
+      body.images = images;
+
+      await axios.post(baseUrl + '/portfolio', body);
     });
 
     function _fillGlobalStyles() {

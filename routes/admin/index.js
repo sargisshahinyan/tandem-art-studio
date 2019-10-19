@@ -1,11 +1,19 @@
 const express = require('express');
 const router = express.Router();
+const randToken = require('rand-token');
 
 const UsersSvc = require(`${APP_PATH}/services/UsersSvc`);
 const PagesSvc = require(`${APP_PATH}/services/PagesSvc`);
 const PortfolioSvc = require(`${APP_PATH}/services/PortfolioSvc`);
+const ImagesSvc = require(`${APP_PATH}/services/ImagesSvc`);
 
-const { TOKEN_EXPIRATION_TIME, TOKEN_COOKIE_KEY, NAV_TABS } = require(`${APP_PATH}/constants`);
+const {
+  TOKEN_EXPIRATION_TIME,
+  TOKEN_COOKIE_KEY,
+  NAV_TABS,
+  PORTFOLIO_IMAGES_PATH,
+  STATIC_FILES_DIRECTORY,
+} = require(`${APP_PATH}/constants`);
 
 const authCheckingMiddleware = require(`${APP_PATH}/middlewares/authCheckingMiddleware`);
 
@@ -71,6 +79,16 @@ router.get(new RegExp(`\/(${NAV_TABS.map(tab => tab.path).join('|')})`), (req, r
   res.render('admin/main');
 });
 
+router.post(/\/(about|team|services|clients)/, async (req, res) => {
+  try {
+    await PagesSvc.updatePageData(req.path, req.body);
+    res.redirect(req.originalUrl);
+  } catch (e) {
+    console.error(e);
+    next(e);
+  }
+});
+
 router.put('/portfolio', async (req, res) => {
   try {
     await PagesSvc.updatePageData(req.path, req.body);
@@ -81,10 +99,54 @@ router.put('/portfolio', async (req, res) => {
   }
 });
 
-router.post(/\/(about|team|services|clients)/, async (req, res) => {
+router.post('/portfolio', async (req, res, next) => {
   try {
-    await PagesSvc.updatePageData(req.path, req.body);
-    res.redirect(req.originalUrl);
+    let {
+      title,
+      description,
+      presentablePicture,
+      mainPicture,
+      xCoords,
+      yCoords,
+      rowsCount,
+      columnsCount,
+      rowHeight,
+      images,
+    } = req.body;
+
+    const mainPictureName = randToken.generate(16);
+    mainPicture = await ImagesSvc.createPhoto(mainPicture, PORTFOLIO_IMAGES_PATH + mainPictureName, STATIC_FILES_DIRECTORY);
+    const presentablePictureName = randToken.generate(16);
+    presentablePicture = await ImagesSvc.createPhoto(presentablePicture, PORTFOLIO_IMAGES_PATH + presentablePictureName, STATIC_FILES_DIRECTORY);
+
+    images = Array.isArray(images) ? images : [];
+    images = await Promise.all(
+      images.map(async ({ image, xCoords, yCoords }) => {
+        const imageName = randToken.generate(16);
+
+        return {
+          xCoords,
+          yCoords,
+          src: await ImagesSvc.createPhoto(image, PORTFOLIO_IMAGES_PATH + imageName, STATIC_FILES_DIRECTORY),
+        };
+      })
+    );
+
+    await PortfolioSvc.addPortfolio({
+      title,
+      description,
+      presentablePicture,
+      mainPicture,
+      xCoords,
+      yCoords,
+      rowsCount,
+      columnsCount,
+      rowHeight,
+      images,
+    });
+    res.status(201).json({
+      message: 'Ok',
+    });
   } catch (e) {
     console.error(e);
     next(e);
