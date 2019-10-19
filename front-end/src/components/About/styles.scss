@@ -88,7 +88,6 @@ $myWhite: rgba(255, 255, 255, .6);
         & p {
           font-size: 14px !important;
           color: $myWhite;
-          height: 30vh;
           max-height: 224px;
           overflow: hidden;
           & + .textWrapper {
@@ -96,6 +95,9 @@ $myWhite: rgba(255, 255, 255, .6);
             @include flex-direction(row);
             @include justify-content(center);
             margin-top: 10px;
+            @media (max-height: 680px) {
+              margin: 0;
+            }
 
             & span {
               width: 10px;
@@ -114,16 +116,27 @@ $myWhite: rgba(255, 255, 255, .6);
 
     & .basic_footer {
       width: 100%;
-      flex-grow: 1;
+      @media (max-height: 680px) {
+        margin: 10px 0 ;
+      }
 
       & .socialize {
         width: 100%;
         & ul {
           @include flexbox();
           @include flex-direction(row);
-          @include justify-content(space-around);
+          @include justify-content(center);
 
+          & li {
+            margin-right: 15px;
+            &:last-of-type {
+              margin-right: 0;
+            }
 
+            & img {
+              height: 32px;
+            }
+          }
         }
       }
     }

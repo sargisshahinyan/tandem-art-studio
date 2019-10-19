@@ -2,6 +2,7 @@ import React, { memo } from 'react';
 
 import Header from '../Header';
 import BasicFooter from '../BasicFooter';
+import HiddenFooter from '../HiddenFooter'
 import Signature from '../Signature';
 
 import { convertText } from '../../utils';
@@ -23,13 +24,13 @@ export const About = memo(
             <div className='wrapper'>
               <div className='content'>
                 <p>{convertText(description)}</p>
-                <div className='hidden textWrapper'>
+                <div className='hidden textWrapper' onClick={openText}>
                   <span/>
                   <span/>
                   <span/>
                 </div>
                 <div className='hidden'>
-
+                  <img src="/" alt=""/>
                 </div>
               </div>
             </div>
@@ -42,5 +43,9 @@ export const About = memo(
     );
   }
 );
+
+const openText = () => {
+
+}
 
 export default About;
