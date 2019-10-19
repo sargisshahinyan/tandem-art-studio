@@ -1,21 +1,131 @@
 @import "mixin";
 @import "fonts";
 
-main{
-  &.about_content{
-    .text_content{
-      margin-top: 50px;
-      .content{
-        p{
-          margin-top: 0;
+$myWhite: rgba(255, 255, 255, .6);
+
+.bg_about {
+  main {
+    &.about_content {
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      .text_content {
+        margin-top: 50px;
+
+        @include flex-grow(1);
+        @include flexbox();
+        @include align-items(center);
+
+        .content {
+          p {
+            margin-top: 0;
+            font-size: 140%;
+            @media(max-width: 1537px) and (min-width: 768px) {
+              font-size: 120%;
+            }
+          }
+        }
+        &.with_bg {
+          padding: 60px 30px;
         }
       }
-      &.with_bg{
-        padding: 60px 30px;
+      .signature {
+        margin-top: 50px;
       }
     }
-    .signature{
-      margin-top: 50px;
+  }
+
+  @media (max-width: 767px) {
+    background: #191920 !important;
+    & header {
+      height: auto;
+      & .wrapper {
+        padding: 0;
+        & .header {
+          margin-top: 40px;
+          height: 40vh;
+          background: url(/images/backgrounds/bg_middle.png) no-repeat center center;
+          background-size: cover;
+          @include flexbox();
+          @include justify-content(center);
+          @include align-items(center);
+
+
+
+            & > div:first-of-type {
+              & .logo {
+                padding: 0;
+                & a {
+                  width: auto;
+                  height: auto;
+                  & img {
+                    width: 250px;
+                    height: auto;
+                  }
+                }
+              }
+            }
+
+            & > div:last-of-type {
+              display: none;
+            }
+
+        }
+      }
+    }
+
+    & main {
+      & .title {
+        display: none;
+      }
+
+      & .text_content.with_bg {
+        background: none;
+        margin-top: 0;
+        padding: 0 !important;
+        //padding-top: 10px;
+        & p {
+          font-size: 14px !important;
+          color: $myWhite;
+          height: 30vh;
+          max-height: 224px;
+          overflow: hidden;
+          & + .textWrapper {
+            @include flexbox();
+            @include flex-direction(row);
+            @include justify-content(center);
+            margin-top: 10px;
+
+            & span {
+              width: 10px;
+              height: 10px;
+              margin-right: 5px;
+              background: $myWhite;
+              border-radius: 50px;
+            }
+          }
+        }
+      }
+      & .signature {
+        display: none;
+      }
+    }
+
+    & .basic_footer {
+      width: 100%;
+      flex-grow: 1;
+
+      & .socialize {
+        width: 100%;
+        & ul {
+          @include flexbox();
+          @include flex-direction(row);
+          @include justify-content(space-around);
+
+
+        }
+      }
     }
   }
 }

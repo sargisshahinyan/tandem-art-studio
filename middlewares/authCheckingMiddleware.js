@@ -24,7 +24,7 @@ module.exports = async (req, res, next) => {
 
     next();
   } catch (e) {
-    res.clearCookie('token');
+    res.clearCookie(TOKEN_COOKIE_KEY);
     res.redirect(`${req.baseUrl}/login`);
   }
 };

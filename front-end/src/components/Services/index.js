@@ -87,7 +87,13 @@ export function Services({ description, active }) {
           <div className="wrapper">
             <div className="content">
               {services.map((service, i) => (
-                <Animated key={i} animationIn="fadeIn" animationOut="fadeOut" animationInDelay={500 + i * 100} isVisible={active}>
+                <Animated
+                  key={i}
+                  animationIn="fadeIn"
+                  animationOut="fadeOut"
+                  animationInDelay={500 + i * 100}
+                  isVisible={active}
+                >
                   <div className="service_item">
                     <div className="item_img">
                       <img src={service.icon} alt="Service icon" />

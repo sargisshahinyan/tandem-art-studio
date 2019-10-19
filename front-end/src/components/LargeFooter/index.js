@@ -5,10 +5,11 @@ import './styles.scss';
 import {Link} from "react-router-dom";
 
 export const LargeFooter = memo(
-  function LargeFooter({ goToPage, active }) {
+  function LargeFooter({ goToPage, active, noPadding }) {
+    const padding = noPadding ? 'noPadding' : '';
     return (
       <footer className="large_footer">
-        <div className="wrapper">
+        <div className={"wrapper " + padding}>
           <div className="top_side">
             <Animated
               animationIn="fadeIn"

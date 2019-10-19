@@ -71,7 +71,10 @@ export const Header = memo(
                     <ul className="submenu_list">
                       {servicesTabs.map(({ content }, i) => (
                         <li className="submenu_list_item" key={i}>
-                          <Animated animationIn="fadeInRight" animationInDelay={(i + 1) * 100}>
+                          <Animated
+                            animationIn="fadeInRight"
+                            animationInDelay={(i + 1) * 100}
+                          >
                             <Link to="/" onClick={() => goToPage(i + 1)}>
                               {content}
                             </Link>
@@ -87,7 +90,10 @@ export const Header = memo(
                     <ul className="submenu_list">
                       {contactTabs.map(({ content }, i) => (
                         <li className="submenu_list_item" key={i}>
-                          <Animated animationIn="fadeInRight" animationInDelay={(i + 1) * 100}>
+                          <Animated
+                            animationIn="fadeInRight"
+                            animationInDelay={(i + 1) * 100}
+                          >
                             <Link to="/contact" onClick={() => goToPage(i)}>
                               {content}
                             </Link>

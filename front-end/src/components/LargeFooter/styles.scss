@@ -5,10 +5,9 @@ footer{
   z-index: 1;
 }
 .large_footer{
-  position: absolute;
-  bottom: 10px;
   width: 100%;
   .top_side{
+    margin-left: 20px;
     .footer_content{
       @include flexbox();
       @include justify-content(space-between);
@@ -196,6 +195,16 @@ footer{
         }
       }
       .logo{
+        background: #000;
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 300px;
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 150px;
         padding-top: 10px;
         a{
           display: block;
@@ -210,6 +219,7 @@ footer{
   }
   .bottom_side{
     margin-top: 10px;
+    margin-left: 10px;
     span{
       font-family: $verdana_r;
       font-size: 12px;

@@ -8,9 +8,9 @@ import './styles.scss';
 
 export const Contacts = memo(
   function Contacts({ goToPage, scrolling, active }) {
+
     return (
-      <article>
-        <div className="bg_sim_styles bg_contact_us" />
+      <article className='bg_contact_us'>
         <Header active={active} />
         <main className="contact_us centering_content">
           <div className="title">
@@ -20,7 +20,6 @@ export const Contacts = memo(
           </div>
           <div className="form_content">
             <div className="wrapper">
-              <div className="content">
                 <div className="inputs">
                   <Animated
                     animationIn="fadeInLeft"
@@ -28,20 +27,10 @@ export const Contacts = memo(
                     animationOut="fadeOut"
                     isVisible={active}
                   >
-                    <div className="input_items">
-                      <div>
-                        <input placeholder="Name:" type="text" />
-                      </div>
-                      <div>
-                        <input placeholder="Surname:" type="text" />
-                      </div>
-                      <div>
-                        <input placeholder="Email:" type="text" />
-                      </div>
-                      <div>
-                        <input placeholder="Phone:" type="text" />
-                      </div>
-                    </div>
+                    <input placeholder="Name:" type="text" />
+                    <input placeholder="Surname:" type="text" />
+                    <input placeholder="Email:" type="text" />
+                    <input placeholder="Phone:" type="text" />
                   </Animated>
                 </div>
                 <div className="message">
@@ -61,11 +50,10 @@ export const Contacts = memo(
                     </div>
                   </Animated>
                 </div>
-              </div>
             </div>
           </div>
         </main>
-        <LargeFooter/>
+        <LargeFooter noPadding={true}/>
       </article>
     );
   }

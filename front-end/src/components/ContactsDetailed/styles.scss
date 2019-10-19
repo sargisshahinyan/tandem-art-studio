@@ -1,1 +1,27 @@
+@import "mixin";
+@import "fonts";
 
+article.bg_location {
+  @include flexbox();
+  @include flex-direction(column);
+  @include justify-content(space-between);
+
+  & > header {
+    @include flex-grow(1);
+  }
+  & > main {
+    background: url(/images/backgrounds/bg_middle.png) no-repeat center center;
+    background-size: cover;
+    @include flex-grow(12);
+    @include flexbox();
+
+    & > iframe {
+      padding: 60px;
+      @include flex-grow(1);
+    }
+  }
+  & > footer {
+    @include flex-grow(4);
+
+  }
+}

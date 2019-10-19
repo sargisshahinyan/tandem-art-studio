@@ -1,10 +1,16 @@
 @import "mixin";
 @import "fonts";
 
-main{
-  &.contact_us{
-    .form_content{
-      margin-top: 50px;
+main {
+  &.contact_us {
+    flex-grow: 3;
+    @include flexbox();
+    @include flex-direction(column);
+    @include align-self(center);
+    .form_content {
+      flex-grow: 1;
+      margin-top: 40px;
+      margin-bottom: 15px;
       position: relative;
       background: url("/images/backgrounds/bg_middle.png") no-repeat center center;
       -webkit-background-size: cover;
@@ -14,22 +20,44 @@ main{
       -moz-box-sizing: border-box;
       box-sizing: border-box;
       padding: 60px;
-      .content{
-        @include flexbox();
-        @include justify-content(space-between);
+      @media(max-width: 1537px) {
+        padding: 40px 60px;
+      }
+      .wrapper {
+        &, .inputs > div, .message > div {
+          @include flexbox();
+          @include justify-content(space-between);
+        }
         @include flex-wrap(wrap);
+        height: 100%;
         .inputs,
-        .message{
-          input{
+        .message {
+          & > div {
+            height: 100%;
+            @include flex-direction(column);
+            & input {
+              height: calc(25% - 30px);
+              font-size: 140%;
+              @media (max-width: 1537px) {
+                height: calc(25% - 15px);
+                font-size: 100%;
+              }
+            }
+          }
+          input {
             height: 60px;
             line-height: 60px;
           }
-          textarea{
+          textarea {
+            font-size: 140%;
             height: 100%;
             resize: none;
+            @media (max-width: 1537px) {
+              font-size: 100%;
+            }
           }
           input,
-          textarea{
+          textarea {
             background: #131418;
             color: #ffffff;
             width: 100%;
@@ -52,46 +80,46 @@ main{
             outline: none;
           }
         }
-        .inputs{
+        .inputs {
           flex: 1;
           -webkit-box-sizing: border-box;
           -moz-box-sizing: border-box;
           box-sizing: border-box;
           padding-right: 15px;
-          .input_items{
-            & > div{
+          .input_items {
+            & > div {
               &:not(:first-child){
                 margin-top: 15px;
               }
             }
           }
         }
-        .message{
+        .message {
           flex: 1.2;
           -webkit-box-sizing: border-box;
           -moz-box-sizing: border-box;
           box-sizing: border-box;
           padding-left: 15px;
           position: relative;
-          & > div{
+          & > div {
             height: 100%;
             background: #131418;
           }
-          .message_items{
+          .message_items {
             height: 100%;
-            & > div{
-              &.message_content{
+            & > div {
+              &.message_content {
                 background: #131418;
                 height: 100%;
-                textarea{
+                textarea {
                   max-height: 70%;
                 }
               }
-              &.send_button_position{
+              &.send_button_position {
                 position: absolute;
                 bottom: 15px;
                 right: 15px;
-                button{
+                button {
                   @include transition();
                   cursor: pointer;
                   border: none;
@@ -102,7 +130,7 @@ main{
                   font-family: $myriad_pro_b;
                   font-size: 20px;
                   line-height: 24px;
-                  &:hover{
+                  &:hover {
                     color: #ffffff;
                   }
                 }
@@ -114,3 +142,4 @@ main{
     }
   }
 }
+

@@ -3,48 +3,48 @@
 @import "mixin";
 @import "fonts";
 
-header{
+header {
   z-index: 2;
   position: relative;
   height: 70px;
-  .header{
+  .header {
     padding-top: 20px;
     @include flexbox();
     @include justify-content(space-between);
-    div{
-      &.logo{
+    div {
+      &.logo {
         padding-top: 10px;
-        a{
+        a {
           display: block;
           width: 85px;
           height: 50px;
-          img{
+          img {
             max-width: 100%;
           }
         }
       }
-      &.menu{
-        ul.menu_list{
-          li.menu_list_item{
+      &.menu {
+        ul.menu_list {
+          li.menu_list_item {
             display: inline-block;
             vertical-align: middle;
             position: relative;
             @include transition();
-            & > a{
+            & > a {
               display: block;
               padding: 10px 15px;
               font-family: $verdana_b;
               @include transition();
             }
-            ul.submenu_list{
+            ul.submenu_list {
               display: none;
               position: absolute;
               left: 0;
               top: 100%;
               width: 100%;
               z-index: 2;
-              li.submenu_list_item{
-                a{
+              li.submenu_list_item {
+                a {
                   display: block;
                   font-family: $verdana_b;
                   color: rgba(255, 255, 255, 0.3);
@@ -52,17 +52,17 @@ header{
                   font-size: 12px;
                   white-space: nowrap;
                   @include transition();
-                  &:hover{
+                  &:hover {
                     color: rgba(255, 255, 255, 0.6);
                   }
                 }
               }
             }
-            &:hover{
-              & > a{
+            &:hover {
+              & > a {
                 background: #000;
               }
-              ul.submenu_list{
+              ul.submenu_list {
                 display: block;
               }
             }
