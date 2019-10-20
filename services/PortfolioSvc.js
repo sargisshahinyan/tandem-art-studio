@@ -21,14 +21,40 @@ class PortfolioSvc {
           FROM portfolio
           JOIN portfolio_coords ON portfolio.id = portfolio_coords.id
           JOIN sizes ON sizes.id = portfolio_coords.size_id
+          WHERE portfolio_coords.type = $3
           GROUP BY portfolio.id
           LIMIT $1 OFFSET $2;`,
-          [per, page - 1],
+          [per, page - 1, PORTFOLIO],
         ],
       },
     ]);
 
     return rows;
+  }
+
+  static async getPortfolio(id) {
+    const [{ rows }] = await doAction([
+      {
+        method: 'query',
+        args: [
+          `SELECT
+            portfolio.*,
+            json_agg(
+              json_build_object(
+                'id', portfolio_images.id,
+                'src', portfolio_images.src
+              )
+            ) AS images
+          FROM portfolio
+          JOIN portfolio_images ON portfolio.id = portfolio_images.portfolio_id
+          WHERE portfolio.id = $1
+          GROUP BY portfolio.id`,
+          [id]
+        ],
+      },
+    ]);
+
+    return (rows && rows[0]) || null;
   }
 
   static async addPortfolio(data) {

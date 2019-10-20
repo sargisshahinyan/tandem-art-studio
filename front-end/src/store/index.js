@@ -4,6 +4,7 @@ import thunkMiddleware from 'redux-thunk';
 import rootReducer from '../reducers';
 
 import { getPagesInitialData } from '../data/home/initialData';
+import { getPortfoliosInitialData } from '../data/portfolio/initialData';
 
 import { setWindowWidth } from '../actions/common';
 
@@ -21,9 +22,10 @@ export function configureStore(props) {
     rootReducer,
     {
       pages: getPagesInitialData(props.pages),
-      portfolios: {
-        list: props.portfolios || [],
-      },
+      portfolios: getPortfoliosInitialData(
+        props.portfolios,
+        props.selectedPortfolio,
+      ),
     },
     applyMiddleware(thunkMiddleware),
   );
