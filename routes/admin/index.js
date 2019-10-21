@@ -1,11 +1,19 @@
 const express = require('express');
 const router = express.Router();
+const randToken = require('rand-token');
 
 const UsersSvc = require(`${APP_PATH}/services/UsersSvc`);
 const PagesSvc = require(`${APP_PATH}/services/PagesSvc`);
 const PortfolioSvc = require(`${APP_PATH}/services/PortfolioSvc`);
+const ImagesSvc = require(`${APP_PATH}/services/ImagesSvc`);
 
-const { TOKEN_EXPIRATION_TIME, TOKEN_COOKIE_KEY, NAV_TABS } = require(`${APP_PATH}/constants`);
+const {
+  TOKEN_EXPIRATION_TIME,
+  TOKEN_COOKIE_KEY,
+  NAV_TABS,
+  PORTFOLIO_IMAGES_PATH,
+  STATIC_FILES_DIRECTORY,
+} = require(`${APP_PATH}/constants`);
 
 const authCheckingMiddleware = require(`${APP_PATH}/middlewares/authCheckingMiddleware`);
 
@@ -55,11 +63,11 @@ router.use(async (req, res, next) => {
 
 router.get('/portfolio', async (req, res, next) => {
   try {
-    const [portfolio, sizes] = await Promise.all([
+    const [portfolios, sizes] = await Promise.all([
       PortfolioSvc.getPortfolios(),
       PagesSvc.getPageSizes(),
     ]);
-    res.locals.portfolio = portfolio;
+    res.locals.portfolios = portfolios;
     res.locals.sizes = sizes;
     next();
   } catch (e) {
@@ -77,7 +85,71 @@ router.post(/\/(about|team|services|clients)/, async (req, res) => {
     res.redirect(req.originalUrl);
   } catch (e) {
     console.error(e);
-    next();
+    next(e);
+  }
+});
+
+router.put('/portfolio', async (req, res) => {
+  try {
+    await PagesSvc.updatePageData(req.path, req.body);
+    res.json(req.body);
+  } catch (e) {
+    console.error(e);
+    next(e);
+  }
+});
+
+router.post('/portfolio', async (req, res, next) => {
+  try {
+    let {
+      title,
+      description,
+      presentablePicture,
+      mainPicture,
+      xCoords,
+      yCoords,
+      rowsCount,
+      columnsCount,
+      rowHeight,
+      images,
+    } = req.body;
+
+    const mainPictureName = randToken.generate(16);
+    mainPicture = await ImagesSvc.createPhoto(mainPicture, PORTFOLIO_IMAGES_PATH + mainPictureName, STATIC_FILES_DIRECTORY);
+    const presentablePictureName = randToken.generate(16);
+    presentablePicture = await ImagesSvc.createPhoto(presentablePicture, PORTFOLIO_IMAGES_PATH + presentablePictureName, STATIC_FILES_DIRECTORY);
+
+    images = Array.isArray(images) ? images : [];
+    images = await Promise.all(
+      images.map(async ({ image, xCoords, yCoords }) => {
+        const imageName = randToken.generate(16);
+
+        return {
+          xCoords,
+          yCoords,
+          src: await ImagesSvc.createPhoto(image, PORTFOLIO_IMAGES_PATH + imageName, STATIC_FILES_DIRECTORY),
+        };
+      })
+    );
+
+    await PortfolioSvc.addPortfolio({
+      title,
+      description,
+      presentablePicture,
+      mainPicture,
+      xCoords,
+      yCoords,
+      rowsCount,
+      columnsCount,
+      rowHeight,
+      images,
+    });
+    res.status(201).json({
+      message: 'Ok',
+    });
+  } catch (e) {
+    console.error(e);
+    next(e);
   }
 });
 

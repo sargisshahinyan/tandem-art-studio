@@ -6,6 +6,11 @@ export class PortfolioSvc {
 
     return data;
   }
+  static async getPortfolio(id) {
+    const { data } = await base.get(`portfolios/${id}`);
+
+    return data;
+  }
 }
 
 export default PortfolioSvc;

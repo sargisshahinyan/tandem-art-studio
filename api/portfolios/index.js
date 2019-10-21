@@ -13,4 +13,17 @@ router.get('/', async (req, res, next) => {
   }
 });
 
+router.get('/:id', async (req, res, next) => {
+  try {
+    const { id } = req.params;
+
+    const portfolios = await PortfolioSvc.getPortfolio(id);
+
+    res.json(portfolios);
+  } catch (e) {
+    console.log(e);
+    next(e);
+  }
+});
+
 module.exports = router;

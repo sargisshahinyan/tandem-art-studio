@@ -28,6 +28,7 @@ module.exports = async function doAction(data) {
     client.release();
     return res;
   } catch (e) {
+    console.log(e);
     client.release();
   }
 };
