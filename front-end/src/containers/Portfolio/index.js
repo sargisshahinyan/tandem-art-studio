@@ -9,7 +9,7 @@ export function Portfolio({ match: { path } }) {
   return (
     <article>
       <Header />
-      <div className="bg_sim_styles bg_index" />
+      <div className="bg_sim_styles bg_index" style={{ position: 'fixed' }} />
       <Switch>
         <Route exact path={`${path}`} component={MainPortfolio} />
         <Route exact path={`${path}/:id`} component={PortfolioItem} />

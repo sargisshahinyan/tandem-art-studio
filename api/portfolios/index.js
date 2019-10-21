@@ -21,6 +21,7 @@ router.get('/:id', async (req, res, next) => {
 
     res.json(portfolios);
   } catch (e) {
+    console.log(e);
     next(e);
   }
 });

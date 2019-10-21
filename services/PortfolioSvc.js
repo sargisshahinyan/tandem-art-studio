@@ -33,7 +33,7 @@ class PortfolioSvc {
   }
 
   static async getPortfolio(id) {
-    const [{ rows }] = await doAction([
+    const [{ rows: [portfolio] }] = await doAction([
       {
         method: 'query',
         args: [
@@ -54,7 +54,47 @@ class PortfolioSvc {
       },
     ]);
 
-    return (rows && rows[0]) || null;
+    if (!portfolio) return null;
+
+    if (portfolio.images.length) {
+      portfolio.images.forEach((image) => {
+        image.coords = [];
+      });
+
+      const [{ rows: coords }] = await doAction([
+        {
+          method: 'query',
+          args: [
+            `SELECT
+              portfolio_images.id,
+              json_agg(
+                json_build_object(
+                  'name', sizes.name,
+                  'starts_from', sizes.starts_from,
+                  'x_coords', portfolio_coords.x_coords,
+                  'y_coords', portfolio_coords.y_coords
+                )
+              ) AS coords
+            FROM portfolio_images
+            JOIN portfolio_coords ON portfolio_images.id = portfolio_coords.id
+            JOIN sizes ON sizes.id = portfolio_coords.size_id
+            WHERE portfolio_images.id = ANY ($1::int[])
+            AND portfolio_coords.type = $2
+            GROUP BY portfolio_images.id`,
+            [portfolio.images.map(({ id }) => id), PORTFOLIO_IMAGES]
+          ],
+        },
+      ]);
+
+      if (Array.isArray(coords)) {
+        coords.forEach(({ id, coords }) => {
+          const image = portfolio.images.find(({ id: imageId }) => imageId === id);
+          if (image) image.coords = coords;
+        });
+      }
+    }
+
+    return portfolio;
   }
 
   static async addPortfolio(data) {

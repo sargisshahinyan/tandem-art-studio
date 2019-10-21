@@ -281,7 +281,7 @@
 
       body.images = images;
 
-      await axios.post(baseUrl + '/portfolio', body);
+      await axios.post(baseUrl + '/portfolio', body, window.location.reload.bind(window.location));
     });
 
     function _fillGlobalStyles() {
