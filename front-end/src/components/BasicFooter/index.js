@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import './styles.scss';
 
 export const BasicFooter = memo(
-  function BasicFooter({ goToPage, active }) {
+  function BasicFooter({ goToPage, active, opened }) {
     function goToPageWrapper(e) {
       e.preventDefault();
 
@@ -15,7 +15,7 @@ export const BasicFooter = memo(
     }
 
     return (
-      <footer className="basic_footer">
+      <footer className={"basic_footer " + (opened ? 'mobileBasicFooter' : '')}>
         <div className="wrapper">
           <Animated
             animationIn="fadeIn"

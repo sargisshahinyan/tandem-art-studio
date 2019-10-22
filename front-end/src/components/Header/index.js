@@ -6,7 +6,8 @@ import { Link } from 'react-router-dom';
 import './styles.scss';
 
 export const Header = memo(
-  function Header({ goToPage, scrolling }) {
+  function Header({ goToPage, scrolling, opened }) {
+    const mobileHeader = opened ? 'mobileHeader' : '';
     const servicesTabs = [
       {
         content: 'About us',
@@ -38,7 +39,7 @@ export const Header = memo(
     return (
       <header>
         <div className="wrapper">
-          <div className="header">
+          <div className={"header " + mobileHeader}>
             <Animated
               animationIn="fadeIn"
               animationInDelay={300}

@@ -208,6 +208,10 @@ main{
   padding: 0!important;
 }
 
+.hidden {
+  display: none!important;
+}
+
 @keyframes MoveUpDown {
   0%, 100% {
     background-position: top;

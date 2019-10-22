@@ -1,4 +1,5 @@
-import React, { memo } from 'react';
+import React, { memo, useState } from 'react';
+import { connect } from "react-redux";
 
 import Header from '../Header';
 import BasicFooter from '../BasicFooter';
@@ -9,11 +10,17 @@ import { convertText } from '../../utils';
 
 import './styles.scss';
 
+
+
 export const About = memo(
-  function About({ description }) {
+  function About({ description, width }) {
+    const [opened, setMode] = useState(false);
+    const wrapperHidden = (opened || width > 767) ? 'hidden' : '';
+    const arrowHidden = (opened && width <= 767) ? '' : 'hidden';
+    const bigContent = (opened && width <= 767) ? 'opened' : '';
     return (
       <article className='bg_about'>
-        <Header />
+        <Header opened={opened}/>
         <main className='about_content centering_content'>
           <div className='title'>
             <div className='wrapper'>
@@ -22,30 +29,35 @@ export const About = memo(
           </div>
           <div className='text_content with_bg'>
             <div className='wrapper'>
-              <div className='content'>
+              <div className={'content ' + bigContent}
+                   onScroll={e => {e.stopPropagation()}}
+                   onWheel={e => {e.stopPropagation()}}
+                   onTouchStart={e => {e.preventDefault()}}
+                   onTouchMove={e => {e.stopPropagation()}}
+              >
                 <p>{convertText(description)}</p>
-                <div className='hidden textWrapper' onClick={openText}>
+                <div className={wrapperHidden + ' textWrapper'} onClick={() => setMode(!opened)}>
                   <span/>
                   <span/>
                   <span/>
                 </div>
-                <div className='hidden'>
-                  <img src="/" alt=""/>
-                </div>
+              </div>
+              <div className={arrowHidden + ' hiddenArrow'} onClick={() => setMode(!opened)}>
+                <img src="/images/icons/arrow-left.svg" alt=""/>
               </div>
             </div>
           </div>
-          <Signature />
+          <Signature/>
         </main>
-        <BasicFooter />
-        <HiddenFooter />
+        <BasicFooter opened={opened}/>
+        <HiddenFooter/>
       </article>
     );
   }
 );
 
-const openText = () => {
+const mapToStateProps = ({ common: {width} }) => ({
+  width
+});
 
-}
-
-export default About;
+export default connect(mapToStateProps)(About);

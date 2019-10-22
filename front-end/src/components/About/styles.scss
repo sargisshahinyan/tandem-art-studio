@@ -18,13 +18,40 @@ $myWhite: rgba(255, 255, 255, .6);
         @include align-items(center);
 
         .content {
+          max-height: 270px;
+          overflow-y: auto;
+          &::-webkit-scrollbar {
+            width: 5px;
+          }
+
+          /* Track */
+          &::-webkit-scrollbar-track {
+            box-shadow: inset 0 0 5px grey;
+            border-radius: 10px;
+          }
+
+          /* Handle */
+          &::-webkit-scrollbar-thumb {
+            background: silver;
+            border-radius: 10px;
+          }
+
+          /* Handle on hover */
+          &::-webkit-scrollbar-thumb:hover {
+            //background: ;
+            cursor: pointer;
+          }
           p {
             margin-top: 0;
             font-size: 140%;
+            transition: all .6s linear;
             @media(max-width: 1537px) and (min-width: 768px) {
               font-size: 120%;
             }
           }
+        }
+        & .hiddenArrow {
+          text-align: center;
         }
         &.with_bg {
           padding: 60px 30px;
@@ -51,26 +78,36 @@ $myWhite: rgba(255, 255, 255, .6);
           @include justify-content(center);
           @include align-items(center);
 
+          & > div:first-of-type {
+            & .logo {
+              padding: 0;
+              & a {
+                width: auto;
+                height: auto;
+                & img {
+                  width: 250px;
+                  height: auto;
+                }
+              }
+            }
+          }
 
-
+          &.mobileHeader {
+            height: 15vh;
             & > div:first-of-type {
               & .logo {
-                padding: 0;
                 & a {
-                  width: auto;
-                  height: auto;
                   & img {
-                    width: 250px;
-                    height: auto;
+                    width: 100px;
                   }
                 }
               }
             }
+          }
 
-            & > div:last-of-type {
-              display: none;
-            }
-
+          & > div:last-of-type {
+            display: none;
+          }
         }
       }
     }
@@ -85,27 +122,43 @@ $myWhite: rgba(255, 255, 255, .6);
         margin-top: 0;
         padding: 0 !important;
         //padding-top: 10px;
-        & p {
-          font-size: 14px !important;
-          color: $myWhite;
-          max-height: 224px;
-          overflow: hidden;
-          & + .textWrapper {
-            @include flexbox();
-            @include flex-direction(row);
-            @include justify-content(center);
-            margin-top: 10px;
-            @media (max-height: 680px) {
-              margin: 0;
+        & .content {
+          transition: all .3s linear;
+          &.opened {
+            max-height: calc(100vh - 300px);
+            & p {
+              max-height: 100%;
             }
+          }
+          & p {
+            font-size: 14px !important;
+            color: $myWhite;
+            max-height: 224px;
+            overflow: hidden;
+            & + .textWrapper {
+              @include flexbox();
+              @include flex-direction(row);
+              @include justify-content(center);
+              margin-top: 10px;
+              @media (max-height: 680px) {
+                margin: 0;
+              }
 
-            & span {
-              width: 10px;
-              height: 10px;
-              margin-right: 5px;
-              background: $myWhite;
-              border-radius: 50px;
+              & span {
+                width: 10px;
+                height: 10px;
+                margin-right: 5px;
+                background: $myWhite;
+                border-radius: 50px;
+              }
             }
+          }
+        }
+        & .hiddenArrow {
+          & img {
+            width: 32px;
+            height: auto;
+            transform: rotate(90deg);
           }
         }
       }
@@ -117,7 +170,11 @@ $myWhite: rgba(255, 255, 255, .6);
     & .basic_footer {
       width: 100%;
       @media (max-height: 680px) {
-        margin: 10px 0 ;
+        margin: 10px 0;
+      }
+
+      &.mobileBasicFooter {
+        display: none;
       }
 
       & .socialize {
