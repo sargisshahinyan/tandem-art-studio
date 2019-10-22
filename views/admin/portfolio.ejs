@@ -211,9 +211,14 @@
     <hr /><hr />
     <section>
        <h3>Current list</h3>
-       <ul class="list-group">
-           <% portfolios.forEach(({ title }) => { %>
-               <li class="list-group-item"><%= title %></li>
+       <ul class="list-group" id="portfolios-list">
+           <% portfolios.forEach(({ id, title }) => { %>
+               <li class="portfolio-item list-group-item d-flex justify-content-between align-items-center" data-id="<%= id %>">
+                   <%= title %>
+                   <span class="badge badge-danger badge-pill delete">
+                       <i class="fas fa-times delete"></i>
+                   </span>
+               </li>
            <% }) %>
        </ul>
     </section>
@@ -281,7 +286,15 @@
 
       body.images = images;
 
-      await axios.post(baseUrl + '/portfolio', body, window.location.reload.bind(window.location));
+      await axios.post(baseUrl + '/portfolio', body).then(window.location.reload.bind(window.location));
+    });
+
+    document.getElementById('portfolios-list').addEventListener('click', function (e) {
+      if (!e.target.classList.contains('delete')) return;
+      if (!confirm('Are you sure you want to remove this item?')) return;
+
+      var id = e.target.closest('.portfolio-item').dataset.id;
+      axios.delete(baseUrl + '/portfolio/' + id).then(window.location.reload.bind(window.location));
     });
 
     function _fillGlobalStyles() {

@@ -1,6 +1,9 @@
+const path = require('path');
 const doAction = require('./db');
+const ImagesSvc = require('./ImagesSvc');
 
 const { PORTFOLIO, PORTFOLIO_IMAGES } = require(`${APP_PATH}/constants/portfolioCoordTypes`);
+const { STATIC_FILES_DIRECTORY } = require(`${APP_PATH}/constants`);
 
 class PortfolioSvc {
   static async getPortfolios({ page = 1, per = 200 } = {}) {
@@ -161,6 +164,76 @@ class PortfolioSvc {
         )
       })(),
     ]);
+  }
+
+  static async deletePortfolio(id) {
+    const [{ rows: deletedImages }, { rows: [deletedPortfolio] }] = await doAction([
+      {
+        method: 'query',
+        args: [
+          `DELETE FROM portfolio_images WHERE portfolio_id = $1 RETURNING *`,
+          [id],
+        ],
+      },
+      {
+        method: 'query',
+        args: [
+          `DELETE FROM portfolio WHERE id = $1 RETURNING *`,
+          [id],
+        ],
+      },
+      {
+        method: 'query',
+        args: [
+          `DELETE FROM portfolio_coords WHERE id = $1 AND type = $2`,
+          [id, PORTFOLIO],
+        ],
+      },
+    ]);
+
+    if (deletedPortfolio) {
+      const {
+        main_picture: mainPicture,
+        presentable_picture: presentablePicture,
+      } = deletedPortfolio;
+
+      ImagesSvc.deletePhoto(
+        path.join(
+          APP_PATH,
+          path.resolve(STATIC_FILES_DIRECTORY),
+          path.resolve(mainPicture),
+        ),
+      );
+      ImagesSvc.deletePhoto(
+        path.join(
+          APP_PATH,
+          path.resolve(STATIC_FILES_DIRECTORY),
+          path.resolve(presentablePicture),
+        ),
+      );
+    }
+
+    if (Array.isArray(deletedImages) && deletedImages.length) {
+      const imageIds = deletedImages.map(({ id, src }) => {
+        ImagesSvc.deletePhoto(
+          path.join(
+            APP_PATH,
+            path.resolve(STATIC_FILES_DIRECTORY),
+            path.resolve(src),
+          ),
+        );
+        return id;
+      });
+      await doAction([
+        {
+          method: 'query',
+          args: [
+            `DELETE FROM portfolio_coords WHERE id = ANY($1::int[]) AND type = $2`,
+            [imageIds, PORTFOLIO_IMAGES],
+          ],
+        },
+      ])
+    }
   }
 }
 

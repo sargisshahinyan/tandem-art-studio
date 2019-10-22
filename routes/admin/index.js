@@ -153,6 +153,19 @@ router.post('/portfolio', async (req, res, next) => {
   }
 });
 
+router.delete('/portfolio/:id', async (req, res, next) => {
+  try {
+    const { id } = req.params;
+
+    await PortfolioSvc.deletePortfolio(id);
+
+    res.status(204).send();
+  } catch (e) {
+    console.log(e);
+    next(e);
+  }
+});
+
 router.get('*', (req, res) => {
   res.redirect(`${req.baseUrl}/login`);
 });
