@@ -18,6 +18,12 @@ export const About = memo(
     const wrapperHidden = (opened || width > 767) ? 'hidden' : '';
     const arrowHidden = (opened && width <= 767) ? '' : 'hidden';
     const bigContent = (opened && width <= 767) ? 'opened' : '';
+    const eventBinder = {
+      onScroll: e => {e.stopPropagation()},
+      onWheel: e => {e.stopPropagation()},
+      onTouchStart:e => {e.preventDefault()},
+      onTouchMove:e => {e.stopPropagation()},
+    };
     return (
       <article className='bg_about'>
         <Header opened={opened}/>
@@ -30,10 +36,7 @@ export const About = memo(
           <div className='text_content with_bg'>
             <div className='wrapper'>
               <div className={'content ' + bigContent}
-                   onScroll={e => {e.stopPropagation()}}
-                   onWheel={e => {e.stopPropagation()}}
-                   onTouchStart={e => {e.preventDefault()}}
-                   onTouchMove={e => {e.stopPropagation()}}
+                   { ...eventBinder }
               >
                 <p>{convertText(description)}</p>
                 <div className={wrapperHidden + ' textWrapper'} onClick={() => setMode(!opened)}>

@@ -1,137 +1,151 @@
 @import "mixin";
 @import "fonts";
 
-main {
-  &.contact_us {
-    flex-grow: 3;
-    @include flexbox();
-    @include flex-direction(column);
-    @include align-self(center);
-    .form_content {
-      flex-grow: 1;
-      margin-top: 40px;
-      margin-bottom: 15px;
-      position: relative;
-      background: url("/images/backgrounds/bg_middle.png") no-repeat center center;
-      -webkit-background-size: cover;
-      background-size: cover;
-      min-height: 200px;
-      -webkit-box-sizing: border-box;
-      -moz-box-sizing: border-box;
-      box-sizing: border-box;
-      padding: 60px;
-      @media(max-width: 1537px) {
-        padding: 40px 60px;
-      }
-      .wrapper {
-        &, .inputs > div, .message > div {
-          @include flexbox();
-          @include justify-content(space-between);
+.bg_contact_us {
+  & main {
+    &.contact_us {
+      flex-grow: 3;
+      @include flexbox();
+      @include flex-direction(column);
+      @include align-self(center);
+      .form_content {
+        flex-grow: 1;
+        margin-top: 40px;
+        margin-bottom: 15px;
+        position: relative;
+        background: url("/images/backgrounds/bg_middle.png") no-repeat center center;
+        -webkit-background-size: cover;
+        background-size: cover;
+        min-height: 200px;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        padding: 60px;
+        @media(max-width: 1537px) {
+          padding: 40px 60px;
         }
-        @include flex-wrap(wrap);
-        height: 100%;
-        .inputs,
-        .message {
-          & > div {
-            height: 100%;
-            @include flex-direction(column);
-            & input {
-              height: calc(25% - 30px);
+        @include flexbox();
+        @include justify-content(space-between);
+        & .signature {
+          display: none;
+        }
+        & > .wrapper {
+          width: 100%;
+          @include flexbox();
+        }
+      }
+      @include flex-wrap(wrap);
+      & .wrapper {
+        &, .inputs > div, .message > div {
+          height: 100%;
+          .inputs,
+          .message {
+            & > div {
+              height: 100%;
+              @include flex-direction(column);
+              & input {
+                height: calc(25% - 30px);
+                font-size: 140%;
+                @media (max-width: 1537px) {
+                  height: calc(25% - 15px);
+                  font-size: 100%;
+                }
+              }
+            }
+            input {
+              height: 60px;
+              line-height: 60px;
+            }
+            textarea {
               font-size: 140%;
+              height: 100%;
+              resize: none;
               @media (max-width: 1537px) {
-                height: calc(25% - 15px);
                 font-size: 100%;
               }
             }
-          }
-          input {
-            height: 60px;
-            line-height: 60px;
-          }
-          textarea {
-            font-size: 140%;
-            height: 100%;
-            resize: none;
-            @media (max-width: 1537px) {
-              font-size: 100%;
-            }
-          }
-          input,
-          textarea {
-            background: #131418;
-            color: #ffffff;
-            width: 100%;
-            max-height: 100%;
-            padding: 15px;
-            font-family: $myriad_pro_r;
-            ::-webkit-input-placeholder {
-              color: rgba(255, 255, 255, 0.4);
-            }
-            ::-moz-placeholder {
-              color: rgba(255, 255, 255, 0.4);
-            }
-            :-ms-input-placeholder {
-              color: rgba(255, 255, 255, 0.4);
-            }
-            :-moz-placeholder {
-              color: rgba(255, 255, 255, 0.4);
-            }
-            border: none;
-            outline: none;
-          }
-        }
-        .inputs {
-          flex: 1;
-          -webkit-box-sizing: border-box;
-          -moz-box-sizing: border-box;
-          box-sizing: border-box;
-          padding-right: 15px;
-          .input_items {
-            & > div {
-              &:not(:first-child){
-                margin-top: 15px;
+            input,
+            textarea {
+              background: #131418;
+              color: #ffffff;
+              width: 100%;
+              max-height: 100%;
+              padding: 15px;
+              font-family: $myriad_pro_r;
+              ::-webkit-input-placeholder {
+                color: rgba(255, 255, 255, 0.4);
               }
+              ::-moz-placeholder {
+                color: rgba(255, 255, 255, 0.4);
+              }
+              :-ms-input-placeholder {
+                color: rgba(255, 255, 255, 0.4);
+              }
+              :-moz-placeholder {
+                color: rgba(255, 255, 255, 0.4);
+              }
+              border: none;
+              outline: none;
             }
           }
-        }
-        .message {
-          flex: 1.2;
-          -webkit-box-sizing: border-box;
-          -moz-box-sizing: border-box;
-          box-sizing: border-box;
-          padding-left: 15px;
-          position: relative;
-          & > div {
-            height: 100%;
-            background: #131418;
-          }
-          .message_items {
-            height: 100%;
+          .inputs {
+            flex: 1;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+            padding-right: 15px;
             & > div {
-              &.message_content {
-                background: #131418;
-                height: 100%;
-                textarea {
-                  max-height: 70%;
+              @include flexbox();
+              @include flex-direction(column);
+              @include justify-content(space-between);
+            }
+            .input_items {
+              & > div {
+                &:not(:first-child) {
+                  margin-top: 15px;
                 }
               }
-              &.send_button_position {
-                position: absolute;
-                bottom: 15px;
-                right: 15px;
-                button {
-                  @include transition();
-                  cursor: pointer;
-                  border: none;
-                  outline: none;
-                  background: #004246;
-                  color: rgba(255, 255, 255, 0.7);
-                  padding: 6px 20px;
-                  font-family: $myriad_pro_b;
-                  font-size: 20px;
-                  line-height: 24px;
-                  &:hover {
-                    color: #ffffff;
+            }
+          }
+          .message {
+            flex: 1.2;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+            padding-left: 15px;
+            position: relative;
+            & > div {
+              height: 100%;
+              background: #131418;
+            }
+            .message_items {
+              height: 100%;
+              & > div {
+                &.message_content {
+                  background: #131418;
+                  height: 100%;
+                  textarea {
+                    max-height: 70%;
+                  }
+                }
+                &.send_button_position {
+                  position: absolute;
+                  bottom: 15px;
+                  right: 15px;
+                  button {
+                    @include transition();
+                    cursor: pointer;
+                    border: none;
+                    outline: none;
+                    background: #004246;
+                    color: rgba(255, 255, 255, 0.7);
+                    padding: 6px 20px;
+                    font-family: $myriad_pro_b;
+                    font-size: 20px;
+                    line-height: 24px;
+                    &:hover {
+                      color: #ffffff;
+                    }
                   }
                 }
               }
@@ -141,5 +155,103 @@ main {
       }
     }
   }
+  & .basic_footer {
+    display: none;
+  }
 }
 
+@media (max-width: 767px) {
+  .bg_contact_us {
+    & header {
+      display: none !important;
+    }
+
+    & main {
+      & h1 {
+        font-size: 26px;
+        padding: 20px 0;
+      }
+      & .form_content {
+        margin-top: 0 !important;
+        margin-bottom: 0!important;
+        padding: 20px!important;
+
+        @include flexbox();
+        @include flex-direction(column);
+        @include align-items(center);
+        & .signature {
+          display: block!important;
+          flex-grow: 1;
+          width: 80%;
+        }
+        & > .wrapper {
+          margin: 0;
+          padding: 0;
+          width: 85%!important;
+
+          @include flexbox();
+          @include flex-direction(column);
+          @include align-items(center);
+
+          & > div {
+            padding: 0!important;
+            width: 100%;
+            &.inputs {
+              & > div {
+                @include flexbox();
+                @include flex-direction(column);
+              }
+              & input {
+                flex-grow: 1;
+              }
+            }
+            &.message {
+              margin-bottom: 20px!important;
+            }
+
+          }
+          & input, & textarea {
+            width: 100%;
+            margin-bottom: 10px;
+          }
+          & textarea {
+            height: 80%;
+          }
+        }
+
+
+      }
+    }
+    & .large_footer {
+      display: none;
+    }
+    & .basic_footer {
+      width: 100%;
+      background: #202027;
+      margin-bottom: 0!important;
+      padding: 20px 0;
+      display: block;
+
+      & .socialize {
+        width: 100%;
+        & ul {
+          @include flexbox();
+          @include flex-direction(row);
+          @include justify-content(center);
+
+          & li {
+            margin-right: 15px;
+
+            &:last-of-type {
+              margin-right: 0;
+            }
+
+            & img {
+              height: 32px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
