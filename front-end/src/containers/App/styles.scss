@@ -196,20 +196,16 @@ main{
 }
 
 .centering_content{
-  //position: absolute;
-  //left: 0;
-  //top: 50%;
-  //@include prefix-name(transform, translate(0, -50%));
   width: 100%;
   height: auto;
 }
 
 .noPadding {
-  padding: 0!important;
+  padding: 0 !important;
 }
 
 .hidden {
-  display: none!important;
+  display: none !important;
 }
 
 @keyframes MoveUpDown {

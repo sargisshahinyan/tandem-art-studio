@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Animated } from 'react-animated-css';
 import { connect } from "react-redux";
 
@@ -13,12 +13,9 @@ import './styles.scss';
 
 export function Services({ description, active, width }) {
   const [selected, setSelected] = useState(1);
-  const [opened, setOpened] = useState(true);
   const [closed, setClosed] = useState(width <= 767);
   const [global, setGlobal] = useState(false);
 
-
-  useEffect(() => {});
   const services = [
     {
     icon: '/images/services/strategy_planning.svg',
@@ -86,7 +83,6 @@ export function Services({ description, active, width }) {
 
   return (
     <article className="bg_services">
-      {/*<div className="bg_sim_styles bg_services" />*/}
       <Header active={active} />
       <main className="our_services centering_content">
         <div className="title">
@@ -139,7 +135,7 @@ export function Services({ description, active, width }) {
             </div>
           </div>
         </div>
-        <div className={"text_content " + (opened && !global ? '' : 'closed')}>
+        <div className={"text_content " + (global ? 'closed' : '')}>
           <div className="wrapper">
             <div className="content">
               <p>{convertText(description)}</p>
@@ -153,13 +149,8 @@ export function Services({ description, active, width }) {
   );
 }
 
-const SelectService = (service, i) => {
-
-};
-
-
-const mapToStateProps = ({ common: {width} }) => ({
-  width
+const mapToStateProps = ({ common: { width } }) => ({
+  width,
 });
 
 export default connect(mapToStateProps)(Services);

@@ -26,7 +26,7 @@ export const About = memo(
     };
     return (
       <article className='bg_about'>
-        <Header opened={opened}/>
+        <Header opened={opened} />
         <main className='about_content centering_content'>
           <div className='title'>
             <div className='wrapper'>
@@ -35,8 +35,9 @@ export const About = memo(
           </div>
           <div className='text_content with_bg'>
             <div className='wrapper'>
-              <div className={'content ' + bigContent}
-                   { ...eventBinder }
+              <div
+                className={'content ' + bigContent}
+                { ...eventBinder }
               >
                 <p>{convertText(description)}</p>
                 <div className={wrapperHidden + ' textWrapper'} onClick={() => setMode(!opened)}>
@@ -50,17 +51,17 @@ export const About = memo(
               </div>
             </div>
           </div>
-          <Signature/>
+          <Signature />
         </main>
-        <BasicFooter opened={opened}/>
-        <HiddenFooter/>
+        <BasicFooter opened={opened} />
+        <HiddenFooter />
       </article>
     );
   }
 );
 
 const mapToStateProps = ({ common: {width} }) => ({
-  width
+  width,
 });
 
 export default connect(mapToStateProps)(About);

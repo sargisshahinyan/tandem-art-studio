@@ -1,13 +1,13 @@
 import React from 'react';
 
-import UglyFooter from '../UglyFooter'
+import UglyFooter from '../UglyFooter';
 import Header from '../Header';
 
 import './styles.scss';
 
 export function ContactsDetailed() {
   return (
-    <article className='bg_location'>
+    <article className="bg_location">
       <Header/>
       <main>
         <iframe
@@ -17,7 +17,7 @@ export function ContactsDetailed() {
           allowFullScreen=""
         />
       </main>
-      <UglyFooter/>
+      <UglyFooter />
     </article>
   );
 }

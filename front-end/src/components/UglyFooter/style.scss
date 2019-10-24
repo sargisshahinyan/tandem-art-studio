@@ -5,7 +5,7 @@ article.bg_location {
   & > footer {
     @include justify-content(space-around);
     @include align-items(center);
-    @incluude flex-wrap();
+    @include flex-wrap();
 
     &, & > #social {
       @include flexbox();
@@ -27,6 +27,5 @@ article.bg_location {
         }
       }
     }
-
   }
 }
