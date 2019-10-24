@@ -1,23 +1,38 @@
 <template id="img-coords">
     <div class="col-6 image-grid-data">
         <div class="form-group">
-            <label>X Coords</label>
-            <input
-                name="xCoords"
-                class="form-control xCoords"
-                placeholder="X Coords"
-                required
-            />
+            <label>Size</label>
+            <select
+                name="size"
+                class="sizes form-control"
+            >
+                <% sizes.forEach(({ id, name }) => { %>
+                    <option value="<%= id %>"><%= name %></option>
+                <% }) %>
+            </select>
         </div>
-        <div class="form-group">
-            <label>Y Coords</label>
-            <input
-                name="yCoords"
-                class="form-control yCoords"
-                placeholder="Y Coords"
-                required
-            />
-        </div>
+        <% sizes.forEach(({ id }, i) => { %>
+            <div class="coordData" data-id="<%= id %>" style="<%= i !== 0 ? 'display: none' : '' %>">
+                <div class="form-group">
+                    <label>X Coords</label>
+                    <input
+                        name="xCoords"
+                        class="form-control xCoords"
+                        placeholder="X Coords"
+                        required
+                    />
+                </div>
+                <div class="form-group">
+                    <label>Y Coords</label>
+                    <input
+                        name="yCoords"
+                        class="form-control yCoords"
+                        placeholder="Y Coords"
+                        required
+                    />
+                </div>
+            </div>
+        <% }) %>
     </div>
 </template>
 <article>
@@ -26,7 +41,7 @@
         <div class="row">
             <div class="col-6">
                 <div class="form-group">
-                    <label for="sizes">Sizes</label>
+                    <label for="sizes">Size</label>
                     <select
                         id="sizes"
                         name="sizes"
@@ -227,83 +242,7 @@
 <script src="/js/fileHelpers.js"></script>
 <script src="/js/imageAutopresenter.js"></script>
 <script>
-  (function () {
-    var globalData = <%- JSON.stringify(page) %>
-    var baseUrl = '<%= baseUrl %>';
-
-    var rowsCount = document.getElementById('rowsCountGlobal');
-    var colsCount = document.getElementById('colsCountGlobal');
-    var rowHeightGlobal = document.getElementById('rowHeightGlobal');
-
-    var sizes = document.getElementById('sizes');
-
-    document.querySelector('form').addEventListener('submit', function (e) {
-      e.preventDefault();
-    });
-
-    sizes.addEventListener('change', _fillGlobalStyles);
-    _fillGlobalStyles();
-
-    document.getElementById('update').addEventListener('click', function () {
-      var body = Object.assign({}, globalData);
-
-      body[sizes.value] = {
-        rows_count: rowsCount.value,
-        columns_count: colsCount.value,
-        row_height: rowHeightGlobal.value + 'px'
-      }
-
-      axios.put(baseUrl + '/portfolio', body).then(function (res) {
-        globalData = res.data;
-      });
-    });
-
-    document.querySelector('form').addEventListener('submit', async function (e) {
-      e.preventDefault();
-
-      const body = {
-        title: document.getElementById('title').value,
-        description: document.getElementById('description').value,
-        presentablePicture: await convertFileToImage(document.getElementById('presentablePicture').files[0]),
-        mainPicture: await convertFileToImage(document.getElementById('mainPicture').files[0]),
-        xCoords: document.getElementById('xCoords').value,
-        yCoords: document.getElementById('yCoords').value,
-        rowsCount: document.getElementById('rowsCount').value,
-        columnsCount: document.getElementById('colsCount').value,
-        rowHeight: document.getElementById('rowHeight').value + 'px',
-      };
-
-      const images = await Promise.all(
-        Array.from(document.getElementById('images').files).map(async file => ({
-          image: await convertFileToImage(file),
-        }))
-      );
-
-      Array.from(document.getElementsByClassName('image-grid-data')).forEach((el, i) => {
-        images[i].xCoords = el.querySelector('.xCoords').value;
-        images[i].yCoords = el.querySelector('.yCoords').value;
-      });
-
-      body.images = images;
-
-      await axios.post(baseUrl + '/portfolio', body).then(window.location.reload.bind(window.location));
-    });
-
-    document.getElementById('portfolios-list').addEventListener('click', function (e) {
-      if (!e.target.classList.contains('delete')) return;
-      if (!confirm('Are you sure you want to remove this item?')) return;
-
-      var id = e.target.closest('.portfolio-item').dataset.id;
-      axios.delete(baseUrl + '/portfolio/' + id).then(window.location.reload.bind(window.location));
-    });
-
-    function _fillGlobalStyles() {
-      var size = sizes.value;
-      var selectedData = globalData[size];
-
-      rowsCount.value = selectedData.rows_count;
-      colsCount.value = selectedData.columns_count;
-      rowHeightGlobal.value = parseInt(selectedData.row_height);
-    }
-  })();
+  window.globalData = <%- JSON.stringify(page) %>;
+  window.baseUrl = '<%= baseUrl %>';
 </script>
+<script src="/js/portfolio.js"></script>

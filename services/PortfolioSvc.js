@@ -149,18 +149,16 @@ class PortfolioSvc {
         res.forEach(({ rows: [{ id }] }, i) => images[i].id = id);
 
         return await doAction(
-          Array(3)
-            .fill(null)
-            .reduce((queries, v, i) => [
-              ...queries,
-              ...images.map(({ id, xCoords, yCoords }) => ({
-                method: 'query',
-                args: [
-                  `INSERT INTO portfolio_coords (id, size_id, type, x_coords, y_coords) VALUES ($1, $2, $3, $4, $5)`,
-                  [id, i + 1, PORTFOLIO_IMAGES, xCoords, yCoords],
-                ],
-              }))
-            ], [])
+          images.reduce((queries, { id, coords }) => [
+            ...queries,
+            ...coords.map(({ size, xCoords, yCoords }) => ({
+              method: 'query',
+              args: [
+                `INSERT INTO portfolio_coords (id, size_id, type, x_coords, y_coords) VALUES ($1, $2, $3, $4, $5)`,
+                [id, size, PORTFOLIO_IMAGES, xCoords, yCoords],
+              ],
+            }))
+          ], [])
         )
       })(),
     ]);

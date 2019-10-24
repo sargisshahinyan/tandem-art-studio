@@ -36,13 +36,25 @@ Array.prototype.slice.call(document.querySelectorAll('input[type="file"][accept=
 
           if (element.classList.contains('portfolio-images')) {
             var coordsTemplate = document.getElementById('img-coords');
+            var coordsWrapper = coordsTemplate.content.cloneNode(true);
 
-            imageItem.appendChild(coordsTemplate.content.cloneNode(true));
+            var coordData = coordsWrapper.querySelectorAll('.coordData');
+            coordsWrapper.querySelector('.sizes').addEventListener('change', function (e) {
+              Array.from(coordData).forEach(function (el) {
+                if (el.dataset.id === e.target.value) {
+                  el.style.removeProperty('display');
+                } else {
+                  el.style.setProperty('display', 'none');
+                }
+              });
+            });
+
+            imageItem.appendChild(coordsWrapper);
           }
 
           imgContainer.appendChild(imageItem);
         });
       })
-      .catch(new Function);
+      .catch(console.log.bind(console));
   });
 });

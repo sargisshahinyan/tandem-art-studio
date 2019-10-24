@@ -121,12 +121,11 @@ router.post('/portfolio', async (req, res, next) => {
 
     images = Array.isArray(images) ? images : [];
     images = await Promise.all(
-      images.map(async ({ image, xCoords, yCoords }) => {
+      images.map(async ({ image, coords }) => {
         const imageName = randToken.generate(16);
 
         return {
-          xCoords,
-          yCoords,
+          coords,
           src: await ImagesSvc.createPhoto(image, PORTFOLIO_IMAGES_PATH + imageName, STATIC_FILES_DIRECTORY),
         };
       })
