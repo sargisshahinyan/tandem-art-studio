@@ -209,8 +209,4 @@ async function addPortfolio(req, id = null) {
   }, id);
 }
 
-async function deletePortfolio(req, res, next) {
-
-}
-
 module.exports = router;
