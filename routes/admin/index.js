@@ -61,6 +61,16 @@ router.use(async (req, res, next) => {
   next();
 });
 
+router.use('/logout', async (req, res) => {
+  const { token } = req.cookies;
+  const result = await UsersSvc.validateAdmin(token);
+
+  const { iss: id, access_token, refresh_token } = result;
+  await UsersSvc.removeTokens(id, access_token, refresh_token);
+  res.clearCookie(TOKEN_COOKIE_KEY);
+  res.redirect(`${req.baseUrl}/login`);
+});
+
 router.get('/portfolio', async (req, res, next) => {
   try {
     const [portfolios, sizes] = await Promise.all([
@@ -68,6 +78,21 @@ router.get('/portfolio', async (req, res, next) => {
       PagesSvc.getPageSizes(),
     ]);
     res.locals.portfolios = portfolios;
+    res.locals.sizes = sizes;
+    next();
+  } catch (e) {
+    next(e);
+  }
+});
+
+router.get('/portfolio/:id', async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const [portfolio, sizes] = await Promise.all([
+      PortfolioSvc.getPortfolio(id),
+      PagesSvc.getPageSizes(),
+    ]);
+    res.locals.portfolio = portfolio;
     res.locals.sizes = sizes;
     next();
   } catch (e) {
@@ -101,49 +126,7 @@ router.put('/portfolio', async (req, res) => {
 
 router.post('/portfolio', async (req, res, next) => {
   try {
-    let {
-      title,
-      description,
-      presentablePicture,
-      mainPicture,
-      xCoords,
-      yCoords,
-      rowsCount,
-      columnsCount,
-      rowHeight,
-      images,
-    } = req.body;
-
-    const mainPictureName = randToken.generate(16);
-    mainPicture = await ImagesSvc.createPhoto(mainPicture, PORTFOLIO_IMAGES_PATH + mainPictureName, STATIC_FILES_DIRECTORY);
-    const presentablePictureName = randToken.generate(16);
-    presentablePicture = await ImagesSvc.createPhoto(presentablePicture, PORTFOLIO_IMAGES_PATH + presentablePictureName, STATIC_FILES_DIRECTORY);
-
-    images = Array.isArray(images) ? images : [];
-    images = await Promise.all(
-      images.map(async ({ image, xCoords, yCoords }) => {
-        const imageName = randToken.generate(16);
-
-        return {
-          xCoords,
-          yCoords,
-          src: await ImagesSvc.createPhoto(image, PORTFOLIO_IMAGES_PATH + imageName, STATIC_FILES_DIRECTORY),
-        };
-      })
-    );
-
-    await PortfolioSvc.addPortfolio({
-      title,
-      description,
-      presentablePicture,
-      mainPicture,
-      xCoords,
-      yCoords,
-      rowsCount,
-      columnsCount,
-      rowHeight,
-      images,
-    });
+    await addPortfolio(req);
     res.status(201).json({
       message: 'Ok',
     });
@@ -153,8 +136,77 @@ router.post('/portfolio', async (req, res, next) => {
   }
 });
 
+router.delete('/portfolio/:id', async (req, res, next) => {
+  try {
+    const { id } = req.params;
+
+    await PortfolioSvc.deletePortfolio(id);
+
+    res.status(204).send();
+  } catch (e) {
+    console.log(e);
+    next(e);
+  }
+});
+
+router.put('/portfolio/:id', async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    await PortfolioSvc.deletePortfolio(id);
+    await addPortfolio(req, id);
+    res.status(204).send();
+  } catch (e) {
+    next(e);
+  }
+});
+
 router.get('*', (req, res) => {
   res.redirect(`${req.baseUrl}/login`);
 });
+
+async function addPortfolio(req, id = null) {
+  let {
+    title,
+    description,
+    presentablePicture,
+    mainPicture,
+    xCoords,
+    yCoords,
+    rowsCount,
+    columnsCount,
+    rowHeight,
+    images,
+  } = req.body;
+
+  const mainPictureName = randToken.generate(16);
+  mainPicture = await ImagesSvc.createPhoto(mainPicture, PORTFOLIO_IMAGES_PATH + mainPictureName, STATIC_FILES_DIRECTORY);
+  const presentablePictureName = randToken.generate(16);
+  presentablePicture = await ImagesSvc.createPhoto(presentablePicture, PORTFOLIO_IMAGES_PATH + presentablePictureName, STATIC_FILES_DIRECTORY);
+
+  images = Array.isArray(images) ? images : [];
+  images = await Promise.all(
+    images.map(async ({ image, coords }) => {
+      const imageName = randToken.generate(16);
+
+      return {
+        coords,
+        src: await ImagesSvc.createPhoto(image, PORTFOLIO_IMAGES_PATH + imageName, STATIC_FILES_DIRECTORY),
+      };
+    })
+  );
+
+  await PortfolioSvc.addPortfolio({
+    title,
+    description,
+    presentablePicture,
+    mainPicture,
+    xCoords,
+    yCoords,
+    rowsCount,
+    columnsCount,
+    rowHeight,
+    images,
+  }, id);
+}
 
 module.exports = router;

@@ -1,6 +1,9 @@
+const path = require('path');
 const doAction = require('./db');
+const ImagesSvc = require('./ImagesSvc');
 
 const { PORTFOLIO, PORTFOLIO_IMAGES } = require(`${APP_PATH}/constants/portfolioCoordTypes`);
+const { STATIC_FILES_DIRECTORY } = require(`${APP_PATH}/constants`);
 
 class PortfolioSvc {
   static async getPortfolios({ page = 1, per = 200 } = {}) {
@@ -56,6 +59,18 @@ class PortfolioSvc {
 
     if (!portfolio) return null;
 
+    const [{ rows: coords }] = await doAction([
+      {
+        method: 'query',
+        args: [
+          `SELECT size_id, x_coords, y_coords FROM portfolio_coords WHERE id = $1 AND type = $2`,
+          [portfolio.id, PORTFOLIO],
+        ],
+      }
+    ]);
+
+    portfolio.coords = coords;
+
     if (portfolio.images.length) {
       portfolio.images.forEach((image) => {
         image.coords = [];
@@ -69,6 +84,7 @@ class PortfolioSvc {
               portfolio_images.id,
               json_agg(
                 json_build_object(
+                  'id', sizes.id,
                   'name', sizes.name,
                   'starts_from', sizes.starts_from,
                   'x_coords', portfolio_coords.x_coords,
@@ -97,7 +113,7 @@ class PortfolioSvc {
     return portfolio;
   }
 
-  static async addPortfolio(data) {
+  static async addPortfolio(data, id = null) {
     const {
       title,
       description,
@@ -111,14 +127,14 @@ class PortfolioSvc {
       images,
     } = data;
 
-    const [{ rows: [{ id }] }] = await doAction([{
+    ([{ rows: [{ id }] }] = await doAction([{
       method: 'query',
       args: [
-        `INSERT INTO portfolio (title, description, presentable_picture, main_picture, rows_count, columns_count, row_height)
-         VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *`,
-        [title, description, presentablePicture, mainPicture, rowsCount, columnsCount, rowHeight],
+        `INSERT INTO portfolio (title, description, presentable_picture, main_picture, rows_count, columns_count, row_height, id)
+         VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *`,
+        [title, description, presentablePicture, mainPicture, rowsCount, columnsCount, rowHeight, id || 'DEFAULT'],
       ],
-    }]);
+    }]));
 
     await Promise.all([
       doAction(
@@ -146,21 +162,89 @@ class PortfolioSvc {
         res.forEach(({ rows: [{ id }] }, i) => images[i].id = id);
 
         return await doAction(
-          Array(3)
-            .fill(null)
-            .reduce((queries, v, i) => [
-              ...queries,
-              ...images.map(({ id, xCoords, yCoords }) => ({
-                method: 'query',
-                args: [
-                  `INSERT INTO portfolio_coords (id, size_id, type, x_coords, y_coords) VALUES ($1, $2, $3, $4, $5)`,
-                  [id, i + 1, PORTFOLIO_IMAGES, xCoords, yCoords],
-                ],
-              }))
-            ], [])
+          images.reduce((queries, { id, coords }) => [
+            ...queries,
+            ...coords.map(({ size, xCoords, yCoords }) => ({
+              method: 'query',
+              args: [
+                `INSERT INTO portfolio_coords (id, size_id, type, x_coords, y_coords) VALUES ($1, $2, $3, $4, $5)`,
+                [id, size, PORTFOLIO_IMAGES, xCoords, yCoords],
+              ],
+            }))
+          ], [])
         )
       })(),
     ]);
+  }
+
+  static async deletePortfolio(id) {
+    const [{ rows: deletedImages }, { rows: [deletedPortfolio] }] = await doAction([
+      {
+        method: 'query',
+        args: [
+          `DELETE FROM portfolio_images WHERE portfolio_id = $1 RETURNING *`,
+          [id],
+        ],
+      },
+      {
+        method: 'query',
+        args: [
+          `DELETE FROM portfolio WHERE id = $1 RETURNING *`,
+          [id],
+        ],
+      },
+      {
+        method: 'query',
+        args: [
+          `DELETE FROM portfolio_coords WHERE id = $1 AND type = $2`,
+          [id, PORTFOLIO],
+        ],
+      },
+    ]);
+
+    if (deletedPortfolio) {
+      const {
+        main_picture: mainPicture,
+        presentable_picture: presentablePicture,
+      } = deletedPortfolio;
+
+      ImagesSvc.deletePhoto(
+        path.join(
+          APP_PATH,
+          path.resolve(STATIC_FILES_DIRECTORY),
+          path.resolve(mainPicture),
+        ),
+      );
+      ImagesSvc.deletePhoto(
+        path.join(
+          APP_PATH,
+          path.resolve(STATIC_FILES_DIRECTORY),
+          path.resolve(presentablePicture),
+        ),
+      );
+    }
+
+    if (Array.isArray(deletedImages) && deletedImages.length) {
+      const imageIds = deletedImages.map(({ id, src }) => {
+        ImagesSvc.deletePhoto(
+          path.join(
+            APP_PATH,
+            path.resolve(STATIC_FILES_DIRECTORY),
+            path.resolve(src),
+          ),
+        );
+        return id;
+      });
+      await doAction([
+        {
+          method: 'query',
+          args: [
+            `DELETE FROM portfolio_coords WHERE id = ANY($1::int[]) AND type = $2`,
+            [imageIds, PORTFOLIO_IMAGES],
+          ],
+        },
+      ])
+    }
   }
 }
 

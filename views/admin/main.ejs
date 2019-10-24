@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <% include head.ejs %>
     <body>
         <main class="wrapper">
@@ -22,6 +22,9 @@
                 <% } %>
                 <% if (activePage === '/portfolio') { %>
                     <% include portfolio.ejs %>
+                <% } %>
+                <% if (/^\/portfolio\/\d+$/.test(activePage)) { %>
+                    <% include portfolioData.ejs %>
                 <% } %>
             </article>
         </main>

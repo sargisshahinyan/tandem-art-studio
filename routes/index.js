@@ -17,7 +17,12 @@ router.get('*', async (req, res) => {
       dataRequests.push({
         key: 'portfolios',
         value: PortfolioSvc.getPortfolios(),
-      })
+      });
+    } else if (/^\/portfolio\/\d+$/.test(req.originalUrl)) {
+      dataRequests.push({
+        key: 'selectedPortfolio',
+        value: PortfolioSvc.getPortfolio(req.originalUrl.match(/\d+/)[0]),
+      });
     }
 
     await Promise.all(dataRequests.map(req => req.value));
@@ -29,7 +34,7 @@ router.get('*', async (req, res) => {
       return props;
     }, {});
 
-    const content = await renderReactPage(props);
+    const content = await renderReactPage(props, req.originalUrl);
     res.send(content);
   } catch (e) {
     console.error(e);

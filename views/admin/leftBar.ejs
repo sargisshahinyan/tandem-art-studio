@@ -1,4 +1,7 @@
 <aside class="menu">
+    <a href="/" target="_blank" class="logo">
+        <img class="img-fluid" src="/img/logo.svg" alt="Logo">
+    </a>
     <nav>
         <ul>
             <% NAV_TABS.forEach(tab => { %>
@@ -8,4 +11,5 @@
             <% }) %>
         </ul>
     </nav>
+    <a href="<%= baseUrl %>/logout" class="btn btn-danger log-out">Sign out</a>
 </aside>
