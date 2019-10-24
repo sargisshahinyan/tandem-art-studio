@@ -8,7 +8,7 @@
             >
                 <% sizes.forEach(({ id, name }) => { %>
                     <option value="<%= id %>"><%= name %></option>
-                <% }) %>
+                <% }); %>
             </select>
         </div>
         <% sizes.forEach(({ id }, i) => { %>
@@ -32,69 +32,11 @@
                     />
                 </div>
             </div>
-        <% }) %>
+        <% }); %>
     </div>
 </template>
 <article>
-    <section>
-        <h3>Global configs</h3>
-        <div class="row">
-            <div class="col-6">
-                <div class="form-group">
-                    <label for="sizes">Size</label>
-                    <select
-                        id="sizes"
-                        name="sizes"
-                        class="form-control"
-                    >
-                        <% sizes.forEach(({ id, name }) => { %>
-                            <option value="<%= id %>"><%= name %></option>
-                        <% }) %>
-                    </select>
-                </div>
-            </div>
-            <div class="col-6">
-                <div class="form-group">
-                    <label for="rowsCountGlobal">Rows Count</label>
-                    <input
-                        id="rowsCountGlobal"
-                        type="number"
-                        class="form-control"
-                        placeholder="Rows Count"
-                        min="1"
-                        required
-                    />
-                </div>
-                <div class="form-group">
-                    <label for="colsCountGlobal">Columns Count</label>
-                    <input
-                        id="colsCountGlobal"
-                        type="number"
-                        class="form-control"
-                        placeholder="Columns Count"
-                        min="1"
-                        required
-                    />
-                </div>
-                <div class="form-group">
-                    <label for="rowHeightGlobal">Row height</label>
-                    <input
-                        id="rowHeightGlobal"
-                        type="number"
-                        class="form-control"
-                        placeholder="Row height"
-                        min="1"
-                        required
-                    />
-                </div>
-            </div>
-            <div class="col-12">
-                <button class="btn btn-primary" id="update">Update</button>
-            </div>
-        </div>
-    </section>
-    <hr /><hr />
-    <form action="<%= baseUrl %>/portfolio" method="post">
+    <form action="<%= `${baseUrl}${activePage}/${portfolio.id}` %>" method="post">
         <h3>Add new</h3>
         <hr />
         <h4>Basic info</h4>
@@ -106,6 +48,7 @@
                 type="text"
                 class="form-control"
                 placeholder="Title"
+                value="<%= portfolio.title %>"
                 required
             />
         </div>
@@ -117,7 +60,7 @@
                 class="form-control"
                 placeholder="Description"
                 required
-            ></textarea>
+            ><%= portfolio.description %></textarea>
         </div>
         <div class="form-group">
             <label for="presentablePicture">Presentable picture</label>
@@ -128,8 +71,14 @@
                 placeholder="Presentable picture"
                 type="file"
                 accept="image/*"
-                required
             />
+            <div class="presenter-container">
+                <div class="row" style="min-height: 200px; margin: 10px 0">
+                    <div class="col-6">
+                        <img class="img-fluid" src="<%= portfolio.presentable_picture %>">
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="form-group">
             <label for="mainPicture">Main picture</label>
@@ -140,8 +89,14 @@
                 placeholder="Main picture"
                 type="file"
                 accept="image/*"
-                required
             />
+            <div class="presenter-container">
+                <div class="row" style="min-height: 200px; margin: 10px 0">
+                    <div class="col-6">
+                        <img class="img-fluid" src="<%= portfolio.main_picture %>">
+                    </div>
+                </div>
+            </div>
         </div>
         <hr />
         <h4>Position in page</h4>
@@ -153,6 +108,7 @@
                     name="xCoords"
                     class="form-control"
                     placeholder="X Coords"
+                    value="<%= portfolio.coords[0].y_coords %>"
                     required
                 />
             </div>
@@ -163,6 +119,7 @@
                     name="yCoords"
                     class="form-control"
                     placeholder="Y Coords"
+                    value="<%= portfolio.coords[0].y_coords %>"
                     required
                 />
             </div>
@@ -178,7 +135,7 @@
                     class="form-control"
                     placeholder="Rows Count"
                     min="1"
-                    value="10"
+                    value="<%= portfolio.rows_count %>"
                     required
                 />
             </div>
@@ -190,7 +147,7 @@
                     class="form-control"
                     placeholder="Columns Count"
                     min="1"
-                    value="10"
+                    value="<%= portfolio.columns_count %>"
                     required
                 />
             </div>
@@ -202,7 +159,7 @@
                     class="form-control"
                     placeholder="Row height"
                     min="1"
-                    value="50"
+                    value="<%= parseFloat(portfolio.row_height) %>"
                     required
                 />
             </div>
@@ -218,34 +175,62 @@
                 type="file"
                 accept="image/*"
                 multiple
-                required
             />
+            <div class="presenter-container">
+                <% portfolio.images.forEach((image) => { %>
+                    <div class="row" style="min-height: 200px; margin: 10px 0">
+                        <div class="col-6">
+                            <img class="img-fluid" src="<%= image.src %>">
+                        </div>
+                        <div class="col-6 image-grid-data">
+                            <div class="form-group">
+                                <label>Size</label>
+                                <select
+                                    name="size"
+                                    class="sizes form-control"
+                                >
+                                    <% sizes.forEach(({ id, name }) => { %>
+                                        <option value="<%= id %>"><%= name %></option>
+                                    <% }) %>
+                                </select>
+                            </div>
+                            <% image.coords.forEach(({ id, x_coords, y_coords }, i) => { %>
+                                <div class="coordData" data-id="<%= id %>" style="<%= i !== 0 ? 'display: none' : '' %>">
+                                    <div class="form-group">
+                                        <label>X Coords</label>
+                                        <input
+                                            name="xCoords"
+                                            class="form-control xCoords"
+                                            placeholder="X Coords"
+                                            value="<%= x_coords %>"
+                                            required
+                                        />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Y Coords</label>
+                                        <input
+                                            name="yCoords"
+                                            class="form-control yCoords"
+                                            placeholder="Y Coords"
+                                            value="<%= y_coords %>"
+                                            required
+                                        />
+                                    </div>
+                                </div>
+                            <% }); %>
+                        </div>
+                    </div>
+                <% }); %>
+            </div>
         </div>
-        <button type="submit" class="btn btn-primary">Add</button>
+        <button type="submit" class="btn btn-primary">Save</button>
     </form>
-    <hr /><hr />
-    <section>
-       <h3>Current list</h3>
-       <ul class="list-group" id="portfolios-list">
-           <% portfolios.forEach(({ id, title }) => { %>
-               <li class="portfolio-item list-group-item d-flex justify-content-between align-items-center" data-id="<%= id %>">
-                   <%= title %>
-                   <div>
-                       <a class="btn btn-primary" href="<%= `${baseUrl}${activePage}/${id}` %>">Edit</a>
-                       <span class="badge badge-danger badge-pill delete">
-                           <i class="fas fa-times delete"></i>
-                       </span>
-                   </div>
-               </li>
-           <% }); %>
-       </ul>
-    </section>
 </article>
 
 <script src="/js/fileHelpers.js"></script>
 <script src="/js/imageAutopresenter.js"></script>
 <script>
-  window.globalData = <%- JSON.stringify(page) %>;
   window.baseUrl = '<%= baseUrl %>';
+  window.id = '<%= portfolio.id %>';
 </script>
-<script src="/js/portfolio.js"></script>
+<script src="/js/portfolio-single.js"></script>

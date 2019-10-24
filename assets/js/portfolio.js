@@ -8,10 +8,6 @@ window.addEventListener('load', function () {
 
   var sizes = document.getElementById('sizes');
 
-  document.querySelector('form').addEventListener('submit', function (e) {
-    e.preventDefault();
-  });
-
   sizes.addEventListener('change', _fillGlobalStyles);
   _fillGlobalStyles();
 
@@ -60,10 +56,6 @@ window.addEventListener('load', function () {
           yCoords: el.querySelector('.yCoords').value,
         })
       });
-    });
-
-    images.slice(0, 1).forEach(function (image) {
-
     });
 
     body.images = images;

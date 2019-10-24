@@ -11,6 +11,17 @@ form.auth {
     max-width: 400px;
     margin: 40px auto;
 }
+.logo {
+    display: block;
+    width: 50%;
+    margin: 0 auto;
+}
+.log-out {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    z-index: 1000;
+}
 main.wrapper {
     display: flex;
 }

@@ -5,7 +5,7 @@ import { Route, Redirect, Switch } from 'react-router-dom';
 import { loadPagesData } from '../../actions/pages';
 
 import Home from '../Home';
-import Portfoio from '../Portfolio';
+import Portfolio from '../Portfolio';
 import Contact from '../Contact';
 
 export class Routes extends PureComponent {
@@ -28,7 +28,7 @@ export class Routes extends PureComponent {
         />
         <Route
           path="/portfolio"
-          component={Portfoio}
+          component={Portfolio}
         />
         <Route
           path="/contact"

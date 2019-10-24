@@ -1,5 +1,15 @@
 Array.prototype.slice.call(document.querySelectorAll('input[type="file"][accept="image/*"]')).forEach(function (element) {
-  var imgContainer = document.createElement('div');
+  var imgContainer = element.parentElement.querySelector('.presenter-container');
+
+  if (imgContainer) {
+    var coordsWrappers = imgContainer.querySelectorAll('.image-grid-data');
+    Array.from(coordsWrappers).forEach((coordsWrapper) => {
+      if (coordsWrapper) handleSizeChangeEvents(coordsWrapper);
+    });
+  } else {
+    imgContainer = document.createElement('div');
+    imgContainer.className = 'presenter-container';
+  }
 
   if (element.nextElementSibling) {
     element.parentElement.insertBefore(imgContainer, element.nextElementSibling);
@@ -8,6 +18,7 @@ Array.prototype.slice.call(document.querySelectorAll('input[type="file"][accept=
   }
 
   element.addEventListener('change', function () {
+    this.required = true;
     var imageRequests = [];
 
     for (let i = 0; i < element.files.length; i++) {
@@ -38,16 +49,7 @@ Array.prototype.slice.call(document.querySelectorAll('input[type="file"][accept=
             var coordsTemplate = document.getElementById('img-coords');
             var coordsWrapper = coordsTemplate.content.cloneNode(true);
 
-            var coordData = coordsWrapper.querySelectorAll('.coordData');
-            coordsWrapper.querySelector('.sizes').addEventListener('change', function (e) {
-              Array.from(coordData).forEach(function (el) {
-                if (el.dataset.id === e.target.value) {
-                  el.style.removeProperty('display');
-                } else {
-                  el.style.setProperty('display', 'none');
-                }
-              });
-            });
+            handleSizeChangeEvents(coordsWrapper);
 
             imageItem.appendChild(coordsWrapper);
           }
@@ -57,4 +59,17 @@ Array.prototype.slice.call(document.querySelectorAll('input[type="file"][accept=
       })
       .catch(console.log.bind(console));
   });
+
+  function handleSizeChangeEvents(coordsWrapper) {
+    var coordData = coordsWrapper.querySelectorAll('.coordData');
+    coordsWrapper.querySelector('.sizes').addEventListener('change', function (e) {
+      Array.from(coordData).forEach(function (el) {
+        if (el.dataset.id === e.target.value) {
+          el.style.removeProperty('display');
+        } else {
+          el.style.setProperty('display', 'none');
+        }
+      });
+    });
+  }
 });
