@@ -1,15 +1,26 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Animated } from 'react-animated-css';
+import { connect } from "react-redux";
 
 import BasicFooter from '../BasicFooter';
+import HiddenFooter from '../HiddenFooter';
 import Header from '../Header';
+import ServiceSlider from './ServiceSlider';
 
 import { convertText } from '../../utils';
 
 import './styles.scss';
 
-export function Services({ description, active }) {
-  const services = [{
+export function Services({ description, active, width }) {
+  const [selected, setSelected] = useState(1);
+  const [opened, setOpened] = useState(true);
+  const [closed, setClosed] = useState(width <= 767);
+  const [global, setGlobal] = useState(false);
+
+
+  useEffect(() => {});
+  const services = [
+    {
     icon: '/images/services/strategy_planning.svg',
     name: 'Strategy Planning',
     description: [
@@ -74,8 +85,8 @@ export function Services({ description, active }) {
   }];
 
   return (
-    <article>
-      <div className="bg_sim_styles bg_services" />
+    <article className="bg_services">
+      {/*<div className="bg_sim_styles bg_services" />*/}
       <Header active={active} />
       <main className="our_services centering_content">
         <div className="title">
@@ -83,7 +94,12 @@ export function Services({ description, active }) {
             <h1>Our Services</h1>
           </div>
         </div>
-        <div className="service_items items_similar_styles">
+        <ServiceSlider
+          services={services}
+          selected={selected}
+          global={global}
+        />
+        <div className={"service_items items_similar_styles " + (global ? 'globalClosed' : '')}>
           <div className="wrapper">
             <div className="content">
               {services.map((service, i) => (
@@ -94,7 +110,12 @@ export function Services({ description, active }) {
                   animationInDelay={500 + i * 100}
                   isVisible={active}
                 >
-                  <div className="service_item">
+                  <div className="service_item" onClick={() => {
+                    if (width <= 767) {
+                      setGlobal(true);
+                      setSelected(i)
+                    }
+                  }}>
                     <div className="item_img">
                       <img src={service.icon} alt="Service icon" />
                     </div>
@@ -103,7 +124,7 @@ export function Services({ description, active }) {
                         {service.name}
                       </span>
                     </div>
-                    <div className="item_description">
+                    <div className={"item_description " + (closed ? 'closed' : '') }>
                       <ul>
                         {service.description.map((el, i) => (
                           <li key={i}>
@@ -118,7 +139,7 @@ export function Services({ description, active }) {
             </div>
           </div>
         </div>
-        <div className="text_content">
+        <div className={"text_content " + (opened && !global ? '' : 'closed')}>
           <div className="wrapper">
             <div className="content">
               <p>{convertText(description)}</p>
@@ -127,8 +148,19 @@ export function Services({ description, active }) {
         </div>
       </main>
       <BasicFooter />
+      <HiddenFooter />
     </article>
   );
 }
 
-export default Services;
+const SelectService = (service, i) => {
+
+};
+
+
+const mapToStateProps = ({ common: {width} }) => ({
+  width
+});
+
+export default connect(mapToStateProps)(Services);
+

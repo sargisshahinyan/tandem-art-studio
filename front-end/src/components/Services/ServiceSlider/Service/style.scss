@@ -1,0 +1,81 @@
+@import "mixin";
+@import "fonts";
+
+.singleService {
+  height: 100%;
+
+  & .slick-prev, & .slick-next {
+    z-index: 9999999;
+  }
+  &.globalClosed {
+    display: none;
+  }
+  & > div {
+    & > img {
+      &:first-of-type {
+        left: 0;
+      }
+      &:last-of-type {
+        right: 0;
+      }
+    }
+  }
+  & .service {
+    @include flexbox();
+    @include flex-direction(column);
+
+    height: calc(100vh - 140px);
+
+    & .serviceHead {
+      background: url(/images/backgrounds/bg_middle.png) no-repeat center center;
+      background-size: cover;
+      @include flex-grow(2);
+      @include flexbox();
+      @include flex-direction(column);
+      @include justify-content(center);
+      @include align-items(center);
+
+      & .serviceIcon {
+        text-align: center;
+        & > img {
+          width: 100%;
+          display: inline;
+        }
+      }
+      & .serviceName {
+        font-size: 35px;
+        background: #15171C;
+        text-align: center;
+        padding: 10px 0;
+        width: 80%;
+      }
+    }
+    & .serviceFooter {
+      @include flex-grow(1);
+      background: #15171C;
+      & .serviceDescription {
+        height: 100%;
+        @include flexbox();
+        @include flex-direction(column);
+        @include justify-content(center);
+        @include align-items(center);
+        & li {
+          font-size: 24px;
+          width: 78%;
+          @include flexbox();
+          @include flex-direction(row);
+          &:before {
+            content: '';
+            display: block;
+            width: 16px;
+            height: 16px;
+            background: #5E5F62;
+            border-radius: 50%;
+            margin-right: 10px;
+
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,12 +1,13 @@
-import React from 'react'
+import React from 'react';
+import { Link } from 'react-router-dom';
 
-import './style.scss'
+import './style.scss';
 
 const HiddenFooter = () => (
-  <div id='hiddenFooter'>
-    <div><a href='/portfolio'>Portfolio</a></div>
-    <div><a href='/'>Services</a></div>
-    <div><a href='/contacts'>Contacts</a></div>
+  <div id="hiddenFooter">
+    <div><Link to="/portfolio">Portfolio</Link></div>
+    <div><Link to="/">Services</Link></div>
+    <div><Link to="/contact">Contacts</Link></div>
   </div>
 );
 
