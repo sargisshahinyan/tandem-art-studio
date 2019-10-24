@@ -45,7 +45,7 @@ export function Services({ description, active }) {
       'Design'
     ]
   }, {
-    icon: '/images/services/advertising.svg',
+    icon: '/images/services/reklami_ikonka.svg',
     name: 'Advertising',
     description: [
       'Campaign Creation',

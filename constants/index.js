@@ -28,4 +28,7 @@ module.exports = {
       path: 'portfolio',
     },
   ],
+
+  PORTFOLIO_IMAGES_PATH: '/img/portfolio/',
+  STATIC_FILES_DIRECTORY: '/assets/',
 };
