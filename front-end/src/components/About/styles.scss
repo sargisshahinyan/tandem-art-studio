@@ -1,21 +1,201 @@
 @import "mixin";
 @import "fonts";
 
-main{
-  &.about_content{
-    .text_content{
-      margin-top: 50px;
-      .content{
-        p{
-          margin-top: 0;
+$myWhite: rgba(255, 255, 255, .6);
+
+.bg_about {
+  main {
+    &.about_content {
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      .text_content {
+        margin-top: 50px;
+
+        @include flex-grow(1);
+        @include flexbox();
+        @include align-items(center);
+
+        .content {
+          max-height: 270px;
+          overflow-y: auto;
+          &::-webkit-scrollbar {
+            width: 5px;
+          }
+
+          /* Track */
+          &::-webkit-scrollbar-track {
+            box-shadow: inset 0 0 5px grey;
+            border-radius: 10px;
+          }
+
+          /* Handle */
+          &::-webkit-scrollbar-thumb {
+            background: silver;
+            border-radius: 10px;
+          }
+
+          /* Handle on hover */
+          &::-webkit-scrollbar-thumb:hover {
+            //background: ;
+            cursor: pointer;
+          }
+          p {
+            margin-top: 0;
+            font-size: 140%;
+            transition: all .6s linear;
+            @media(max-width: 1537px) and (min-width: 768px) {
+              font-size: 120%;
+            }
+          }
+        }
+        & .hiddenArrow {
+          text-align: center;
+        }
+        &.with_bg {
+          padding: 60px 30px;
         }
       }
-      &.with_bg{
-        padding: 60px 30px;
+      .signature {
+        margin-top: 50px;
       }
     }
-    .signature{
-      margin-top: 50px;
+  }
+
+  @media (max-width: 767px) {
+    background: #191920 !important;
+    & header {
+      height: auto;
+      & .wrapper {
+        padding: 0;
+        & .header {
+          margin-top: 40px;
+          height: 40vh;
+          background: url(/images/backgrounds/bg_middle.png) no-repeat center center;
+          background-size: cover;
+          @include flexbox();
+          @include justify-content(center);
+          @include align-items(center);
+
+          & > div:first-of-type {
+            & .logo {
+              padding: 0;
+              & a {
+                width: auto;
+                height: auto;
+                & img {
+                  width: 250px;
+                  height: auto;
+                }
+              }
+            }
+          }
+
+          &.mobileHeader {
+            height: 15vh;
+            & > div:first-of-type {
+              & .logo {
+                & a {
+                  & img {
+                    width: 100px;
+                  }
+                }
+              }
+            }
+          }
+
+          & > div:last-of-type {
+            display: none;
+          }
+        }
+      }
+    }
+
+    & main {
+      & .title {
+        display: none;
+      }
+
+      & .text_content.with_bg {
+        background: none;
+        margin-top: 0;
+        padding: 0 !important;
+        //padding-top: 10px;
+        & .content {
+          transition: all .3s linear;
+          &.opened {
+            max-height: calc(100vh - 300px);
+            & p {
+              max-height: 100%;
+            }
+          }
+          & p {
+            font-size: 14px !important;
+            color: $myWhite;
+            max-height: 224px;
+            overflow: hidden;
+            & + .textWrapper {
+              @include flexbox();
+              @include flex-direction(row);
+              @include justify-content(center);
+              margin-top: 10px;
+              @media (max-height: 680px) {
+                margin: 0;
+              }
+
+              & span {
+                width: 10px;
+                height: 10px;
+                margin-right: 5px;
+                background: $myWhite;
+                border-radius: 50px;
+              }
+            }
+          }
+        }
+        & .hiddenArrow {
+          & img {
+            width: 32px;
+            height: auto;
+            transform: rotate(90deg);
+          }
+        }
+      }
+      & .signature {
+        display: none;
+      }
+    }
+
+    & .basic_footer {
+      width: 100%;
+      @media (max-height: 680px) {
+        margin: 10px 0;
+      }
+
+      &.mobileBasicFooter {
+        display: none;
+      }
+
+      & .socialize {
+        width: 100%;
+        & ul {
+          @include flexbox();
+          @include flex-direction(row);
+          @include justify-content(center);
+
+          & li {
+            margin-right: 15px;
+            &:last-of-type {
+              margin-right: 0;
+            }
+
+            & img {
+              height: 32px;
+            }
+          }
+        }
+      }
     }
   }
 }

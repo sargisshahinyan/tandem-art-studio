@@ -6,7 +6,8 @@ import { Link } from 'react-router-dom';
 import './styles.scss';
 
 export const Header = memo(
-  function Header({ goToPage, scrolling }) {
+  function Header({ goToPage, scrolling, opened }) {
+    const mobileHeader = opened ? 'mobileHeader' : '';
     const servicesTabs = [
       {
         content: 'About us',
@@ -38,7 +39,7 @@ export const Header = memo(
     return (
       <header>
         <div className="wrapper">
-          <div className="header">
+          <div className={"header " + mobileHeader}>
             <Animated
               animationIn="fadeIn"
               animationInDelay={300}
@@ -71,7 +72,10 @@ export const Header = memo(
                     <ul className="submenu_list">
                       {servicesTabs.map(({ content }, i) => (
                         <li className="submenu_list_item" key={i}>
-                          <Animated animationIn="fadeInRight" animationInDelay={(i + 1) * 100}>
+                          <Animated
+                            animationIn="fadeInRight"
+                            animationInDelay={(i + 1) * 100}
+                          >
                             <Link to="/" onClick={() => goToPage(i + 1)}>
                               {content}
                             </Link>
@@ -87,7 +91,10 @@ export const Header = memo(
                     <ul className="submenu_list">
                       {contactTabs.map(({ content }, i) => (
                         <li className="submenu_list_item" key={i}>
-                          <Animated animationIn="fadeInRight" animationInDelay={(i + 1) * 100}>
+                          <Animated
+                            animationIn="fadeInRight"
+                            animationInDelay={(i + 1) * 100}
+                          >
                             <Link to="/contact" onClick={() => goToPage(i)}>
                               {content}
                             </Link>

@@ -58,7 +58,7 @@ a{
     p{
       margin-top: 15px;
       font-size: 16px;
-      line-height: 1.4;
+      line-height: 22.4px;
     }
   }
   &.with_bg{
@@ -125,7 +125,7 @@ a{
 
 /* Body styles */
 
-article{
+article {
   position: relative;
   height: 100vh;
   z-index: auto;
@@ -137,35 +137,41 @@ article{
     height: inherit;
   }
 
-  .bg_index{
+  .bg_index {
     background: url("/images/backgrounds/bg_index.png") no-repeat center center;
     -webkit-background-size: cover;
     background-size: cover;
   }
-  .bg_about{
+  &.bg_about {
     background: url("/images/backgrounds/bg_about.png") no-repeat center center;
     -webkit-background-size: cover;
     background-size: cover;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
   }
-  .bg_clients{
+  .bg_clients {
     background: url("/images/backgrounds/bg_clients.png") no-repeat center center;
     -webkit-background-size: cover;
     background-size: cover;
   }
-  .bg_services{
+  &.bg_services {
     background: url("/images/backgrounds/bg_services.png") no-repeat center center;
     -webkit-background-size: cover;
     background-size: cover;
   }
-  .bg_team{
+  .bg_team {
     background: url("/images/backgrounds/bg_team.png") no-repeat center center;
     -webkit-background-size: cover;
     background-size: cover;
   }
-  .bg_contact_us{
+  &.bg_contact_us, &.bg_location {
     background: url("/images/backgrounds/bg_contact_us.png") no-repeat center center;
     -webkit-background-size: cover;
     background-size: cover;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
   }
 }
 
@@ -190,12 +196,16 @@ main{
 }
 
 .centering_content{
-  position: absolute;
-  left: 0;
-  top: 50%;
-  @include prefix-name(transform, translate(0, -50%));
   width: 100%;
   height: auto;
+}
+
+.noPadding {
+  padding: 0 !important;
+}
+
+.hidden {
+  display: none !important;
 }
 
 @keyframes MoveUpDown {

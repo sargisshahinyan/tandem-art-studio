@@ -1,0 +1,31 @@
+@import "mixin";
+@import "fonts";
+
+article.bg_location {
+  & > footer {
+    @include justify-content(space-around);
+    @include align-items(center);
+    @include flex-wrap();
+
+    &, & > #social {
+      @include flexbox();
+      @include flex-direction(row);
+    }
+
+    & > #phones, & > #addresses {
+      & > div {
+        font-size: 20px;
+        line-height: 25px;
+      }
+    }
+
+    & > #social {
+      & > li {
+        margin-right: 15px;
+        &:last-of-type {
+          margin-right: 0;
+        }
+      }
+    }
+  }
+}

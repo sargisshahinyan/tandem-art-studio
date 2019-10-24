@@ -8,14 +8,17 @@ export const PAGES = [
   {
     id: 2,
     component: About,
+    name: 'About',
   },
   {
     id: 8,
     component: ContactsDetailed,
+    name: 'ContactsDetailed',
   },
   {
     id: 7,
     component: Contacts,
+    name: 'Contacts',
   }
 ];
 
