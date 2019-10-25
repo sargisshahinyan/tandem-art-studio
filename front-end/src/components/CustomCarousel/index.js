@@ -32,7 +32,7 @@ export function CustomCarousel({ items }) {
         />
       ))}
     </Slider>
-  )
+  );
 }
 
 export default CustomCarousel;

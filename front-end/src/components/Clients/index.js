@@ -40,8 +40,7 @@ export const Clients = memo(
     };
 
     return (
-      <article>
-        <div className="bg_sim_styles bg_clients" />
+      <article className="bg_sim_styles bg_clients">
         <Header />
         <main className="our_clients centering_content">
           <div className="title">

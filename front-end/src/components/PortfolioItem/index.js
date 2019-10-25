@@ -29,7 +29,7 @@ export class PortfolioItem extends PureComponent {
         <img
           className="main-picture"
           src={portfolio.main_picture}
-          alt="Main picture"
+          alt="Main"
         />
         <h1 className="title">
           {portfolio.title}

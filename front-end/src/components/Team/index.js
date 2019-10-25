@@ -48,8 +48,7 @@ export function Team({ title, description, active }) {
   }];
 
   return (
-    <article>
-      <div className="bg_sim_styles bg_team" />
+    <article className="bg_sim_styles bg_team">
       <Header active={active} />
       <main className="our_team centering_content">
         <div className="title">

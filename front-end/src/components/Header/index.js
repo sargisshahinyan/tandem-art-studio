@@ -13,6 +13,9 @@ export const Header = memo(
         content: 'About us',
       },
       {
+        content: 'Gallery',
+      },
+      {
         content: 'Our team',
       },
       {

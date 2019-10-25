@@ -1,4 +1,4 @@
-import React, { memo, useState } from 'react';
+import React, { memo } from 'react';
 import { Animated } from 'react-animated-css';
 import { connect } from 'react-redux';
 
@@ -12,8 +12,8 @@ import './styles.scss';
 
 
 export const Contacts = memo(
-  function Contacts({ goToPage, scrolling, active, width }) {
-    const [opened, setMode] = useState(width <= 767);
+  function Contacts({ active, width }) {
+    const opened = width <= 767;
 
 
     return (
@@ -72,7 +72,7 @@ export const Contacts = memo(
 
 
 const mapToStateProps = ({ common: {width} }) => ({
-  width
+  width,
 });
 
 export default connect(mapToStateProps)(Contacts);

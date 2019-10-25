@@ -130,9 +130,9 @@ class PortfolioSvc {
     ([{ rows: [{ id }] }] = await doAction([{
       method: 'query',
       args: [
-        `INSERT INTO portfolio (title, description, presentable_picture, main_picture, rows_count, columns_count, row_height, id)
-         VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *`,
-        [title, description, presentablePicture, mainPicture, rowsCount, columnsCount, rowHeight, id || 'DEFAULT'],
+        `INSERT INTO portfolio (title, description, presentable_picture, main_picture, rows_count, columns_count, row_height${id ? ', id' : ''})
+         VALUES ($1, $2, $3, $4, $5, $6, $7${id ? ', $8' : ''}) RETURNING *`,
+        [title, description, presentablePicture, mainPicture, rowsCount, columnsCount, rowHeight, ...(id ? [id] : [])],
       ],
     }]));
 

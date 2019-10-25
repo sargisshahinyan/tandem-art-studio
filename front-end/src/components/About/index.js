@@ -19,10 +19,10 @@ export const About = memo(
     const arrowHidden = (opened && width <= 767) ? '' : 'hidden';
     const bigContent = (opened && width <= 767) ? 'opened' : '';
     const eventBinder = {
-      onScroll: e => {e.stopPropagation()},
-      onWheel: e => {e.stopPropagation()},
-      onTouchStart:e => {e.preventDefault()},
-      onTouchMove:e => {e.stopPropagation()},
+      onScroll: e => width <= 767 && e.stopPropagation(),
+      onWheel: e => width <= 767 && e.stopPropagation(),
+      onTouchStart: e => width <= 767 && e.preventDefault(),
+      onTouchMove: e => width <= 767 && e.stopPropagation(),
     };
     return (
       <article className='bg_about'>
