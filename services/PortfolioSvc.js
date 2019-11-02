@@ -2,7 +2,6 @@ const path = require('path');
 const doAction = require('./db');
 const ImagesSvc = require('./ImagesSvc');
 
-const { PORTFOLIO, PORTFOLIO_IMAGES } = require(`${APP_PATH}/constants/portfolioCoordTypes`);
 const { STATIC_FILES_DIRECTORY } = require(`${APP_PATH}/constants`);
 
 class PortfolioSvc {
@@ -12,22 +11,11 @@ class PortfolioSvc {
         method: 'query',
         args: [
           `SELECT
-            portfolio.*,
-            json_agg(
-              json_build_object(
-                'name', sizes.name,
-                'starts_from', sizes.starts_from,
-                'x_coords', portfolio_coords.x_coords,
-                'y_coords', portfolio_coords.y_coords
-              )
-            ) AS sizes
+            portfolio.*
           FROM portfolio
-          JOIN portfolio_coords ON portfolio.id = portfolio_coords.id
-          JOIN sizes ON sizes.id = portfolio_coords.size_id
-          WHERE portfolio_coords.type = $3
           GROUP BY portfolio.id
           LIMIT $1 OFFSET $2;`,
-          [per, page - 1, PORTFOLIO],
+          [per, page - 1],
         ],
       },
     ]);
@@ -41,15 +29,8 @@ class PortfolioSvc {
         method: 'query',
         args: [
           `SELECT
-            portfolio.*,
-            json_agg(
-              json_build_object(
-                'id', portfolio_images.id,
-                'src', portfolio_images.src
-              )
-            ) AS images
+            portfolio.*
           FROM portfolio
-          JOIN portfolio_images ON portfolio.id = portfolio_images.portfolio_id
           WHERE portfolio.id = $1
           GROUP BY portfolio.id`,
           [id]
@@ -58,7 +39,7 @@ class PortfolioSvc {
     ]);
 
     if (!portfolio) return null;
-
+/*
     const [{ rows: coords }] = await doAction([
       {
         method: 'query',
@@ -108,7 +89,7 @@ class PortfolioSvc {
           if (image) image.coords = coords;
         });
       }
-    }
+    }*/
 
     return portfolio;
   }

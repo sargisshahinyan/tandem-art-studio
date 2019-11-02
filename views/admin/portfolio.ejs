@@ -1,99 +1,4 @@
-<template id="img-coords">
-    <div class="col-6 image-grid-data">
-        <div class="form-group">
-            <label>Size</label>
-            <select
-                name="size"
-                class="sizes form-control"
-            >
-                <% sizes.forEach(({ id, name }) => { %>
-                    <option value="<%= id %>"><%= name %></option>
-                <% }) %>
-            </select>
-        </div>
-        <% sizes.forEach(({ id }, i) => { %>
-            <div class="coordData" data-id="<%= id %>" style="<%= i !== 0 ? 'display: none' : '' %>">
-                <div class="form-group">
-                    <label>X Coords</label>
-                    <input
-                        name="xCoords"
-                        class="form-control xCoords"
-                        placeholder="X Coords"
-                        required
-                    />
-                </div>
-                <div class="form-group">
-                    <label>Y Coords</label>
-                    <input
-                        name="yCoords"
-                        class="form-control yCoords"
-                        placeholder="Y Coords"
-                        required
-                    />
-                </div>
-            </div>
-        <% }) %>
-    </div>
-</template>
 <article>
-    <section>
-        <h3>Global configs</h3>
-        <div class="row">
-            <div class="col-6">
-                <div class="form-group">
-                    <label for="sizes">Size</label>
-                    <select
-                        id="sizes"
-                        name="sizes"
-                        class="form-control"
-                    >
-                        <% sizes.forEach(({ id, name }) => { %>
-                            <option value="<%= id %>"><%= name %></option>
-                        <% }) %>
-                    </select>
-                </div>
-            </div>
-            <div class="col-6">
-                <div class="form-group">
-                    <label for="rowsCountGlobal">Rows Count</label>
-                    <input
-                        id="rowsCountGlobal"
-                        type="number"
-                        class="form-control"
-                        placeholder="Rows Count"
-                        min="1"
-                        required
-                    />
-                </div>
-                <div class="form-group">
-                    <label for="colsCountGlobal">Columns Count</label>
-                    <input
-                        id="colsCountGlobal"
-                        type="number"
-                        class="form-control"
-                        placeholder="Columns Count"
-                        min="1"
-                        required
-                    />
-                </div>
-                <div class="form-group">
-                    <label for="rowHeightGlobal">Row height</label>
-                    <input
-                        id="rowHeightGlobal"
-                        type="number"
-                        class="form-control"
-                        placeholder="Row height"
-                        min="1"
-                        required
-                    />
-                </div>
-            </div>
-            <div class="col-12">
-                <button class="btn btn-primary" id="update">Update</button>
-            </div>
-        </div>
-    </section>
-    <hr /><hr />
     <form action="<%= baseUrl %>/portfolio" method="post">
         <h3>Add new</h3>
         <hr />
@@ -217,7 +122,6 @@
                 placeholder="Images"
                 type="file"
                 accept="image/*"
-                multiple
                 required
             />
         </div>
@@ -245,7 +149,6 @@
 <script src="/js/fileHelpers.js"></script>
 <script src="/js/imageAutopresenter.js"></script>
 <script>
-  window.globalData = <%- JSON.stringify(page) %>;
   window.baseUrl = '<%= baseUrl %>';
 </script>
 <script src="/js/portfolio.js"></script>

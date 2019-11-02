@@ -36,7 +36,7 @@ router.post('/auth', async (req, res) => {
       maxAge: TOKEN_EXPIRATION_TIME,
     });
 
-    res.redirect(req.baseUrl + '/home')
+    res.redirect(`${req.baseUrl}/home`);
   } catch (error) {
     res.render('admin/login', { error });
   }
@@ -54,9 +54,7 @@ router.use(async (req, res, next) => {
   res.locals.baseUrl = req.baseUrl;
   const pages = await PagesSvc.getPagesData(req.path);
 
-  if (!pages || !pages.length) return next();
-
-  res.locals.page = pages[0].data;
+  if (pages && pages.length) res.locals.page = pages[0].data;
 
   next();
 });
@@ -73,12 +71,7 @@ router.use('/logout', async (req, res) => {
 
 router.get('/portfolio', async (req, res, next) => {
   try {
-    const [portfolios, sizes] = await Promise.all([
-      PortfolioSvc.getPortfolios(),
-      PagesSvc.getPageSizes(),
-    ]);
-    res.locals.portfolios = portfolios;
-    res.locals.sizes = sizes;
+    res.locals.portfolios = await PortfolioSvc.getPortfolios();
     next();
   } catch (e) {
     next(e);
@@ -88,12 +81,7 @@ router.get('/portfolio', async (req, res, next) => {
 router.get('/portfolio/:id', async (req, res, next) => {
   try {
     const { id } = req.params;
-    const [portfolio, sizes] = await Promise.all([
-      PortfolioSvc.getPortfolio(id),
-      PagesSvc.getPageSizes(),
-    ]);
-    res.locals.portfolio = portfolio;
-    res.locals.sizes = sizes;
+    res.locals.portfolio = await PortfolioSvc.getPortfolio(id);
     next();
   } catch (e) {
     next(e);
