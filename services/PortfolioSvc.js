@@ -29,67 +29,48 @@ class PortfolioSvc {
         method: 'query',
         args: [
           `SELECT
-            portfolio.*
-          FROM portfolio
-          WHERE portfolio.id = $1
-          GROUP BY portfolio.id`,
+            p.*,
+            json_agg(
+              json_build_object(
+                'id', pis.id
+              )
+            ) AS sections
+          FROM portfolio AS p
+          JOIN portfolio_image_sections AS pis on p.id = pis.portfolio_id
+          WHERE p.id = $1
+          GROUP BY p.id`,
           [id]
         ],
       },
     ]);
 
     if (!portfolio) return null;
-/*
-    const [{ rows: coords }] = await doAction([
-      {
-        method: 'query',
-        args: [
-          `SELECT size_id, x_coords, y_coords FROM portfolio_coords WHERE id = $1 AND type = $2`,
-          [portfolio.id, PORTFOLIO],
-        ],
-      }
-    ]);
+    portfolio.sections = portfolio.sections || [];
 
-    portfolio.coords = coords;
-
-    if (portfolio.images.length) {
-      portfolio.images.forEach((image) => {
-        image.coords = [];
-      });
-
-      const [{ rows: coords }] = await doAction([
+    if (portfolio.sections.length) {
+      const [{ rows: sections }] = await doAction([
         {
           method: 'query',
           args: [
             `SELECT
-              portfolio_images.id,
+              pis.*,
               json_agg(
                 json_build_object(
-                  'id', sizes.id,
-                  'name', sizes.name,
-                  'starts_from', sizes.starts_from,
-                  'x_coords', portfolio_coords.x_coords,
-                  'y_coords', portfolio_coords.y_coords
+                  'id', pi.id,
+                  'src', pi.src
                 )
-              ) AS coords
-            FROM portfolio_images
-            JOIN portfolio_coords ON portfolio_images.id = portfolio_coords.id
-            JOIN sizes ON sizes.id = portfolio_coords.size_id
-            WHERE portfolio_images.id = ANY ($1::int[])
-            AND portfolio_coords.type = $2
-            GROUP BY portfolio_images.id`,
-            [portfolio.images.map(({ id }) => id), PORTFOLIO_IMAGES]
+              ) AS images
+            FROM portfolio_image_sections AS pis
+            JOIN portfolio_images pi on pis.id = pi.section_id
+            WHERE pis.id = ANY($1::int[])
+            GROUP BY pis.id`,
+            [portfolio.sections.map(({ id }) => id)]
           ],
         },
       ]);
 
-      if (Array.isArray(coords)) {
-        coords.forEach(({ id, coords }) => {
-          const image = portfolio.images.find(({ id: imageId }) => imageId === id);
-          if (image) image.coords = coords;
-        });
-      }
-    }*/
+      portfolio.sections = sections;
+    }
 
     return portfolio;
   }
@@ -100,70 +81,46 @@ class PortfolioSvc {
       description,
       presentablePicture,
       mainPicture,
-      xCoords,
-      yCoords,
-      rowsCount,
-      columnsCount,
-      rowHeight,
-      images,
+      sections,
     } = data;
 
     ([{ rows: [{ id }] }] = await doAction([{
       method: 'query',
       args: [
-        `INSERT INTO portfolio (title, description, presentable_picture, main_picture, rows_count, columns_count, row_height${id ? ', id' : ''})
-         VALUES ($1, $2, $3, $4, $5, $6, $7${id ? ', $8' : ''}) RETURNING *`,
-        [title, description, presentablePicture, mainPicture, rowsCount, columnsCount, rowHeight, ...(id ? [id] : [])],
+        `INSERT INTO portfolio (title, description, presentable_picture, main_picture{id ? ', id' : ''})
+         VALUES ($1, $2, $3, $4${id ? ', $5' : ''}) RETURNING *`,
+        [title, description, presentablePicture, mainPicture, ...(id ? [id] : [])],
       ],
     }]));
 
-    await Promise.all([
-      doAction(
-        Array(3)
-          .fill(null)
-          .map((v, i) => ({
-            method: 'query',
-            args: [
-              `INSERT INTO portfolio_coords (id, size_id, type, x_coords, y_coords) 
-               VALUES ($1, $2, $3, $4, $5)`,
-              [id, i + 1, PORTFOLIO, xCoords, yCoords],
-            ],
-          }))
-      ),
-      (async () => {
-        const res = await doAction(
-          images.map(({ src }) => ({
-            method: 'query',
-            args: [
-              `INSERT INTO portfolio_images (portfolio_id, src) VALUES ($1, $2) RETURNING *`,
-              [id, src],
-            ],
-          }))
-        );
-        res.forEach(({ rows: [{ id }] }, i) => images[i].id = id);
+    const res = await doAction(
+      sections.map(({ colsCount }) => ({
+        method: 'query',
+        args: [
+          `INSERT INTO portfolio_image_sections (portfolio_id, cols_count) VALUES ($1, $2) RETURNING *`,
+          [id, colsCount],
+        ],
+      }))
+    );
+    res.forEach(({ rows: [{ id }] }, i) => sections[i].id = id);
 
-        return await doAction(
-          images.reduce((queries, { id, coords }) => [
-            ...queries,
-            ...coords.map(({ size, xCoords, yCoords }) => ({
-              method: 'query',
-              args: [
-                `INSERT INTO portfolio_coords (id, size_id, type, x_coords, y_coords) VALUES ($1, $2, $3, $4, $5)`,
-                [id, size, PORTFOLIO_IMAGES, xCoords, yCoords],
-              ],
-            }))
-          ], [])
-        )
-      })(),
-    ]);
+    await doAction(
+      sections.map((queries, { id, src }) => ({
+        method: 'query',
+        args: [
+          `INSERT INTO portfolio_images (section_id, src) VALUES ($1, $2)`,
+          [id, src],
+        ],
+      }))
+    );
   }
 
   static async deletePortfolio(id) {
-    const [{ rows: deletedImages }, { rows: [deletedPortfolio] }] = await doAction([
+    const [{ rows: deletedSections }, { rows: [deletedPortfolio] }] = await doAction([
       {
         method: 'query',
         args: [
-          `DELETE FROM portfolio_images WHERE portfolio_id = $1 RETURNING *`,
+          `DELETE FROM portfolio_image_sections WHERE portfolio_id = $1 RETURNING *`,
           [id],
         ],
       },
@@ -172,13 +129,6 @@ class PortfolioSvc {
         args: [
           `DELETE FROM portfolio WHERE id = $1 RETURNING *`,
           [id],
-        ],
-      },
-      {
-        method: 'query',
-        args: [
-          `DELETE FROM portfolio_coords WHERE id = $1 AND type = $2`,
-          [id, PORTFOLIO],
         ],
       },
     ]);
@@ -205,26 +155,26 @@ class PortfolioSvc {
       );
     }
 
-    if (Array.isArray(deletedImages) && deletedImages.length) {
-      const imageIds = deletedImages.map(({ id, src }) => {
+    if (Array.isArray(deletedSections) && deletedSections.length) {
+      const sectionIds = deletedSections.map(({ id }) => id);
+      const [{ rows: deletedImages }] = await doAction([
+        {
+          method: 'query',
+          args: [
+            `DELETE FROM portfolio_images WHERE id = ANY($1::int[]) RETURNING *`,
+            [sectionIds],
+          ],
+        },
+      ]);
+      deletedImages.map(({ src }) => {
         ImagesSvc.deletePhoto(
           path.join(
             APP_PATH,
             path.resolve(STATIC_FILES_DIRECTORY),
             path.resolve(src),
           ),
-        );
-        return id;
+        )
       });
-      await doAction([
-        {
-          method: 'query',
-          args: [
-            `DELETE FROM portfolio_coords WHERE id = ANY($1::int[]) AND type = $2`,
-            [imageIds, PORTFOLIO_IMAGES],
-          ],
-        },
-      ])
     }
   }
 }

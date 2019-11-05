@@ -158,12 +158,7 @@ async function addPortfolio(req, id = null) {
     description,
     presentablePicture,
     mainPicture,
-    xCoords,
-    yCoords,
-    rowsCount,
-    columnsCount,
-    rowHeight,
-    images,
+    sections,
   } = req.body;
 
   const mainPictureName = randToken.generate(16);
@@ -171,16 +166,22 @@ async function addPortfolio(req, id = null) {
   const presentablePictureName = randToken.generate(16);
   presentablePicture = await ImagesSvc.createPhoto(presentablePicture, PORTFOLIO_IMAGES_PATH + presentablePictureName, STATIC_FILES_DIRECTORY);
 
-  images = Array.isArray(images) ? images : [];
-  images = await Promise.all(
-    images.map(async ({ image, coords }) => {
-      const imageName = randToken.generate(16);
+  sections = Array.isArray(sections) ? sections : [];
+  sections = await Promise.all(
+    sections.map(async ({ colsCount, images }) => ({
+      colsCount,
+      images: Array.isArray(images) ? (
+        await Promise.all(
+          images.map(async (image) => {
+            const imageName = randToken.generate(16);
 
-      return {
-        coords,
-        src: await ImagesSvc.createPhoto(image, PORTFOLIO_IMAGES_PATH + imageName, STATIC_FILES_DIRECTORY),
-      };
-    })
+            return {
+              src: await ImagesSvc.createPhoto(image, PORTFOLIO_IMAGES_PATH + imageName, STATIC_FILES_DIRECTORY),
+            };
+          })
+        )
+      ) : [],
+    }))
   );
 
   await PortfolioSvc.addPortfolio({
@@ -188,12 +189,7 @@ async function addPortfolio(req, id = null) {
     description,
     presentablePicture,
     mainPicture,
-    xCoords,
-    yCoords,
-    rowsCount,
-    columnsCount,
-    rowHeight,
-    images,
+    sections,
   }, id);
 }
 
