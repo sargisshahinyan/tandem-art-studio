@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState } from 'react';
 import Slider from 'react-slick';
 
 import Service from './Service';
-import './style.scss';
 
 const ServiceSlider = ({ services, selected = 1, global }) => {
   const slider = useRef(null);

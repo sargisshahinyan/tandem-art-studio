@@ -46,3 +46,12 @@ $myriad_pro_b: 'Myriad Pro Bold';
   font-weight: bold;
   font-style: normal;
 }
+
+@font-face {
+  font-family: 'Anzeigen-Grotesk-D-Regular';
+  src: local('/fonts/Verdana'),
+  url('/fonts/Anzeigen-Grotesk-D-Regular.woff') format('woff'),
+  url('/fonts/Anzeigen-Grotesk-D-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}

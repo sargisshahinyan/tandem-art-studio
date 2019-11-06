@@ -1,8 +1,12 @@
 import React from 'react';
 import { Animated } from 'react-animated-css';
+import { connect } from 'react-redux';
 
 import Header from '../Header';
 import BasicFooter from '../BasicFooter';
+import HiddenFooter from '../HiddenFooter';
+import TeamSlider from './TeamSlider';
+import Signature from '../Signature';
 
 import { convertText } from '../../utils';
 
@@ -47,6 +51,13 @@ export function Team({ title, description, active, width }) {
     position: 'Front-end developer',
   }];
 
+  const eventBinder = {
+    onScroll: e => {e.stopPropagation()},
+    onWheel: e => {e.stopPropagation()},
+    onTouchStart:e => {e.preventDefault()},
+    onTouchMove:e => {e.stopPropagation()},
+  };
+
   return (
     <article className="bg_team">
       <Header active={active} />
@@ -76,20 +87,29 @@ export function Team({ title, description, active, width }) {
               ))}
             </div>
           </div>
+          <TeamSlider members={members} />
         </div>
         <div className="text_content">
           <div className="wrapper">
             <div className="content">
               <h3>{title}</h3>
-              <p>{convertText(description)}</p>
+              <p {...eventBinder}>{convertText(description)}</p>
             </div>
           </div>
         </div>
+        <Signature />
       </main>
       <BasicFooter />
+      <HiddenFooter />
     </article>
   );
 }
 
-export default Team;
+function mapStateToProps({ common: { width } }) {
+  return {
+    width,
+  }
+}
+
+export default connect(mapStateToProps)(Team);
 

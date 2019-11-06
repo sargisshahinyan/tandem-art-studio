@@ -1,73 +1,121 @@
 @import "mixin";
 @import "fonts";
 
-main{
-  &.our_team{
-    .team_items{
-      margin-top: 50px;
-      min-height: 240px;
-      .content{
-        padding-top: 40px;
-        padding-bottom: 40px;
-        .member_container{
-          padding-top: 10px;
-          padding-bottom: 10px;
-          div{
-            &.item_img{
-              width: 140px;
-              height: 140px;
-              overflow: hidden;
-              @include prefix-name(50%);
-              img{
-                max-width: 100%;
-                @include prefix-name(50%);
-                transform: scale(1);
-                filter: saturate(0);
-              }
-            }
-            &.item_name{
-              margin-top: 5px;
-              max-width: 140px;
-              span{
-                font-family: $verdana_r;
-                font-size: 11px;
-              }
-            }
-            &.item_description{
-              margin-top: 5px;
-              max-width: 140px;
-              p{
-                font-family: $verdana_r;
-                font-size: 10px;
-                line-height: 1.4;
-                color: rgba(255, 255, 255, 0.4);
-              }
-            }
-          }
-          &:hover{
-            & > div{
-              &.item_img{
+.bg_team {
+  & main {
+    &.our_team {
+      .team_items {
+        margin-top: 50px;
+        min-height: 240px;
+        .content {
+          padding-top: 40px;
+          padding-bottom: 40px;
+          .member_container {
+            padding-top: 10px;
+            padding-bottom: 10px;
+            div {
+              &.item_img {
+                width: 140px;
+                height: 140px;
                 overflow: hidden;
                 @include prefix-name(50%);
-                img{
+                img {
+                  max-width: 100%;
                   @include prefix-name(50%);
-                  filter: saturate(1);
-                  transform: scale(1.1);
+                  transform: scale(1);
+                  filter: saturate(0);
+                }
+              }
+              &.item_name {
+                margin-top: 5px;
+                max-width: 140px;
+                span {
+                  font-family: $verdana_r;
+                  font-size: 11px;
+                }
+              }
+              &.item_description {
+                margin-top: 5px;
+                max-width: 140px;
+                p {
+                  font-family: $verdana_r;
+                  font-size: 10px;
+                  line-height: 1.4;
+                  color: rgba(255, 255, 255, 0.4);
+                }
+              }
+            }
+            &:hover {
+              & > div {
+                &.item_img {
+                  overflow: hidden;
+                  @include prefix-name(50%);
+                  img {
+                    @include prefix-name(50%);
+                    filter: saturate(1);
+                    transform: scale(1.1);
+                  }
                 }
               }
             }
           }
         }
+        & > .teamSlider {
+          display: none;
+          position: relative;
+          -webkit-background-size: cover;
+          background-size: cover;
+          min-height: 200px;
+          .slider {
+            padding: 40px;
+          }
+        }
+      }
+      .text_content {
+        margin-top: 50px;
+        .content {
+          p {
+            max-width: 66%;
+            margin-left: auto;
+            margin-right: auto;
+          }
+        }
+      }
+
+      .signature {
+        display: none;
       }
     }
-    .text_content{
-      margin-top: 50px;
-      .content{
-        p{
-          max-width: 66%;
-          margin-left: auto;
-          margin-right: auto;
+  }
+
+  @media (max-width: 767px) {
+    & main {
+      & .team_items {
+        margin-top: 0 !important;
+        & > .teamSlider {
+          display: block !important;
         }
+        & > .wrapper {
+          display: none;
+        }
+      }
+      & .text_content {
+        margin-top: 10px !important;
+        & .wrapper {
+          .content {
+            & h3 {
+              display: none;
+            }
+            & p {
+              max-width: 90%;
+              max-height: calc(100vh - 480px);
+              overflow-y: auto;
+            }
+          }
+        }
+      }
+      .signature {
+        display: block !important;
       }
     }
   }
