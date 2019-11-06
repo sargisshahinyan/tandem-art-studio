@@ -10,4 +10,4 @@ database.json
 # front end build
 build
 
-portfolioFakeData.js
+nodemon.json

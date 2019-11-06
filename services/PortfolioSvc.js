@@ -61,10 +61,10 @@ class PortfolioSvc {
                 )
               ) AS images
             FROM portfolio_image_sections AS pis
-            JOIN portfolio_images pi on pis.id = pi.section_id
+            JOIN portfolio_images AS pi on pis.id = pi.section_id
             WHERE pis.id = ANY($1::int[])
             GROUP BY pis.id`,
-            [portfolio.sections.map(({ id }) => id)]
+            [portfolio.sections.map(({ id }) => id)],
           ],
         },
       ]);
@@ -87,7 +87,7 @@ class PortfolioSvc {
     ([{ rows: [{ id }] }] = await doAction([{
       method: 'query',
       args: [
-        `INSERT INTO portfolio (title, description, presentable_picture, main_picture{id ? ', id' : ''})
+        `INSERT INTO portfolio (title, description, presentable_picture, main_picture${id ? ', id' : ''})
          VALUES ($1, $2, $3, $4${id ? ', $5' : ''}) RETURNING *`,
         [title, description, presentablePicture, mainPicture, ...(id ? [id] : [])],
       ],
@@ -102,10 +102,18 @@ class PortfolioSvc {
         ],
       }))
     );
-    res.forEach(({ rows: [{ id }] }, i) => sections[i].id = id);
+    const images = [];
+
+    res.forEach(({ rows: [{ id }] }, i) => {
+      images.push(
+        ...sections[i].images.map(({ src }) => ({
+          id, src
+        }))
+      )
+    });
 
     await doAction(
-      sections.map((queries, { id, src }) => ({
+      images.map(({ id, src }) => ({
         method: 'query',
         args: [
           `INSERT INTO portfolio_images (section_id, src) VALUES ($1, $2)`,
@@ -161,7 +169,7 @@ class PortfolioSvc {
         {
           method: 'query',
           args: [
-            `DELETE FROM portfolio_images WHERE id = ANY($1::int[]) RETURNING *`,
+            `DELETE FROM portfolio_images WHERE section_id = ANY($1::int[]) RETURNING *`,
             [sectionIds],
           ],
         },
