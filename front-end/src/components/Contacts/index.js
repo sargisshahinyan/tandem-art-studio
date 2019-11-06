@@ -1,6 +1,5 @@
 import React, { memo, useState } from 'react';
 import { Animated } from 'react-animated-css';
-import { connect } from 'react-redux';
 
 import Header from '../Header';
 import LargeFooter from '../LargeFooter';
@@ -12,10 +11,7 @@ import './styles.scss';
 
 
 export const Contacts = memo(
-  function Contacts({ goToPage, scrolling, active, width }) {
-    const [opened, setMode] = useState(width <= 767);
-
-
+  function Contacts({ goToPage, scrolling, active }) {
     return (
       <article className="bg_contact_us">
         <Header active={active} />
@@ -63,16 +59,11 @@ export const Contacts = memo(
 
         </main>
         <LargeFooter noPadding={true} />
-        <BasicFooter opened={opened} />
+        <BasicFooter />
         <HiddenFooter />
       </article>
     );
   }
 );
 
-
-const mapToStateProps = ({ common: {width} }) => ({
-  width
-});
-
-export default connect(mapToStateProps)(Contacts);
+export default Contacts;

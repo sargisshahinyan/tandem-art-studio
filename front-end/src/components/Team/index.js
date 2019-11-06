@@ -8,7 +8,7 @@ import { convertText } from '../../utils';
 
 import './styles.scss';
 
-export function Team({ title, description, active }) {
+export function Team({ title, description, active, width }) {
   const members = [{
     name: 'Hayk Hovhannisyan',
     avatar: '/images/team/photo_1.png',
@@ -48,8 +48,7 @@ export function Team({ title, description, active }) {
   }];
 
   return (
-    <article>
-      <div className="bg_sim_styles bg_team" />
+    <article className="bg_team">
       <Header active={active} />
       <main className="our_team centering_content">
         <div className="title">
@@ -93,3 +92,4 @@ export function Team({ title, description, active }) {
 }
 
 export default Team;
+

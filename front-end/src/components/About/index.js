@@ -24,6 +24,7 @@ export const About = memo(
       onTouchStart:e => {e.preventDefault()},
       onTouchMove:e => {e.stopPropagation()},
     };
+
     return (
       <article className='bg_about'>
         <Header opened={opened} />
@@ -53,15 +54,11 @@ export const About = memo(
           </div>
           <Signature />
         </main>
-        <BasicFooter opened={opened} />
+        <BasicFooter />
         <HiddenFooter />
       </article>
     );
   }
 );
 
-const mapToStateProps = ({ common: {width} }) => ({
-  width,
-});
-
-export default connect(mapToStateProps)(About);
+export default About;

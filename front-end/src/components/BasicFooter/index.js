@@ -6,16 +6,17 @@ import { Link } from 'react-router-dom';
 import './styles.scss';
 
 export const BasicFooter = memo(
-  function BasicFooter({ goToPage, active, opened }) {
+  function BasicFooter({ goToPage, active, opened, width }) {
     function goToPageWrapper(e) {
       e.preventDefault();
 
       const pageIndex = window.location.pathname === '/' ? 5 : 2;
       goToPage(pageIndex);
     }
+    console.log(width);
 
     return (
-      <footer className={"basic_footer " + (opened ? 'mobileBasicFooter' : '')}>
+      <footer className={"basic_footer " + (width <= 767 ? 'mobileBasicFooter' : '')}>
         <div className="wrapper">
           <Animated
             animationIn="fadeIn"
@@ -23,6 +24,7 @@ export const BasicFooter = memo(
             animationOut="fadeOut"
             isVisible={!active}
           >
+            {console.log(opened)}
             <div className="footer_content">
               <div className="socialize">
                 <ul>
@@ -68,9 +70,10 @@ export const BasicFooter = memo(
   }
 );
 
-function mapToStateProps({ pages }) {
+function mapToStateProps({ pages, common: { width } }) {
   return {
     goToPage: pages.goToPage,
+    width,
   };
 }
 

@@ -6,6 +6,11 @@ footer{
 }
 .basic_footer{
   width: 25%;
+
+  &.mobileBasicFooter {
+    display: none;
+  }
+
   margin-bottom: 20px;
   .socialize{
     display: inline-block;
