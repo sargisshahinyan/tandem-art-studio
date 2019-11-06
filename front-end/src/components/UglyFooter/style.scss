@@ -26,5 +26,28 @@ article.bg_location {
         }
       }
     }
+
+    & > #gameChanger {
+      display: none;
+    }
+    @media (max-width: 767px) {
+      & > #gameChanger {
+        display: block !important;
+      }
+
+      & > #phones, & > #addresses {
+        width: 80%;
+      }
+
+      & > #phones {
+        &:before {
+
+        }
+      }
+
+      & > #addresses {
+
+      }
+    }
   }
 }

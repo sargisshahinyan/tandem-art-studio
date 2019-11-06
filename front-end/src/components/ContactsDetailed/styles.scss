@@ -23,4 +23,22 @@ article.bg_location {
   & > footer {
     @include flex-grow(4);
   }
+
+  @media (max-width: 767px) {
+    & header {
+      display: none!important;
+    }
+    & main {
+      background: none;
+
+      & > iframe {
+        height: auto;
+        margin-top: 40px;
+        padding: 0;
+      }
+    }
+    & > footer {
+      @include flex-direction(column);
+    }
+  }
 }

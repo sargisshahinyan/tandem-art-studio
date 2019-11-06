@@ -13,7 +13,6 @@ export const BasicFooter = memo(
       const pageIndex = window.location.pathname === '/' ? 5 : 2;
       goToPage(pageIndex);
     }
-    console.log(width);
 
     return (
       <footer className={"basic_footer " + (width <= 767 ? 'mobileBasicFooter' : '')}>

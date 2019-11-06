@@ -13,6 +13,10 @@ function UglyFooter() {
         <div className="phone">Tel: +374 10 44 09 62</div>
         <div className="phone">Mob: +374 93 93 04 12</div>
       </div>
+      <div id="gameChanger">
+        <div id="game">BE THE GAME</div>
+        <div id="changer">CHANGER</div>
+      </div>
       <ul id="social">
         <li>
           <a
