@@ -9,15 +9,6 @@ window.addEventListener('load', function () {
       title: document.getElementById('title').value,
       description: document.getElementById('description').value,
     };
-    /*const body = {
-      title: document.getElementById('title').value,
-      description: document.getElementById('description').value,
-      xCoords: document.getElementById('xCoords').value,
-      yCoords: document.getElementById('yCoords').value,
-      rowsCount: document.getElementById('rowsCount').value,
-      columnsCount: document.getElementById('colsCount').value,
-      rowHeight: document.getElementById('rowHeight').value + 'px',
-    };*/
 
     var mainPicture = document.getElementById('mainPicture');
     var presentablePicture = document.getElementById('presentablePicture');
