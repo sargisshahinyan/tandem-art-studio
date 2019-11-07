@@ -1,5 +1,5 @@
 .portfolio-single {
-  padding: 40px 10px 40px 20px;
+  padding: 40px 10px 40px 10px;
   position: relative;
   z-index: 1;
   .main-picture {
@@ -17,5 +17,33 @@
     padding: 20px 10%;
     text-align: center;
     line-height: 1.4;
+  }
+  .sections {
+    .section {
+      padding: 10px 0;
+      display: flex;
+      justify-content: space-between;
+    }
+    .section-img-wrapper {
+      padding: 0 10px;
+      flex: 1;
+      &:first-child {
+        padding-left: 0;
+      }
+      &:last-child {
+        padding-right: 0;
+      }
+      img {
+        width: 100%;
+      }
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .portfolio-single {
+    .description {
+      padding: 20px 10px;
+    }
   }
 }

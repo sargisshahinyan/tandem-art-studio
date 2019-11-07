@@ -1,12 +1,9 @@
-Array.prototype.slice.call(document.querySelectorAll('input[type="file"][accept="image/*"]')).forEach(function (element) {
+Array.prototype.slice.call(document.querySelectorAll('input[type="file"][accept="image/*"]')).forEach(autoPresentImages);
+
+function autoPresentImages(element) {
   var imgContainer = element.parentElement.querySelector('.presenter-container');
 
-  if (imgContainer) {
-    var coordsWrappers = imgContainer.querySelectorAll('.image-grid-data');
-    Array.from(coordsWrappers).forEach((coordsWrapper) => {
-      if (coordsWrapper) handleSizeChangeEvents(coordsWrapper);
-    });
-  } else {
+  if (!imgContainer) {
     imgContainer = document.createElement('div');
     imgContainer.className = 'presenter-container';
   }
@@ -37,7 +34,6 @@ Array.prototype.slice.call(document.querySelectorAll('input[type="file"][accept=
           imageItem.style['min-height'] = '200px';
           imageItem.style.margin = '10px 0';
           var imageWrapper = document.createElement('div');
-          imageWrapper.className = 'col-6';
 
           var img = new Image();
           img.src = src;
@@ -45,31 +41,9 @@ Array.prototype.slice.call(document.querySelectorAll('input[type="file"][accept=
           imageWrapper.appendChild(img);
           imageItem.appendChild(imageWrapper);
 
-          if (element.classList.contains('portfolio-images')) {
-            var coordsTemplate = document.getElementById('img-coords');
-            var coordsWrapper = coordsTemplate.content.cloneNode(true);
-
-            handleSizeChangeEvents(coordsWrapper);
-
-            imageItem.appendChild(coordsWrapper);
-          }
-
           imgContainer.appendChild(imageItem);
         });
       })
       .catch(console.log.bind(console));
   });
-
-  function handleSizeChangeEvents(coordsWrapper) {
-    var coordData = coordsWrapper.querySelectorAll('.coordData');
-    coordsWrapper.querySelector('.sizes').addEventListener('change', function (e) {
-      Array.from(coordData).forEach(function (el) {
-        if (el.dataset.id === e.target.value) {
-          el.style.removeProperty('display');
-        } else {
-          el.style.setProperty('display', 'none');
-        }
-      });
-    });
-  }
-});
+}

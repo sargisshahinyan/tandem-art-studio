@@ -1,99 +1,5 @@
-<template id="img-coords">
-    <div class="col-6 image-grid-data">
-        <div class="form-group">
-            <label>Size</label>
-            <select
-                name="size"
-                class="sizes form-control"
-            >
-                <% sizes.forEach(({ id, name }) => { %>
-                    <option value="<%= id %>"><%= name %></option>
-                <% }) %>
-            </select>
-        </div>
-        <% sizes.forEach(({ id }, i) => { %>
-            <div class="coordData" data-id="<%= id %>" style="<%= i !== 0 ? 'display: none' : '' %>">
-                <div class="form-group">
-                    <label>X Coords</label>
-                    <input
-                        name="xCoords"
-                        class="form-control xCoords"
-                        placeholder="X Coords"
-                        required
-                    />
-                </div>
-                <div class="form-group">
-                    <label>Y Coords</label>
-                    <input
-                        name="yCoords"
-                        class="form-control yCoords"
-                        placeholder="Y Coords"
-                        required
-                    />
-                </div>
-            </div>
-        <% }) %>
-    </div>
-</template>
+<% include portfolioTemplates.ejs %>
 <article>
-    <section>
-        <h3>Global configs</h3>
-        <div class="row">
-            <div class="col-6">
-                <div class="form-group">
-                    <label for="sizes">Size</label>
-                    <select
-                        id="sizes"
-                        name="sizes"
-                        class="form-control"
-                    >
-                        <% sizes.forEach(({ id, name }) => { %>
-                            <option value="<%= id %>"><%= name %></option>
-                        <% }) %>
-                    </select>
-                </div>
-            </div>
-            <div class="col-6">
-                <div class="form-group">
-                    <label for="rowsCountGlobal">Rows Count</label>
-                    <input
-                        id="rowsCountGlobal"
-                        type="number"
-                        class="form-control"
-                        placeholder="Rows Count"
-                        min="1"
-                        required
-                    />
-                </div>
-                <div class="form-group">
-                    <label for="colsCountGlobal">Columns Count</label>
-                    <input
-                        id="colsCountGlobal"
-                        type="number"
-                        class="form-control"
-                        placeholder="Columns Count"
-                        min="1"
-                        required
-                    />
-                </div>
-                <div class="form-group">
-                    <label for="rowHeightGlobal">Row height</label>
-                    <input
-                        id="rowHeightGlobal"
-                        type="number"
-                        class="form-control"
-                        placeholder="Row height"
-                        min="1"
-                        required
-                    />
-                </div>
-            </div>
-            <div class="col-12">
-                <button class="btn btn-primary" id="update">Update</button>
-            </div>
-        </div>
-    </section>
-    <hr /><hr />
     <form action="<%= baseUrl %>/portfolio" method="post">
         <h3>Add new</h3>
         <hr />
@@ -144,83 +50,9 @@
             />
         </div>
         <hr />
-        <h4>Position in page</h4>
-        <div class="row">
-            <div class="form-group col-6">
-                <label for="xCoords">X Coords</label>
-                <input
-                    id="xCoords"
-                    name="xCoords"
-                    class="form-control"
-                    placeholder="X Coords"
-                    required
-                />
-            </div>
-            <div class="form-group col-6">
-                <label for="yCoords">Y Coords</label>
-                <input
-                    id="yCoords"
-                    name="yCoords"
-                    class="form-control"
-                    placeholder="Y Coords"
-                    required
-                />
-            </div>
-        </div>
+        <button id="add-section-btn" class="btn btn-light" type="button">Add section</button>
+        <div id="image-sections"></div>
         <hr />
-        <h4>Grid system</h4>
-        <div class="row">
-            <div class="form-group col-4">
-                <label for="rowsCount">Rows Count</label>
-                <input
-                    id="rowsCount"
-                    type="number"
-                    class="form-control"
-                    placeholder="Rows Count"
-                    min="1"
-                    value="10"
-                    required
-                />
-            </div>
-            <div class="form-group col-4">
-                <label for="colsCount">Columns Count</label>
-                <input
-                    id="colsCount"
-                    type="number"
-                    class="form-control"
-                    placeholder="Columns Count"
-                    min="1"
-                    value="10"
-                    required
-                />
-            </div>
-            <div class="form-group col-4">
-                <label for="rowHeight">Row height</label>
-                <input
-                    id="rowHeight"
-                    type="number"
-                    class="form-control"
-                    placeholder="Row height"
-                    min="1"
-                    value="50"
-                    required
-                />
-            </div>
-        </div>
-        <hr />
-        <div class="form-group">
-            <label for="images">Images</label>
-            <input
-                id="images"
-                name="images"
-                class="form-control portfolio-images"
-                placeholder="Images"
-                type="file"
-                accept="image/*"
-                multiple
-                required
-            />
-        </div>
         <button type="submit" class="btn btn-primary">Add</button>
     </form>
     <hr /><hr />
@@ -245,7 +77,7 @@
 <script src="/js/fileHelpers.js"></script>
 <script src="/js/imageAutopresenter.js"></script>
 <script>
-  window.globalData = <%- JSON.stringify(page) %>;
   window.baseUrl = '<%= baseUrl %>';
 </script>
+<script src="/js/sectionControl.js"></script>
 <script src="/js/portfolio.js"></script>

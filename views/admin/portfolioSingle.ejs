@@ -1,0 +1,122 @@
+<% include portfolioTemplates.ejs %>
+<article>
+    <form action="<%= `${baseUrl}${activePage}/${portfolio.id}` %>" method="post">
+        <h4>Basic info</h4>
+        <div class="form-group">
+            <label for="title">Title</label>
+            <input
+                id="title"
+                name="title"
+                type="text"
+                class="form-control"
+                placeholder="Title"
+                value="<%= portfolio.title %>"
+                required
+            />
+        </div>
+        <div class="form-group">
+            <label for="description">Description</label>
+            <textarea
+                id="description"
+                name="description"
+                class="form-control"
+                placeholder="Description"
+                required
+            ><%= portfolio.description %></textarea>
+        </div>
+        <div class="form-group">
+            <label for="presentablePicture">Presentable picture</label>
+            <input
+                id="presentablePicture"
+                name="presentablePicture"
+                class="form-control"
+                placeholder="Presentable picture"
+                type="file"
+                accept="image/*"
+            />
+            <div class="presenter-container">
+                <div class="row" style="min-height: 200px; margin: 10px 0">
+                    <div>
+                        <img class="img-fluid" src="<%= portfolio.presentable_picture %>">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="mainPicture">Main picture</label>
+            <input
+                id="mainPicture"
+                name="mainPicture"
+                class="form-control"
+                placeholder="Main picture"
+                type="file"
+                accept="image/*"
+            />
+            <div class="presenter-container">
+                <div class="row" style="min-height: 200px; margin: 10px 0">
+                    <div>
+                        <img class="img-fluid" src="<%= portfolio.main_picture %>">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr />
+        <button id="add-section-btn" class="btn btn-light" type="button">Add section</button>
+        <div id="image-sections">
+            <% portfolio.sections.forEach(({ cols_count: colsCount, images }) => { %>
+                <div class="section">
+                    <div class="row">
+                        <div class="form-group col-4">
+                            <label>Columns count</label>
+                            <select class="form-control columns-count" name="columns-count">
+                                <% [1, 2, 4, 6].forEach((i) => { %>
+                                    <option
+                                        value="<%= i %>"
+                                        <%= colsCount === i ? 'selected' : '' %>
+                                    >
+                                        <%= i %>
+                                    </option>
+                                <% }) %>
+                            </select>
+                        </div>
+                        <div class="col-8 text-right">
+                            <span class="badge badge-danger badge-pill delete">
+                                <i class="fas fa-times delete"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="row images">
+                        <% images.forEach(({ src }) => { %>
+                            <div class="col-<%= 12 / colsCount %> form-group">
+                                <input
+                                    class="form-control"
+                                    type="file"
+                                    accept="image/*"
+                                />
+                                <div class="presenter-container">
+                                    <div class="row" style="min-height: 200px; margin: 10px 0;">
+                                        <div>
+                                            <img class="img-fluid" src="<%= src %>">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <% }) %>
+                    </div>
+                </div>
+            <% }); %>
+        </div>
+        <hr />
+        <button type="submit" class="btn btn-primary">Save</button>
+    </form>
+</article>
+
+
+<script src="/js/fileHelpers.js"></script>
+<script src="/js/imageAutopresenter.js"></script>
+<script>
+  window.baseUrl = '<%= baseUrl %>';
+  window.id = '<%= portfolio.id %>';
+</script>
+<script src="/js/sectionControl.js"></script>
+<script src="/js/portfolio-single.js"></script>
