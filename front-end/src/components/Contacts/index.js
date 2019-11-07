@@ -15,7 +15,6 @@ export const Contacts = memo(
   function Contacts({ active, width }) {
     const opened = width <= 767;
 
-
     return (
       <article className="bg_contact_us">
         <Header active={active} />

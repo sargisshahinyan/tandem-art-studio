@@ -1,21 +1,49 @@
+.portfolio-wrapper {
+  overflow: hidden;
+  height: calc(100vh - 70px);
+}
 .portfolio {
-  padding: 40px 10px 40px 20px;
   position: relative;
   z-index: 1000;
-  display: grid;
-  grid-gap: 5px;
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 1920px;
+  height: 100%;
+  margin: 0 auto;
   .portfolio-item {
-    overflow: hidden;
-    img {
-      object-fit: cover;
-      width: 100%;
+    width: 25vw;
+    max-width: 480px;
+    height: calc(50vh - 35px);
+    padding: 20px 10px;
+    .portfolio-item-wrapper {
+      background: no-repeat center center;
+      -webkit-background-size: cover;
+      -moz-background-size: cover;
+      -o-background-size: cover;
+      background-size: cover;
+      position: relative;
       height: 100%;
-      transition: all 0.5s;
-      &:hover {
-        margin-left: -5%;
-        width: 110%;
-        height: 110%;
-      }
+      display: block;
     }
+  }
+  transition: margin-top 1s;
+}
+
+@media (max-width: 1023px) {
+  .portfolio .portfolio-item {
+    width: calc(100vw / 3);
+    max-width: unset;
+  }
+}
+
+@media (max-width: 767px) {
+  .portfolio .portfolio-item {
+    width: 50vw;
+  }
+}
+
+@media (max-width: 549px) {
+  .portfolio .portfolio-item {
+    width: 100vw;
   }
 }

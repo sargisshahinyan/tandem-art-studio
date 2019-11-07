@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 
-import { coordinatesToGrid, convertText } from '../../utils';
+import { convertText } from '../../utils';
 
 import { loadPortfolio } from '../../actions/portfolios';
 
@@ -15,45 +15,43 @@ export class PortfolioItem extends PureComponent {
   }
 
   render() {
-    const { portfolio, width } = this.props;
+    const { portfolio } = this.props;
 
     if (!portfolio) return null;
 
-    const style = {
-      gridTemplateRows: `repeat(${portfolio.rows_count}, ${portfolio.row_height})`,
-      gridTemplateColumns: `repeat(${portfolio.columns_count}, 1fr)`,
-    };
+    const {
+      title,
+      description,
+      main_picture: mainPicture,
+      sections,
+    } = portfolio;
 
     return (
       <main className="portfolio-single">
         <img
           className="main-picture"
-          src={portfolio.main_picture}
+          src={mainPicture}
           alt="Main"
         />
         <h1 className="title">
-          {portfolio.title}
+          {title}
         </h1>
         <p className="description">
-          {convertText(portfolio.description)}
+          {convertText(description)}
         </p>
-        <div className="portfolio" style={style}>
-          {portfolio.images.map(image => {
-            const { x_coords, y_coords } = image.coords.find(({ starts_from }) => starts_from < width);
-
-            return (
-              <div
-                key={image.id}
-                className="portfolio-item"
-                style={{
-                  gridColumn: coordinatesToGrid(x_coords),
-                  gridRow: coordinatesToGrid(y_coords),
-                }}
-              >
-                <img src={image.src} alt="Portfolio" />
-              </div>
-            );
-          })}
+        <div className="sections">
+          {sections.map(({ id, images }) => (
+            <section
+              key={id}
+              className="section"
+            >
+              {images.map(({ id, src }) => (
+                <div key={id} className="section-img-wrapper">
+                  <img src={src} alt={title} />
+                </div>
+              ))}
+            </section>
+          ))}
         </div>
       </main>
     );

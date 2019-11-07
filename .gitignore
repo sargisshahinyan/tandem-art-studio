@@ -11,3 +11,5 @@ database.json
 build
 
 nodemon.json
+
+assets/img/portfolio/
