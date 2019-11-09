@@ -1,14 +1,12 @@
-import React, {Fragment} from 'react';
+import React from 'react';
 import Slider from 'react-slick';
 import { Animated } from 'react-animated-css';
-
-import './styles.scss';
 
 export function CustomCarousel({ items }) {
   const settings = {
     dots: true,
     infinite: true,
-    autoplay: !true,
+    autoplay: true,
     speed: 1500,
     slidesToShow: 1,
     slidesToScroll: 1,
@@ -27,7 +25,7 @@ export function CustomCarousel({ items }) {
     ),
     appendDots: dots => (
       <div>
-        <ul className='slide-dots'>{dots}</ul>
+        <ul className="slide-dots">{dots}</ul>
       </div>
     ),
   };
