@@ -121,6 +121,11 @@ article {
     width: 100%;
     height: inherit;
   }
+
+  @include flexbox();
+  @include flex-direction(column);
+  @include justify-content(space-between);
+
   .bg_index {
     background: url("/images/backgrounds/bg_index.png") no-repeat center center;
     -webkit-background-size: cover;
@@ -130,9 +135,6 @@ article {
     background: url("/images/backgrounds/bg_about.png") no-repeat center center;
     -webkit-background-size: cover;
     background-size: cover;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
   }
   &.bg_clients {
     background: url("/images/backgrounds/bg_clients.png") no-repeat center center;
@@ -146,9 +148,7 @@ article {
     background: url("/images/backgrounds/bg_services.png") no-repeat center center;
     -webkit-background-size: cover;
     background-size: cover;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+
   }
   &.bg_team {
     background: url("/images/backgrounds/bg_team.png") no-repeat center center;
@@ -162,10 +162,9 @@ article {
     background: url("/images/backgrounds/bg_contact_us.png") no-repeat center center;
     -webkit-background-size: cover;
     background-size: cover;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
   }
+
+
 }
 
 /* Main content's styles */
@@ -204,5 +203,18 @@ main {
   }
   50% {
     background-position: bottom;
+  }
+}
+
+@media (max-width: 767px) {
+  &.bg_services, &.bg_clients, &.bg_team {
+    header {
+      display: none;
+    }
+    & main {
+      & .title {
+        padding: 20px 0;
+      }
+    }
   }
 }

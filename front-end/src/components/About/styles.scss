@@ -18,6 +18,7 @@ $myWhite: rgba(255, 255, 255, .6);
         @include align-items(center);
 
         .content {
+          height: 250px;
           max-height: 270px;
           overflow-y: auto;
           &::-webkit-scrollbar {
@@ -125,6 +126,7 @@ $myWhite: rgba(255, 255, 255, .6);
         & .content {
           transition: all .3s linear;
           &.opened {
+            height: auto;
             max-height: calc(100vh - 300px);
             & p {
               max-height: 100%;
@@ -171,10 +173,6 @@ $myWhite: rgba(255, 255, 255, .6);
       width: 100%;
       @media (max-height: 680px) {
         margin: 10px 0;
-      }
-
-      &.mobileBasicFooter {
-        display: none;
       }
 
       & .socialize {

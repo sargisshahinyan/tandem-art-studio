@@ -1,8 +1,10 @@
 import React, { memo } from 'react';
 import Slider from 'react-slick';
+import { connect } from 'react-redux';
 
 import Header from '../Header';
 import BasicFooter from '../BasicFooter';
+import HiddenFooter from '../HiddenFooter';
 import Signature from '../Signature';
 
 import { clients } from '../../data/clients';
@@ -10,7 +12,6 @@ import { clients } from '../../data/clients';
 import { convertText } from '../../utils';
 
 import './styles.scss';
-import {connect} from 'react-redux';
 
 export const Clients = memo(
   function Clients({ title, description, width }) {
@@ -38,9 +39,15 @@ export const Clients = memo(
         </div>
       ),
     };
+    const eventBinder = {
+      onScroll: e => {e.stopPropagation()},
+      onWheel: e => {e.stopPropagation()},
+      onTouchStart:e => {e.preventDefault()},
+      onTouchMove:e => {e.stopPropagation()},
+    };
 
     return (
-      <article className="bg_sim_styles bg_clients">
+      <article className="bg_clients">
         <Header />
         <main className="our_clients centering_content">
           <div className="title">
@@ -63,7 +70,7 @@ export const Clients = memo(
               </Slider>
             </div>
           </div>
-          <div className="text_content">
+          <div className="text_content" {...eventBinder}>
             <div className="wrapper">
               <div className="content">
                 <h2>{title}</h2>
@@ -74,6 +81,7 @@ export const Clients = memo(
           <Signature />
         </main>
         <BasicFooter />
+        <HiddenFooter />
       </article>
     );
   }

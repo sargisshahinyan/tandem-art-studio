@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import './styles.scss';
 
 export const BasicFooter = memo(
-  function BasicFooter({ goToPage, active, opened }) {
+  function BasicFooter({ goToPage, active, opened, width }) {
     function goToPageWrapper(e) {
       e.preventDefault();
 
@@ -15,7 +15,7 @@ export const BasicFooter = memo(
     }
 
     return (
-      <footer className={"basic_footer " + (opened ? 'mobileBasicFooter' : '')}>
+      <footer className={"basic_footer " + (width <= 767 ? 'mobileBasicFooter' : '')}>
         <div className="wrapper">
           <Animated
             animationIn="fadeIn"
@@ -68,9 +68,10 @@ export const BasicFooter = memo(
   }
 );
 
-function mapToStateProps({ pages }) {
+function mapToStateProps({ pages, common: { width } }) {
   return {
     goToPage: pages.goToPage,
+    width,
   };
 }
 

@@ -1,71 +1,102 @@
 @import "mixin";
 @import "fonts";
 
-.clients_slider{
-  .slick-slider{
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-    padding: 0 15px;
-    .slick-slide{
-      height: 80px;
-      line-height: 80px;
-      & > div{
-        height: inherit;
-        line-height: inherit;
-        .slide_item {
+.bg_clients {
+
+  .clients_slider {
+    .slick-slider {
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      box-sizing: border-box;
+      padding: 0 15px;
+      .slick-slide {
+        height: 80px;
+        line-height: 80px;
+        & > div {
           height: inherit;
           line-height: inherit;
-          -webkit-box-sizing: border-box;
-          -moz-box-sizing: border-box;
-          box-sizing: border-box;
-          padding: 0 15px;
-          text-align: center;
-          img.client_logo {
-            max-height: 100%;
-            max-width: 100%;
-            display: inline-block;
-            vertical-align: middle;
-            filter: saturate(0);
-            @include transition(.1s);
-            &:hover {
-              filter: saturate(1);
+          .slide_item {
+            height: inherit;
+            line-height: inherit;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+            padding: 0 15px;
+            text-align: center;
+            img.client_logo {
+              max-height: 100%;
+              max-width: 100%;
+              display: inline-block;
+              vertical-align: middle;
+              filter: saturate(0);
+              @include transition(.1s);
+              &:hover {
+                filter: saturate(1);
+              }
             }
           }
         }
       }
-    }
-    .slick-dots{
-      display: none;
+      .slick-dots {
+        display: none;
+      }
     }
   }
-}
 
-main{
-  &.our_clients{
-    .clients_slider{
-      margin-top: 50px;
-      position: relative;
-      background: url("/images/backgrounds/bg_middle.png") no-repeat center center;
-      -webkit-background-size: cover;
-      background-size: cover;
-      min-height: 200px;
-      .slider {
-        padding: 60px;
-      }
-    }
-    .text_content{
-      margin-top: 50px;
-      .content{
-        p{
-          max-width: 85%;
-          margin-left: auto;
-          margin-right: auto;
+  main {
+    &.our_clients {
+      .clients_slider {
+        margin-top: 50px;
+        position: relative;
+        background: url("/images/backgrounds/bg_middle.png") no-repeat center center;
+        -webkit-background-size: cover;
+        background-size: cover;
+        min-height: 200px;
+        .slider {
+          padding: 60px;
         }
       }
+      .text_content {
+        margin-top: 50px;
+        .content {
+          p {
+            max-width: 85%;
+            margin-left: auto;
+            margin-right: auto;
+          }
+        }
+      }
+      .signature {
+        margin-top: 50px;
+      }
     }
-    .signature{
-      margin-top: 50px;
+  }
+
+  @media (max-width: 767px) {
+    & main {
+      & .clients_slider {
+        margin-top: 0 !important;
+      }
+      & .text_content {
+        margin-top: 10px !important;;
+        & .content {
+          & h2 {
+            font-size: 16px;
+          }
+          & p {
+            max-width: 100% !important;
+            margin-left: 0 !important;
+            margin-right: 0 !important;
+            max-height: calc(100vh - 480px);
+            overflow-y: auto;
+            line-height: 21px;
+          }
+        }
+      }
+      & .signature {
+        margin-top: 10px !important;
+      }
     }
+
   }
 }
