@@ -14,6 +14,7 @@ const {
   NAV_TABS,
   PORTFOLIO_IMAGES_PATH,
   HOME_SLIDE_PATH,
+  TEAM_PATH,
   STATIC_FILES_DIRECTORY,
 } = require(`${APP_PATH}/constants`);
 
@@ -128,6 +129,36 @@ router.post('/home', async (req, res, next) => {
     );
 
     req.body.slidePaths = slidePaths;
+    next();
+  } catch (e) {
+    console.error(e);
+    next(e);
+  }
+});
+
+router.post('/team', async (req, res, next) => {
+  try {
+    let { members } = req.body;
+    const { page: { members: currentMembers } } = res.locals;
+
+    currentMembers.forEach(({ avatar }) => {
+      ImagesSvc.deletePhoto(
+        path.join(
+          APP_PATH,
+          path.resolve(STATIC_FILES_DIRECTORY),
+          path.resolve(avatar),
+        ),
+      );
+    });
+
+    members = await Promise.all(
+      members.map(async (member) => ({
+        ...member,
+        avatar: await ImagesSvc.createPhoto(member.avatar, TEAM_PATH + randToken.generate(16), STATIC_FILES_DIRECTORY),
+      }))
+    );
+
+    req.body.members = members;
     next();
   } catch (e) {
     console.error(e);

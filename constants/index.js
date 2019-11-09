@@ -31,5 +31,6 @@ module.exports = {
 
   PORTFOLIO_IMAGES_PATH: '/img/portfolio/',
   HOME_SLIDE_PATH: '/img/main/slide/',
+  TEAM_PATH: '/img/team/',
   STATIC_FILES_DIRECTORY: '/assets/',
 };

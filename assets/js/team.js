@@ -14,10 +14,12 @@ window.addEventListener('load', function () {
     body.members = await Promise.all(
       Array.from(document.querySelectorAll('.section')).map(async (section) => ({
         name: section.querySelector('.name').value,
+        position: section.querySelector('.position').value,
+        avatar: await _getImage(section.querySelector('.avatar')),
       })),
     );
 
-    await axios.post(baseUrl + '/home', body).then(window.location.reload.bind(window.location));
+    await axios.post(baseUrl + '/team', body).then(window.location.reload.bind(window.location));
   });
 
   document.getElementById('add-section-btn').addEventListener('click', function () {
