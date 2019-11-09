@@ -1,4 +1,4 @@
-import  React from 'react';
+import React from 'react';
 
 import UglyFooter from '../UglyFooter';
 import HiddenFooter from '../HiddenFooter';

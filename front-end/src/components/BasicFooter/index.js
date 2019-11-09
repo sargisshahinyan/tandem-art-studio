@@ -23,7 +23,6 @@ export const BasicFooter = memo(
             animationOut="fadeOut"
             isVisible={!active}
           >
-            {console.log(opened)}
             <div className="footer_content">
               <div className="socialize">
                 <ul>
