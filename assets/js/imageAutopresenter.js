@@ -1,5 +1,12 @@
-Array.prototype.slice.call(document.querySelectorAll('input[type="file"][accept="image/*"]')).forEach(function (element) {
-  var imgContainer = document.createElement('div');
+Array.prototype.slice.call(document.querySelectorAll('input[type="file"][accept="image/*"]')).forEach(autoPresentImages);
+
+function autoPresentImages(element) {
+  var imgContainer = element.parentElement.querySelector('.presenter-container');
+
+  if (!imgContainer) {
+    imgContainer = document.createElement('div');
+    imgContainer.className = 'presenter-container';
+  }
 
   if (element.nextElementSibling) {
     element.parentElement.insertBefore(imgContainer, element.nextElementSibling);
@@ -8,6 +15,7 @@ Array.prototype.slice.call(document.querySelectorAll('input[type="file"][accept=
   }
 
   element.addEventListener('change', function () {
+    this.required = true;
     var imageRequests = [];
 
     for (let i = 0; i < element.files.length; i++) {
@@ -26,7 +34,6 @@ Array.prototype.slice.call(document.querySelectorAll('input[type="file"][accept=
           imageItem.style['min-height'] = '200px';
           imageItem.style.margin = '10px 0';
           var imageWrapper = document.createElement('div');
-          imageWrapper.className = 'col-6';
 
           var img = new Image();
           img.src = src;
@@ -34,15 +41,9 @@ Array.prototype.slice.call(document.querySelectorAll('input[type="file"][accept=
           imageWrapper.appendChild(img);
           imageItem.appendChild(imageWrapper);
 
-          if (element.classList.contains('portfolio-images')) {
-            var coordsTemplate = document.getElementById('img-coords');
-
-            imageItem.appendChild(coordsTemplate.content.cloneNode(true));
-          }
-
           imgContainer.appendChild(imageItem);
         });
       })
-      .catch(new Function);
+      .catch(console.log.bind(console));
   });
-});
+}

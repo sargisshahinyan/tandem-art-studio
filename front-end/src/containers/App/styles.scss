@@ -14,24 +14,24 @@
 body,
 a,
 input,
-textarea{
+textarea {
   font-family: $myriad_pro_b;
   font-size: 16px;
   color: rgba(255, 255, 255, 0.6);
 }
 
-a{
+a {
   outline: none !important;
 }
 
-.wrapper{
+.wrapper {
   position: relative;
   margin: 0 auto;
   padding: 0 30px;
 }
 
-.title{
-  h1{
+.title {
+  h1 {
     font-family: $verdana_b;
     font-size: 36px;
     line-height: 1.1;
@@ -41,27 +41,27 @@ a{
   }
 }
 
-.text_content{
-  .content{
+.text_content {
+  .content {
     color: rgba(255, 255, 255, 0.4);
     text-align: center;
-    h2{
+    h2 {
       font-family: $verdana_b;
       font-size: 36px;
       line-height: 1.1;
     }
-    h3{
+    h3 {
       font-family: $verdana_b;
       font-size: 24px;
       line-height: 1.1;
     }
-    p{
+    p {
       margin-top: 15px;
       font-size: 16px;
       line-height: 22.4px;
     }
   }
-  &.with_bg{
+  &.with_bg {
     position: relative;
     background: url("/images/backgrounds/bg_middle.png") no-repeat center center;
     -webkit-background-size: cover;
@@ -82,7 +82,7 @@ a{
   }
 }
 
-.items_similar_styles{
+.items_similar_styles {
   position: relative;
   background: url("/images/backgrounds/bg_middle.png") no-repeat center center;
   -webkit-background-size: cover;
@@ -97,25 +97,10 @@ a{
       margin: 0 2.5px;
       & > div {
         text-align: center;
-        &.item_img{
-          img{
-
-          }
-        }
-        &.item_name{
-          span{
+        &.item_name {
+          span {
             display: inline;
             text-transform: capitalize;
-          }
-        }
-        &.item_description{
-          ul{
-            li{
-
-            }
-          }
-          p{
-
           }
         }
       }
@@ -155,6 +140,9 @@ article {
     background: url("/images/backgrounds/bg_clients.png") no-repeat center center;
     -webkit-background-size: cover;
     background-size: cover;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
   }
   &.bg_services {
     background: url("/images/backgrounds/bg_services.png") no-repeat center center;
@@ -166,6 +154,9 @@ article {
     background: url("/images/backgrounds/bg_team.png") no-repeat center center;
     -webkit-background-size: cover;
     background-size: cover;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
   }
   &.bg_contact_us, &.bg_location {
     background: url("/images/backgrounds/bg_contact_us.png") no-repeat center center;
@@ -176,13 +167,10 @@ article {
 
 }
 
-
-
-
 /* Main content's styles */
 
-main{
-  .middle_bg{
+main {
+  .middle_bg {
     position: absolute;
     top: 50%;
     left: 0;

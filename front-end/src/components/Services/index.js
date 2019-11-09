@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Animated } from 'react-animated-css';
 import { connect } from "react-redux";
 
@@ -13,8 +13,12 @@ import './styles.scss';
 
 export function Services({ description, active, width }) {
   const [selected, setSelected] = useState(1);
-  const [closed, setClosed] = useState(width <= 767);
+  const closed = width <= 1023;
   const [global, setGlobal] = useState(false);
+
+  useEffect(() => {
+    if (width > 1023) setGlobal(false);
+  }, [width]);
 
   const services = [
     {
@@ -107,7 +111,7 @@ export function Services({ description, active, width }) {
                   isVisible={active}
                 >
                   <div className="service_item" onClick={() => {
-                    if (width <= 767) {
+                    if (width <= 1023) {
                       setGlobal(true);
                       setSelected(i)
                     }

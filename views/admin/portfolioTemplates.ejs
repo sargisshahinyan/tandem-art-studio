@@ -1,0 +1,39 @@
+<template id="section-tmp">
+    <div class="section">
+        <div class="row">
+            <div class="form-group col-4">
+                <label>Columns count</label>
+                <select class="form-control columns-count" name="columns-count">
+                    <% [1, 2, 4, 6].forEach((i) => { %>
+                        <option value="<%= i %>"><%= i %></option>
+                    <% }) %>
+                </select>
+            </div>
+            <div class="col-8 text-right">
+                <span class="badge badge-danger badge-pill delete">
+                   <i class="fas fa-times delete"></i>
+               </span>
+            </div>
+        </div>
+        <div class="row images">
+            <div class="col-12 form-group">
+                <input
+                    class="form-control"
+                    type="file"
+                    accept="image/*"
+                    required
+                />
+            </div>
+        </div>
+    </div>
+</template>
+<template id="img-input-tmp">
+    <div class="form-group">
+        <input
+            class="form-control"
+            type="file"
+            accept="image/*"
+            required
+        />
+    </div>
+</template>

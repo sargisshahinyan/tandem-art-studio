@@ -18,6 +18,8 @@ article.bg_location {
     & > iframe {
       padding: 60px;
       @include flex-grow(1);
+      max-width: 70%;
+      margin: 0 auto;
     }
   }
   & > footer {

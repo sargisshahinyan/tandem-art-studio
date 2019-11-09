@@ -1,4 +1,4 @@
-import React, { memo, useState } from 'react';
+import React, { memo } from 'react';
 import { Animated } from 'react-animated-css';
 
 import Header from '../Header';

@@ -6,7 +6,7 @@ import path from 'path';
 import { StaticRouter } from 'react-router-dom';
 import App from '../front-end/src/containers/App';
 
-export function renderReactPage(props = {}) {
+export function renderReactPage(props = {}, location = '/') {
   if (!(props instanceof Object)) props = {};
 
   return new Promise((resolve, reject) => {
@@ -14,7 +14,7 @@ export function renderReactPage(props = {}) {
       if (err) return reject(err);
 
       const element = (
-        <StaticRouter>
+        <StaticRouter location={location}>
           <App {...props} />
         </StaticRouter>
       );

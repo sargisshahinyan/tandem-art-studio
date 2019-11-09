@@ -1,28 +1,33 @@
 @import "mixin";
 @import "fonts";
 
+main.index_content {
+  position: relative;
+  height: calc(100vh - 150px);
+  .middle_bg {
+    min-height: 40vh;
+  }
+}
+
 .home_carousel {
   position: absolute;
   height: 100%;
   width: 100%;
   z-index: 1;
-  .slick-slider{
+  .slick-slider {
     height: inherit;
-    .slick-list{
+    .slick-list {
       height: inherit;
     }
-    .slick-slide{
+    .slick-slide {
       height: 100%;
-      div{
+      div {
         text-align: center;
         overflow: hidden;
-        img{
-          height: 100%;
-        }
       }
     }
   }
-  .slick-dots{
+  .slick-dots {
     bottom: 15px;
     .slide-dots {
       li {
@@ -41,22 +46,48 @@
             background-color: rgba(255, 255, 255, 0.8) !important;
           }
         }
-        &:hover{
-          button{
+        &:hover {
+          button {
             background-color: rgba(255, 255, 255, 0.6) !important;
           }
         }
       }
     }
   }
-}
-
-main{
-  &.index_content{
+  .slick-prev, .slick-next {
+    z-index: 9999999;
+    width: 40px;
+    height: 40px;
+  }
+  .slick-prev {
+    left: 0;
+  }
+  .slick-next {
+    right: 0;
+  }
+  .carousel-item {
+    height: calc(100vh);
     position: relative;
-    height: calc(100vh - 150px);
-    .middle_bg{
-      min-height: 40vh;
+    outline: none;
+    .main {
+      margin: 0 auto;
+      &, & * {
+        object-fit: contain;
+        height: 100%;
+        width: 100%;
+        margin: 0 auto;
+      }
+    }
+    .text {
+      position: absolute;
+      top: 0;
+      left: 0;
+      &, & * {
+        object-fit: contain;
+        height: 100%;
+        width: 100%;
+        margin: 0 auto;
+      }
     }
   }
 }

@@ -12,7 +12,7 @@ import { convertText } from '../../utils';
 
 import './styles.scss';
 
-export function Team({ title, description, active, width }) {
+export function Team({ title, description, active }) {
   const members = [{
     name: 'Hayk Hovhannisyan',
     avatar: '/images/team/photo_1.png',
@@ -112,4 +112,3 @@ function mapStateToProps({ common: { width } }) {
 }
 
 export default connect(mapStateToProps)(Team);
-

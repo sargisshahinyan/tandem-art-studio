@@ -36,7 +36,7 @@ router.post('/auth', async (req, res) => {
       maxAge: TOKEN_EXPIRATION_TIME,
     });
 
-    res.redirect(req.baseUrl + '/home')
+    res.redirect(`${req.baseUrl}/home`);
   } catch (error) {
     res.render('admin/login', { error });
   }
@@ -54,21 +54,34 @@ router.use(async (req, res, next) => {
   res.locals.baseUrl = req.baseUrl;
   const pages = await PagesSvc.getPagesData(req.path);
 
-  if (!pages || !pages.length) return next();
-
-  res.locals.page = pages[0].data;
+  if (pages && pages.length) res.locals.page = pages[0].data;
 
   next();
 });
 
+router.use('/logout', async (req, res) => {
+  const { token } = req.cookies;
+  const result = await UsersSvc.validateAdmin(token);
+
+  const { iss: id, access_token, refresh_token } = result;
+  await UsersSvc.removeTokens(id, access_token, refresh_token);
+  res.clearCookie(TOKEN_COOKIE_KEY);
+  res.redirect(`${req.baseUrl}/login`);
+});
+
 router.get('/portfolio', async (req, res, next) => {
   try {
-    const [portfolios, sizes] = await Promise.all([
-      PortfolioSvc.getPortfolios(),
-      PagesSvc.getPageSizes(),
-    ]);
-    res.locals.portfolios = portfolios;
-    res.locals.sizes = sizes;
+    res.locals.portfolios = await PortfolioSvc.getPortfolios();
+    next();
+  } catch (e) {
+    next(e);
+  }
+});
+
+router.get('/portfolio/:id', async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    res.locals.portfolio = await PortfolioSvc.getPortfolio(id);
     next();
   } catch (e) {
     next(e);
@@ -101,49 +114,7 @@ router.put('/portfolio', async (req, res) => {
 
 router.post('/portfolio', async (req, res, next) => {
   try {
-    let {
-      title,
-      description,
-      presentablePicture,
-      mainPicture,
-      xCoords,
-      yCoords,
-      rowsCount,
-      columnsCount,
-      rowHeight,
-      images,
-    } = req.body;
-
-    const mainPictureName = randToken.generate(16);
-    mainPicture = await ImagesSvc.createPhoto(mainPicture, PORTFOLIO_IMAGES_PATH + mainPictureName, STATIC_FILES_DIRECTORY);
-    const presentablePictureName = randToken.generate(16);
-    presentablePicture = await ImagesSvc.createPhoto(presentablePicture, PORTFOLIO_IMAGES_PATH + presentablePictureName, STATIC_FILES_DIRECTORY);
-
-    images = Array.isArray(images) ? images : [];
-    images = await Promise.all(
-      images.map(async ({ image, xCoords, yCoords }) => {
-        const imageName = randToken.generate(16);
-
-        return {
-          xCoords,
-          yCoords,
-          src: await ImagesSvc.createPhoto(image, PORTFOLIO_IMAGES_PATH + imageName, STATIC_FILES_DIRECTORY),
-        };
-      })
-    );
-
-    await PortfolioSvc.addPortfolio({
-      title,
-      description,
-      presentablePicture,
-      mainPicture,
-      xCoords,
-      yCoords,
-      rowsCount,
-      columnsCount,
-      rowHeight,
-      images,
-    });
+    await addPortfolio(req);
     res.status(201).json({
       message: 'Ok',
     });
@@ -153,8 +124,73 @@ router.post('/portfolio', async (req, res, next) => {
   }
 });
 
+router.delete('/portfolio/:id', async (req, res, next) => {
+  try {
+    const { id } = req.params;
+
+    await PortfolioSvc.deletePortfolio(id);
+
+    res.status(204).send();
+  } catch (e) {
+    console.log(e);
+    next(e);
+  }
+});
+
+router.put('/portfolio/:id', async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    await PortfolioSvc.deletePortfolio(id);
+    await addPortfolio(req, id);
+    res.status(204).send();
+  } catch (e) {
+    next(e);
+  }
+});
+
 router.get('*', (req, res) => {
   res.redirect(`${req.baseUrl}/login`);
 });
+
+async function addPortfolio(req, id = null) {
+  let {
+    title,
+    description,
+    presentablePicture,
+    mainPicture,
+    sections,
+  } = req.body;
+
+  const mainPictureName = randToken.generate(16);
+  mainPicture = await ImagesSvc.createPhoto(mainPicture, PORTFOLIO_IMAGES_PATH + mainPictureName, STATIC_FILES_DIRECTORY);
+  const presentablePictureName = randToken.generate(16);
+  presentablePicture = await ImagesSvc.createPhoto(presentablePicture, PORTFOLIO_IMAGES_PATH + presentablePictureName, STATIC_FILES_DIRECTORY);
+
+  sections = Array.isArray(sections) ? sections : [];
+  sections = await Promise.all(
+    sections.map(async ({ colsCount, images }) => ({
+      colsCount,
+      images: Array.isArray(images) ? (
+        await Promise.all(
+          images.map(async (image) => {
+            const imageName = randToken.generate(16);
+
+            return {
+              src: await ImagesSvc.createPhoto(image, PORTFOLIO_IMAGES_PATH + imageName, STATIC_FILES_DIRECTORY),
+            };
+          })
+        )
+      ) : [],
+    }))
+  );
+
+  await PortfolioSvc.addPortfolio({
+    title,
+    description,
+    presentablePicture,
+    mainPicture,
+    sections,
+  }, id);
+}
 
 module.exports = router;

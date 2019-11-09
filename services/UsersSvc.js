@@ -139,22 +139,7 @@ class UsersSvc {
 
     if (new Date(exp_date) < Date.now()) return err;
 
-    await doAction([
-      {
-        method: 'query',
-        args: [
-          'DELETE FROM admin_tokens WHERE token = $1 AND type = $2 AND admin_id = $3',
-          [refreshToken.token, REFRESH_TOKEN, id]
-        ]
-      },
-      {
-        method: 'query',
-        args: [
-          'DELETE FROM admin_tokens WHERE token = $1 AND type = $2 AND admin_id = $3',
-          [accessToken.token, ACCESS_TOKEN, id]
-        ]
-      }
-    ]);
+    await this.removeTokens(id, accessToken, refreshToken);
 
     return await this.generateAdminToken({ id });
   }
@@ -179,6 +164,25 @@ class UsersSvc {
     if (user.password !== password) return Promise.reject({ message: `Wrong password for username ${username}` });
 
     return user;
+  }
+
+  static removeTokens(id, accessToken, refreshToken) {
+    return doAction([
+      {
+        method: 'query',
+        args: [
+          'DELETE FROM admin_tokens WHERE token = $1 AND type = $2 AND admin_id = $3',
+          [refreshToken.token, REFRESH_TOKEN, id]
+        ]
+      },
+      {
+        method: 'query',
+        args: [
+          'DELETE FROM admin_tokens WHERE token = $1 AND type = $2 AND admin_id = $3',
+          [accessToken.token, ACCESS_TOKEN, id]
+        ]
+      }
+    ]);
   }
 }
 

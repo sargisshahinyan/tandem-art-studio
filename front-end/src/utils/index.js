@@ -12,9 +12,3 @@ export function convertText(text) {
       ))
   );
 }
-
-export function coordinatesToGrid(coords) {
-  coords = coords.split('-');
-  coords[1]++;
-  return coords.join(' / ');
-}
