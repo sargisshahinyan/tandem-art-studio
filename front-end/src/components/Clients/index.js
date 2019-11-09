@@ -35,7 +35,7 @@ export const Clients = memo(
       nextArrow: <img src="/images/icons/arrow-right.svg" alt="Right arrow" />,
       appendDots: dots => (
         <div>
-          <ul className='slide-dots'>{dots}</ul>
+          <ul className="slide-dots">{dots}</ul>
         </div>
       ),
     };

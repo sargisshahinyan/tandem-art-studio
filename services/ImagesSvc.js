@@ -32,7 +32,7 @@ class ImagesSvc {
 
   static deletePhoto(path = '') {
     return new Promise((resolve) => {
-      fs.access(path, fs.F_OK, (err) => {
+      fs.access(path, fs.constants.F_OK, (err) => {
         if (err) {
           console.error(err);
           resolve();

@@ -15,7 +15,7 @@ function autoPresentImages(element) {
   }
 
   element.addEventListener('change', function () {
-    this.required = true;
+    if (!this.dataset.notRequired) this.required = true;
     var imageRequests = [];
 
     for (let i = 0; i < element.files.length; i++) {

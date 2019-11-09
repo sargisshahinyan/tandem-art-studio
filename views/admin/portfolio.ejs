@@ -1,6 +1,6 @@
 <% include portfolioTemplates.ejs %>
 <article>
-    <form action="<%= baseUrl %>/portfolio" method="post">
+    <form action="<%= `${baseUrl}${activePage}` %>" method="post">
         <h3>Add new</h3>
         <hr />
         <h4>Basic info</h4>
@@ -73,7 +73,6 @@
        </ul>
     </section>
 </article>
-
 <script src="/js/fileHelpers.js"></script>
 <script src="/js/imageAutopresenter.js"></script>
 <script>

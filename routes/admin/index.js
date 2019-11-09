@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 const router = express.Router();
 const randToken = require('rand-token');
 
@@ -12,6 +13,7 @@ const {
   TOKEN_COOKIE_KEY,
   NAV_TABS,
   PORTFOLIO_IMAGES_PATH,
+  HOME_SLIDE_PATH,
   STATIC_FILES_DIRECTORY,
 } = require(`${APP_PATH}/constants`);
 
@@ -92,20 +94,51 @@ router.get(new RegExp(`\/(${NAV_TABS.map(tab => tab.path).join('|')})`), (req, r
   res.render('admin/main');
 });
 
-router.post(/\/(about|team|services|clients)/, async (req, res) => {
+router.post('/home', async (req, res, next) => {
   try {
-    await PagesSvc.updatePageData(req.path, req.body);
-    res.redirect(req.originalUrl);
+    let { slidePaths } = req.body;
+    const { page: { slidePaths: currentImages } } = res.locals;
+
+    currentImages.forEach(({ main, text }) => {
+      ImagesSvc.deletePhoto(
+        path.join(
+          APP_PATH,
+          path.resolve(STATIC_FILES_DIRECTORY),
+          path.resolve(main),
+        ),
+      );
+      ImagesSvc.deletePhoto(
+        path.join(
+          APP_PATH,
+          path.resolve(STATIC_FILES_DIRECTORY),
+          path.resolve(text),
+        ),
+      );
+    });
+
+    slidePaths = await Promise.all(
+      slidePaths.map(async ({ main, text }) => {
+        ([main, text] = await Promise.all([
+          ImagesSvc.createPhoto(main, HOME_SLIDE_PATH + randToken.generate(16), STATIC_FILES_DIRECTORY),
+          text && ImagesSvc.createPhoto(text, HOME_SLIDE_PATH + randToken.generate(16), STATIC_FILES_DIRECTORY),
+        ]));
+
+        return { main, text };
+      })
+    );
+
+    req.body.slidePaths = slidePaths;
+    next();
   } catch (e) {
     console.error(e);
     next(e);
   }
 });
 
-router.put('/portfolio', async (req, res) => {
+router.post(/\/(home|about|team|services|clients)/, async (req, res, next) => {
   try {
     await PagesSvc.updatePageData(req.path, req.body);
-    res.json(req.body);
+    res.redirect(req.originalUrl);
   } catch (e) {
     console.error(e);
     next(e);
