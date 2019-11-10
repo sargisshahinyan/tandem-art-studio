@@ -5,7 +5,7 @@ import {connect} from 'react-redux';
 
 import './style.scss';
 
-const HiddenFooter = ({ scrolling }) => (
+const HiddenFooter = ({ scrolling, width }) => width <= 767 && (
   <Animated
     animationIn="fadeIn"
     animationInDelay={300}
@@ -21,9 +21,10 @@ const HiddenFooter = ({ scrolling }) => (
   </Animated>
 );
 
-function mapToStateProps({ pages }) {
+function mapToStateProps({ pages, common: { width } }) {
   return {
     scrolling: pages.scrolling,
+    width,
   };
 }
 

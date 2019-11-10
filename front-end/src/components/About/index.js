@@ -59,7 +59,7 @@ export const About = memo(
   }
 );
 
-const mapToStateProps = ({ common: {width} }) => ({
+const mapToStateProps = ({ common: { width } }) => ({
   width,
 });
 
