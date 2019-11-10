@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 const router = express.Router();
 const randToken = require('rand-token');
 
@@ -12,6 +13,10 @@ const {
   TOKEN_COOKIE_KEY,
   NAV_TABS,
   PORTFOLIO_IMAGES_PATH,
+  HOME_SLIDE_PATH,
+  TEAM_PATH,
+  SERVICES_PATH,
+  CLIENTS_PATH,
   STATIC_FILES_DIRECTORY,
 } = require(`${APP_PATH}/constants`);
 
@@ -45,7 +50,7 @@ router.post('/auth', async (req, res) => {
 router.use(authCheckingMiddleware);
 
 router.use(async (req, res, next) => {
-  res.locals.NAV_TABS = NAV_TABS.map(tab => ({
+  res.locals.NAV_TABS = NAV_TABS.map((tab) => ({
     ...tab,
     path: `${req.baseUrl}/${tab.path}`,
   }));
@@ -92,20 +97,141 @@ router.get(new RegExp(`\/(${NAV_TABS.map(tab => tab.path).join('|')})`), (req, r
   res.render('admin/main');
 });
 
-router.post(/\/(about|team|services|clients)/, async (req, res) => {
+router.post('/home', async (req, res, next) => {
   try {
-    await PagesSvc.updatePageData(req.path, req.body);
-    res.redirect(req.originalUrl);
+    let { slidePaths } = req.body;
+    const { page: { slidePaths: currentImages } } = res.locals;
+
+    currentImages.forEach(({ main, text }) => {
+      ImagesSvc.deletePhoto(
+        path.join(
+          APP_PATH,
+          path.resolve(STATIC_FILES_DIRECTORY),
+          path.resolve(main),
+        ),
+      );
+      ImagesSvc.deletePhoto(
+        path.join(
+          APP_PATH,
+          path.resolve(STATIC_FILES_DIRECTORY),
+          path.resolve(text),
+        ),
+      );
+    });
+
+    slidePaths = await Promise.all(
+      slidePaths.map(async ({ main, text }) => {
+        ([main, text] = await Promise.all([
+          ImagesSvc.createPhoto(main, HOME_SLIDE_PATH + randToken.generate(16), STATIC_FILES_DIRECTORY),
+          text && ImagesSvc.createPhoto(text, HOME_SLIDE_PATH + randToken.generate(16), STATIC_FILES_DIRECTORY),
+        ]));
+
+        return { main, text };
+      })
+    );
+
+    req.body.slidePaths = slidePaths;
+    next();
   } catch (e) {
     console.error(e);
     next(e);
   }
 });
 
-router.put('/portfolio', async (req, res) => {
+router.post('/team', async (req, res, next) => {
+  try {
+    let { members } = req.body;
+    const { page: { members: currentMembers } } = res.locals;
+
+    currentMembers.forEach(({ avatar }) => {
+      ImagesSvc.deletePhoto(
+        path.join(
+          APP_PATH,
+          path.resolve(STATIC_FILES_DIRECTORY),
+          path.resolve(avatar),
+        ),
+      );
+    });
+
+    members = await Promise.all(
+      members.map(async (member) => ({
+        ...member,
+        avatar: await ImagesSvc.createPhoto(member.avatar, TEAM_PATH + randToken.generate(16), STATIC_FILES_DIRECTORY),
+      }))
+    );
+
+    req.body.members = members;
+    next();
+  } catch (e) {
+    console.error(e);
+    next(e);
+  }
+});
+
+router.post('/services', async (req, res, next) => {
+  try {
+    let { services } = req.body;
+    const { page: { services: currentServices } } = res.locals;
+
+    currentServices.forEach(({ icon }) => {
+      ImagesSvc.deletePhoto(
+        path.join(
+          APP_PATH,
+          path.resolve(STATIC_FILES_DIRECTORY),
+          path.resolve(icon),
+        ),
+      );
+    });
+
+    services = await Promise.all(
+      services.map(async (service) => ({
+        ...service,
+        icon: await ImagesSvc.createPhoto(service.icon, SERVICES_PATH + randToken.generate(16), STATIC_FILES_DIRECTORY),
+      }))
+    );
+
+    req.body.services = services;
+    next();
+  } catch (e) {
+    console.error(e);
+    next(e);
+  }
+});
+
+router.post('/clients', async (req, res, next) => {
+  try {
+    let { clients } = req.body;
+    const { page: { clients: currentClients } } = res.locals;
+
+    currentClients.forEach(({ icon }) => {
+      ImagesSvc.deletePhoto(
+        path.join(
+          APP_PATH,
+          path.resolve(STATIC_FILES_DIRECTORY),
+          path.resolve(icon),
+        ),
+      );
+    });
+
+    clients = await Promise.all(
+      clients.map(async (service) => ({
+        ...service,
+        icon: await ImagesSvc.createPhoto(service.icon, CLIENTS_PATH + randToken.generate(16), STATIC_FILES_DIRECTORY),
+      }))
+    );
+
+    req.body.clients = clients;
+    next();
+  } catch (e) {
+    console.error(e);
+    next(e);
+  }
+});
+
+router.post(/\/(home|about|team|services|clients)/, async (req, res, next) => {
   try {
     await PagesSvc.updatePageData(req.path, req.body);
-    res.json(req.body);
+    res.redirect(req.originalUrl);
   } catch (e) {
     console.error(e);
     next(e);

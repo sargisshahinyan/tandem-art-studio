@@ -1,0 +1,87 @@
+<template id="section-tmp">
+    <div class="section">
+        <div class="row">
+            <div class="col-12 text-right">
+                <span class="badge badge-danger badge-pill delete">
+                   <i class="fas fa-times delete"></i>
+                </span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6 form-group">
+                <label>Main image</label>
+                <input
+                    class="form-control main"
+                    type="file"
+                    accept="image/*"
+                    required
+                />
+            </div>
+            <div class="col-6 form-group">
+                <label>Secondary image</label>
+                <input
+                    class="form-control secondary"
+                    type="file"
+                    accept="image/*"
+                    data-not-required="true"
+                />
+            </div>
+        </div>
+    </div>
+</template>
+<form action="<%= `${baseUrl}${activePage}` %>" method="post">
+    <div id="image-sections" style="padding: 20px 0">
+        <% page.slidePaths.forEach(({ main, text }) => { %>
+            <div class="section">
+                <div class="row">
+                    <div class="col-12 text-right">
+                <span class="badge badge-danger badge-pill delete">
+                   <i class="fas fa-times delete"></i>
+                </span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6 form-group">
+                        <label>Main image</label>
+                        <input
+                            class="form-control main"
+                            type="file"
+                            accept="image/*"
+                        />
+                        <div class="presenter-container">
+                            <div class="row" style="min-height: 200px; margin: 10px 0;">
+                                <div>
+                                    <img class="img-fluid" src="<%= main %>">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 form-group">
+                        <label>Secondary image</label>
+                        <input
+                            class="form-control secondary"
+                            type="file"
+                            accept="image/*"
+                            data-not-required="true"
+                        />
+                        <div class="presenter-container">
+                            <div class="row" style="min-height: 200px; margin: 10px 0;">
+                                <div>
+                                    <img class="img-fluid" src="<%= text %>">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <% }) %>
+    </div>
+    <button id="add-section-btn" class="btn btn-light" type="button">Add Images</button>
+    <button type="submit" class="btn btn-primary">Update</button>
+</form>
+<script>
+  window.baseUrl = '<%= baseUrl %>';
+</script>
+<script src="/js/fileHelpers.js"></script>
+<script src="/js/imageAutopresenter.js"></script>
+<script src="/js/home.js"></script>

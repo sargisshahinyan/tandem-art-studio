@@ -12,50 +12,12 @@ import { convertText } from '../../utils';
 
 import './styles.scss';
 
-export function Team({ title, description, active }) {
-  const members = [{
-    name: 'Hayk Hovhannisyan',
-    avatar: '/images/team/photo_1.png',
-    position: 'Founder and CEO director of advertising',
-  }, {
-    name: 'Ani Asatryan',
-    avatar: '/images/team/photo_2.png',
-    position: 'Art manager',
-  }, {
-    name: 'Babken Hovhannisyan',
-    avatar: '/images/team/photo_3.png',
-    position: 'Founder and Product director',
-  }, {
-    name: 'Mishel Yeghiazaryan',
-    avatar: '/images/team/photo_4.png',
-    position: 'Software Engineer',
-  }, {
-    name: 'Hayk Arshakyan',
-    avatar: '/images/team/photo_5.png',
-    position: 'Architect Designer',
-  }, {
-    name: 'Jora Vardanyan',
-    avatar: '/images/team/photo_6.png',
-    position: 'Motion Graphics Developer',
-  }, {
-    name: 'Paruyr Kirakosyan',
-    avatar: '/images/team/photo_7.png',
-    position: 'Software Engineer',
-  }, {
-    name: 'Anna Ghazaryan',
-    avatar: '/images/team/photo_8.png',
-    position: 'Writing and content developer',
-  }, {
-    name: 'Artur Hovhannisyan',
-    avatar: '/images/team/photo_9.png',
-    position: 'Front-end developer',
-  }];
-
+export function Team({ title, description, members, active }) {
   const eventBinder = {
     onScroll: e => {e.stopPropagation()},
     onWheel: e => {e.stopPropagation()},
-    onTouchStart:e => {e.preventDefault()},
-    onTouchMove:e => {e.stopPropagation()},
+    onTouchStart: e => {e.preventDefault()},
+    onTouchMove: e => {e.stopPropagation()},
   };
 
   return (

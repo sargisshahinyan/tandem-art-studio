@@ -1,5 +1,5 @@
 import React, { memo, useState } from 'react';
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
 
 import Header from '../Header';
 import BasicFooter from '../BasicFooter';
@@ -9,8 +9,6 @@ import Signature from '../Signature';
 import { convertText } from '../../utils';
 
 import './styles.scss';
-
-
 
 export const About = memo(
   function About({ description, width }) {
@@ -26,29 +24,29 @@ export const About = memo(
     };
 
     return (
-      <article className='bg_about'>
+      <article className="bg_about">
         <Header opened={opened} />
-        <main className='about_content centering_content'>
-          <div className='title'>
-            <div className='wrapper'>
+        <main className="about_content centering_content">
+          <div className="title">
+            <div className="wrapper">
               <h1>About Us</h1>
             </div>
           </div>
-          <div className='text_content with_bg'>
-            <div className='wrapper'>
+          <div className="text_content with_bg">
+            <div className="wrapper">
               <div
                 className={'content ' + bigContent}
-                { ...eventBinder }
+                {...eventBinder}
               >
                 <p>{convertText(description)}</p>
                 <div className={wrapperHidden + ' textWrapper'} onClick={() => setMode(!opened)}>
-                  <span/>
-                  <span/>
-                  <span/>
+                  {Array(3).fill(null).map((v, i) => (
+                    <span key={i} />
+                  ))}
                 </div>
               </div>
               <div className={arrowHidden + ' hiddenArrow'} onClick={() => setMode(!opened)}>
-                <img src="/images/icons/arrow-left.svg" alt=""/>
+                <img src="/images/icons/arrow-left.svg" alt="Expand" />
               </div>
             </div>
           </div>
@@ -61,4 +59,8 @@ export const About = memo(
   }
 );
 
-export default About;
+const mapToStateProps = ({ common: {width} }) => ({
+  width,
+});
+
+export default connect(mapToStateProps)(About);

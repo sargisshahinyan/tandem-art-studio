@@ -1,25 +1,99 @@
-<form action="<%= baseUrl %>/clients" method="post">
+<template id="section-tmp">
+    <div class="section">
+        <div class="row">
+            <div class="col-12 text-right">
+                <span class="badge badge-danger badge-pill delete">
+                   <i class="fas fa-times delete"></i>
+                </span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-1 form-group">
+                <input
+                    name="order"
+                    type="number"
+                    class="form-control order"
+                    placeholder="N"
+                />
+            </div>
+            <div class="col-6 form-group">
+                <label>Icon</label>
+                <input
+                    class="form-control icon"
+                    type="file"
+                    accept="image/*"
+                />
+            </div>
+        </div>
+    </div>
+</template>
+<form action="<%= `${baseUrl}${activePage}` %>" method="post">
     <div class="form-group">
         <label for="title">Title</label>
         <input
-                id="title"
-                name="title"
-                type="text"
-                class="form-control"
-                placeholder="Title"
-                value="<%= page.title %>"
+            id="title"
+            name="title"
+            type="text"
+            class="form-control"
+            placeholder="Title"
+            value="<%= page.title %>"
         />
     </div>
     <div class="form-group">
         <label for="description">Description</label>
         <textarea
-                id="description"
-                name="description"
-                class="form-control"
-                placeholder="Description"
-                required
+            id="description"
+            name="description"
+            class="form-control"
+            placeholder="Description"
+            required
         ><%= page.description %></textarea>
     </div>
+    <div id="image-sections" style="padding: 20px 0">
+        <% page.clients.sort((a, b) => a.order - b.order).forEach(({ icon, order }, i) => { %>
+            <div class="section">
+                <div class="row">
+                    <div class="col-12 text-right">
+                        <span class="badge badge-danger badge-pill delete">
+                           <i class="fas fa-times delete"></i>
+                        </span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-1 form-group">
+                        <input
+                            name="order"
+                            type="number"
+                            class="form-control order"
+                            placeholder="N"
+                            value="<%= order || (i + 1) %>"
+                        />
+                    </div>
+                    <div class="col-6 form-group">
+                        <label>Icon</label>
+                        <input
+                            class="form-control icon"
+                            type="file"
+                            accept="image/*"
+                        />
+                        <div class="presenter-container">
+                            <div class="row" style="min-height: 200px; margin: 10px 0;">
+                                <div>
+                                    <img class="img-fluid" src="<%= icon %>">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <% }) %>
+    </div>
+    <button id="add-section-btn" class="btn btn-light" type="button">Add Service</button>
     <button type="submit" class="btn btn-primary">Update</button>
 </form>
-
+<script>
+  window.baseUrl = '<%= baseUrl %>';
+</script>
+<script src="/js/fileHelpers.js"></script>
+<script src="/js/imageAutopresenter.js"></script>
+<script src="/js/clients.js"></script>
