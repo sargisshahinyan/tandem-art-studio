@@ -7,14 +7,12 @@ import BasicFooter from '../BasicFooter';
 import HiddenFooter from '../HiddenFooter';
 import Signature from '../Signature';
 
-import { clients } from '../../data/clients';
-
 import { convertText } from '../../utils';
 
 import './styles.scss';
 
 export const Clients = memo(
-  function Clients({ title, description, width }) {
+  function Clients({ title, description, clients, width }) {
     let amountInSlide;
 
     switch (true) {
@@ -46,6 +44,8 @@ export const Clients = memo(
       onTouchMove:e => {e.stopPropagation()},
     };
 
+    clients.sort((a, b) => a.order - b.order);
+
     return (
       <article className="bg_clients">
         <Header />
@@ -58,10 +58,10 @@ export const Clients = memo(
           <div className="clients_slider">
             <div className="slider">
               <Slider {...settings}>
-                {clients.map((client, i) => (
+                {clients.map(({ icon }, i) => (
                   <div key={i} className="slide_item">
                     <img
-                      src={client}
+                      src={icon}
                       alt="Client"
                       className="client_logo"
                     />

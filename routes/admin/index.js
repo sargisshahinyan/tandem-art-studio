@@ -49,7 +49,7 @@ router.post('/auth', async (req, res) => {
 router.use(authCheckingMiddleware);
 
 router.use(async (req, res, next) => {
-  res.locals.NAV_TABS = NAV_TABS.map(tab => ({
+  res.locals.NAV_TABS = NAV_TABS.map((tab) => ({
     ...tab,
     path: `${req.baseUrl}/${tab.path}`,
   }));
@@ -190,6 +190,36 @@ router.post('/services', async (req, res, next) => {
     );
 
     req.body.services = services;
+    next();
+  } catch (e) {
+    console.error(e);
+    next(e);
+  }
+});
+
+router.post('/clients', async (req, res, next) => {
+  try {
+    let { clients } = req.body;
+    const { page: { clients: currentClients } } = res.locals;
+
+    currentClients.forEach(({ icon }) => {
+      ImagesSvc.deletePhoto(
+        path.join(
+          APP_PATH,
+          path.resolve(STATIC_FILES_DIRECTORY),
+          path.resolve(icon),
+        ),
+      );
+    });
+
+    clients = await Promise.all(
+      clients.map(async (service) => ({
+        ...service,
+        icon: await ImagesSvc.createPhoto(service.icon, SERVICES_PATH + randToken.generate(16), STATIC_FILES_DIRECTORY),
+      }))
+    );
+
+    req.body.clients = clients;
     next();
   } catch (e) {
     console.error(e);
