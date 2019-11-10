@@ -4,17 +4,22 @@ import './style.scss';
 
 function UglyFooter() {
   return (
-    <footer>
+    <div id="uglyFooter">
       <div id="addresses">
-        <div className="address">Armenia Yerevan</div>
-        <div className="address">Arshakunyats Avenue, 53A/33</div>
+        <div className="addressLogo">
+          <img src="/images/icons/placeholder-filled-point.svg" alt=""/>
+        </div>
+        <div>
+          <div className="address">Armenia Yerevan</div>
+          <div className="address">Arshakunyats Avenue, 53A/33</div>
+        </div>
       </div>
       <div id="phones">
-        <div className="phone">Tel: +374 10 44 09 62</div>
-        <div className="phone">Mob: +374 93 93 04 12</div>
+        <div className="phone"><img src="/images/icons/old-typical-phone.svg" alt="" /><span>Tel: +374 10 44 09 62</span></div>
+        <div className="phone"><img src="/images/icons/telephone-symbol-button.svg" alt="" /><span>Mob: +374 93 93 04 12</span></div>
       </div>
       <div id="gameChanger">
-        <div id="game">BE THE GAME</div>
+        <div id="game"><span>BE THE</span> GAME</div>
         <div id="changer">CHANGER</div>
       </div>
       <ul id="social">
@@ -51,7 +56,7 @@ function UglyFooter() {
           </a>
         </li>
       </ul>
-    </footer>
+    </div>
   )
 }
 

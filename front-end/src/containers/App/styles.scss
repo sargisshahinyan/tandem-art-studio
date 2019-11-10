@@ -140,9 +140,6 @@ article {
     background: url("/images/backgrounds/bg_clients.png") no-repeat center center;
     -webkit-background-size: cover;
     background-size: cover;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
   }
   &.bg_services {
     background: url("/images/backgrounds/bg_services.png") no-repeat center center;
@@ -154,9 +151,6 @@ article {
     background: url("/images/backgrounds/bg_team.png") no-repeat center center;
     -webkit-background-size: cover;
     background-size: cover;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
   }
   &.bg_contact_us, &.bg_location {
     background: url("/images/backgrounds/bg_contact_us.png") no-repeat center center;

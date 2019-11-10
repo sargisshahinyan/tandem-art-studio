@@ -160,10 +160,29 @@
   }
 }
 
-@media (max-width: 767px) {
+@media (max-width: 880px) {
   .bg_contact_us {
     & header {
       display: none !important;
+    }
+
+    #hiddenFooter {
+      display: flex !important;
+      @include flexbox();
+      @include flex-direction(row);
+      @include justify-content(center);
+      background: #060709;
+      padding: 20px 0;
+      & > div {
+        margin-right: 15px;
+        &:last-of-type {
+          margin-right: 0;
+        }
+
+        & a {
+          font-size: 22px;
+        }
+      }
     }
 
     & main {

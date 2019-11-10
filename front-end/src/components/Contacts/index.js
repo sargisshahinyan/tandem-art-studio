@@ -54,13 +54,34 @@ export const Contacts = memo(
                   </Animated>
                 </div>
             </div>
-            <Signature />
+            <Animated
+              animationIn="fadeIn"
+              animationInDelay={300}
+              animationOut="fadeOut"
+              isVisible={active}
+            >
+              <Signature />
+            </Animated>
           </div>
 
         </main>
-        <LargeFooter noPadding={true} />
-        <BasicFooter />
-        <HiddenFooter />
+        <Animated
+          animationIn="fadeIn"
+          animationInDelay={300}
+          animationOut="fadeOut"
+          isVisible={active}
+        >
+          <LargeFooter noPadding={true} />
+        </Animated>
+        <Animated
+          animationIn="fadeIn"
+          animationInDelay={300}
+          animationOut="fadeOut"
+          isVisible={active}
+        >
+          <BasicFooter />
+        </Animated>
+          <HiddenFooter />
       </article>
     );
   }
