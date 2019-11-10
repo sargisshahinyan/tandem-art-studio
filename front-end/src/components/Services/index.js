@@ -11,7 +11,7 @@ import { convertText } from '../../utils';
 
 import './styles.scss';
 
-export function Services({ description, active, width }) {
+export function Services({ services, description, active, width }) {
   const [selected, setSelected] = useState(1);
   const closed = width <= 1023;
   const [global, setGlobal] = useState(false);
@@ -19,71 +19,6 @@ export function Services({ description, active, width }) {
   useEffect(() => {
     if (width > 1023) setGlobal(false);
   }, [width]);
-
-  const services = [
-    {
-    icon: '/images/services/strategy_planning.svg',
-    name: 'Strategy Planning',
-    description: [
-      'Analytics & Research',
-      'Business Strategy',
-      'Information Architecture',
-      'Naming & Tagline'
-    ]
-  }, {
-    icon: '/images/services/brand_identities.svg',
-    name: 'Brand Identities',
-    description: [
-      'Identity Design',
-      'Logo Creation',
-      'Art Direction', 'Art Direction',
-      'Photography']
-  }, {
-    icon: '/images/services/digital_design.svg',
-    name: 'Digital Design',
-    description: [
-      'Web, Mobile & App Design',
-      'UI & UX Design',
-      'Responsive Design',
-      'Content Strategy'
-    ]
-  }, {
-    icon: '/images/services/graphic_design.svg',
-    name: 'Graphic Design',
-    description: [
-      'Multimedia Design',
-      'Print Design',
-      'Packaging Design',
-      'Design'
-    ]
-  }, {
-    icon: '/images/services/reklami_ikonka.svg',
-    name: 'Advertising',
-    description: [
-      'Campaign Creation',
-      'Concept Creation',
-      'Copywriting',
-      'Art Direction'
-    ]
-  }, {
-    icon: '/images/services/illustration.svg',
-    name: 'Illustration',
-    description: [
-      'Advertising',
-      'Editorial',
-      'Publishing',
-      'Print'
-    ]
-  }, {
-    icon: '/images/services/development.svg',
-    name: 'Development',
-    description: [
-      'Frontend Development',
-      'Backend Development',
-      'Quality Assurance',
-      'Maintenance'
-    ]
-  }];
 
   return (
     <article className="bg_services">
@@ -121,17 +56,11 @@ export function Services({ description, active, width }) {
                     </div>
                     <div className="item_name">
                       <span>
-                        {service.name}
+                        {service.title}
                       </span>
                     </div>
                     <div className={"item_description " + (closed ? 'closed' : '') }>
-                      <ul>
-                        {service.description.map((el, i) => (
-                          <li key={i}>
-                            {el}
-                          </li>
-                        ))}
-                      </ul>
+                      {convertText(service.description)}
                     </div>
                   </div>
                 </Animated>

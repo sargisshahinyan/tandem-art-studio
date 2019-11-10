@@ -1,4 +1,5 @@
 import React, { memo, useState } from 'react';
+import { connect } from 'react-redux';
 
 import Header from '../Header';
 import BasicFooter from '../BasicFooter';
@@ -39,13 +40,13 @@ export const About = memo(
               >
                 <p>{convertText(description)}</p>
                 <div className={wrapperHidden + ' textWrapper'} onClick={() => setMode(!opened)}>
-                  <span/>
-                  <span/>
-                  <span/>
+                  {Array(3).fill(null).map((v, i) => (
+                    <span key={i} />
+                  ))}
                 </div>
               </div>
               <div className={arrowHidden + ' hiddenArrow'} onClick={() => setMode(!opened)}>
-                <img src="/images/icons/arrow-left.svg" alt=""/>
+                <img src="/images/icons/arrow-left.svg" alt="Expand" />
               </div>
             </div>
           </div>
@@ -58,4 +59,8 @@ export const About = memo(
   }
 );
 
-export default About;
+const mapToStateProps = ({ common: {width} }) => ({
+  width,
+});
+
+export default connect(mapToStateProps)(About);

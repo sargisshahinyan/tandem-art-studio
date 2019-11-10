@@ -1,19 +1,19 @@
 import React from 'react';
 
-import './style.scss'
+import { convertText } from '../../../../utils';
 
-const Service = ({ icon, name, description }) => (
+import './style.scss';
+
+const Service = ({ icon, title, description }) => (
   <div className="service">
     <div className="serviceHead">
       <div className="serviceIcon">
         <img src={icon} alt=""/>
       </div>
-      <div className="serviceName">{name}</div>
+      <div className="serviceName">{title}</div>
     </div>
     <div className="serviceFooter">
-      <ul className="serviceDescription">
-        {description.map((desc, i) => <li key={i}>{desc}</li>)}
-      </ul>
+      {convertText(description)}
     </div>
   </div>
 );
