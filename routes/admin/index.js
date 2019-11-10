@@ -16,6 +16,7 @@ const {
   HOME_SLIDE_PATH,
   TEAM_PATH,
   SERVICES_PATH,
+  CLIENTS_PATH,
   STATIC_FILES_DIRECTORY,
 } = require(`${APP_PATH}/constants`);
 
@@ -215,7 +216,7 @@ router.post('/clients', async (req, res, next) => {
     clients = await Promise.all(
       clients.map(async (service) => ({
         ...service,
-        icon: await ImagesSvc.createPhoto(service.icon, SERVICES_PATH + randToken.generate(16), STATIC_FILES_DIRECTORY),
+        icon: await ImagesSvc.createPhoto(service.icon, CLIENTS_PATH + randToken.generate(16), STATIC_FILES_DIRECTORY),
       }))
     );
 

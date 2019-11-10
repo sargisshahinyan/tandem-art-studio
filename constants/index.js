@@ -33,5 +33,6 @@ module.exports = {
   HOME_SLIDE_PATH: '/img/main/slide/',
   TEAM_PATH: '/img/team/',
   SERVICES_PATH: '/img/services/',
+  CLIENTS_PATH: '/img/clients/',
   STATIC_FILES_DIRECTORY: '/assets/',
 };
