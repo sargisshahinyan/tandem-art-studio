@@ -6,11 +6,11 @@ import { Link } from 'react-router-dom';
 import './styles.scss';
 
 export const BasicFooter = memo(
-  function BasicFooter({ goToPage, active, opened, width }) {
+  function BasicFooter({ goToPage, active, width }) {
     function goToPageWrapper(e) {
       e.preventDefault();
 
-      const pageIndex = window.location.pathname === '/' ? 5 : 2;
+      const pageIndex = window.location.pathname === '/' ? 6 : 2;
       goToPage(pageIndex);
     }
 

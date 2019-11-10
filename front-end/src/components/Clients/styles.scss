@@ -4,6 +4,10 @@
 .bg_clients {
 
   .clients_slider {
+    .slick-prev, .slick-next {
+      width: 40px;
+      height: 40px;
+    }
     .slick-slider {
       -webkit-box-sizing: border-box;
       -moz-box-sizing: border-box;
@@ -57,7 +61,7 @@
         }
       }
       .text_content {
-        margin-top: 50px;
+        margin-top: 30px;
         .content {
           p {
             max-width: 85%;

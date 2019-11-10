@@ -1,10 +1,10 @@
 @import "mixin";
 @import "fonts";
 
-footer{
+footer {
   z-index: 1;
 }
-.basic_footer{
+.basic_footer {
   width: 25%;
 
   &.mobileBasicFooter {
@@ -12,28 +12,36 @@ footer{
   }
 
   margin-bottom: 20px;
-  .socialize{
+  .socialize {
     display: inline-block;
     z-index: 2;
-    ul{
-      li{
+    ul {
+      li {
         display: inline-block;
         vertical-align: middle;
-        a{
+        margin-right: 10px;
+        a {
           @include transition();
           display: block;
-          opacity: .65;
-          img{
-            height: 20px;
+          opacity: .45;
+          img {
+            height: 48px;
           }
-          &:hover{
+          &:hover {
             opacity: 1;
           }
         }
-        &:not(:first-child){
+        &:not(:first-child) {
           margin-left: 6px;
         }
       }
     }
+  }
+}
+
+@media (min-width: 768px) {
+  .basic_footer {
+    padding-bottom: 30px;
+    padding-left: 20px;
   }
 }

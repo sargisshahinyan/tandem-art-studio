@@ -1,0 +1,21 @@
+.modal {
+  display: none;
+  &.opened {
+    display: flex;
+  }
+  width: 300px;
+  height: 200px;
+  position: fixed;
+  top: calc(50vh - 100px);
+  left: calc(50vw - 150px);
+  background: #202027;
+  border: 1px solid #636368;
+  flex-direction: column;
+  justify-content: space-between;
+  & .close {
+    text-align: center;
+    padding: 30px;
+    cursor: pointer;
+
+  }
+}

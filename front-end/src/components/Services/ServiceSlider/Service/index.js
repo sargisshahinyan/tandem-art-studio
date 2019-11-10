@@ -1,7 +1,5 @@
 import React from 'react';
 
-import { convertText } from '../../../../utils';
-
 import './style.scss';
 
 const Service = ({ icon, title, description }) => (
@@ -13,7 +11,9 @@ const Service = ({ icon, title, description }) => (
       <div className="serviceName">{title}</div>
     </div>
     <div className="serviceFooter">
-      {convertText(description)}
+      <ul className="serviceDescription">
+        {description.split('\n').map((desc, i) => <li key={i}>{desc}</li>)}
+      </ul>
     </div>
   </div>
 );

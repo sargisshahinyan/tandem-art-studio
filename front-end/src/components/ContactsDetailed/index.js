@@ -3,6 +3,7 @@ import React from 'react';
 import UglyFooter from '../UglyFooter';
 import HiddenFooter from '../HiddenFooter';
 import Header from '../Header';
+import LargeFooter from '../LargeFooter';
 
 import './styles.scss';
 
@@ -20,6 +21,7 @@ export function ContactsDetailed() {
         />
       </main>
       <UglyFooter />
+      <LargeFooter/>
       <HiddenFooter />
     </article>
   );
