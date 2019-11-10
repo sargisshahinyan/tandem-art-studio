@@ -1,7 +1,10 @@
+@import "fonts";
+
 .portfolio-single {
   padding: 40px 10px 40px 10px;
   position: relative;
   z-index: 1;
+  font-family: $verdana_r;
   .main-picture {
     object-fit: contain;
     width: 100%;

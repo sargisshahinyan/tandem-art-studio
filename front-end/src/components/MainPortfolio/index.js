@@ -127,16 +127,18 @@ export class MainPortfolio extends PureComponent {
                   && i < itemsInPage + level * (itemsInPage / 2)
                 }
               >
-                <div
-                  className="portfolio-item"
-                >
+                <div className="portfolio-item">
                   <Link
                     className="portfolio-item-wrapper"
                     to={`${path}/${portfolio.id}`}
                     style={{
                       backgroundImage: `url('${portfolio.presentable_picture}')`
                     }}
-                  />
+                  >
+                    <div className="title">
+                      {portfolio.title}
+                    </div>
+                  </Link>
                 </div>
               </Animated>
             ))}
