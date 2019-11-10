@@ -15,6 +15,7 @@ const {
   PORTFOLIO_IMAGES_PATH,
   HOME_SLIDE_PATH,
   TEAM_PATH,
+  SERVICES_PATH,
   STATIC_FILES_DIRECTORY,
 } = require(`${APP_PATH}/constants`);
 
@@ -159,6 +160,36 @@ router.post('/team', async (req, res, next) => {
     );
 
     req.body.members = members;
+    next();
+  } catch (e) {
+    console.error(e);
+    next(e);
+  }
+});
+
+router.post('/services', async (req, res, next) => {
+  try {
+    let { services } = req.body;
+    const { page: { services: currentServices } } = res.locals;
+
+    currentServices.forEach(({ icon }) => {
+      ImagesSvc.deletePhoto(
+        path.join(
+          APP_PATH,
+          path.resolve(STATIC_FILES_DIRECTORY),
+          path.resolve(icon),
+        ),
+      );
+    });
+
+    services = await Promise.all(
+      services.map(async (service) => ({
+        ...service,
+        icon: await ImagesSvc.createPhoto(service.icon, SERVICES_PATH + randToken.generate(16), STATIC_FILES_DIRECTORY),
+      }))
+    );
+
+    req.body.services = services;
     next();
   } catch (e) {
     console.error(e);

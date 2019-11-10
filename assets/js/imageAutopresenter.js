@@ -38,6 +38,7 @@ function autoPresentImages(element) {
           var img = new Image();
           img.src = src;
           img.className = 'img-fluid';
+          if (src.includes('svg')) img.style.width = '100%';
           imageWrapper.appendChild(img);
           imageItem.appendChild(imageWrapper);
 
@@ -47,3 +48,7 @@ function autoPresentImages(element) {
       .catch(console.log.bind(console));
   });
 }
+
+Array.from(document.getElementsByTagName('img')).forEach(img => {
+  if (img.src && img.src.includes('svg')) img.style.width = '100%';
+});
