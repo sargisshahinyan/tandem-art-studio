@@ -48,6 +48,10 @@ main{
             color: rgba(255, 255, 255, 0.4);
           }
           &:hover {
+            .item_img img {
+              height: 110px;
+              margin-top: -10px;
+            }
             .item_name {
               background: #cccfcf;
               span {
