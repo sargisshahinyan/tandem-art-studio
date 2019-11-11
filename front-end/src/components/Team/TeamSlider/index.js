@@ -13,8 +13,8 @@ const TeamSlider = ({ members }) => {
     slidesToShow: 3,
     slidesToScroll: 1,
     touchMove: false,
-    prevArrow: <Fragment />,
-    nextArrow: <Fragment />,
+    prevArrow: <img src="/images/icons/arrow-left.svg" alt="Left arrow" />,
+    nextArrow: <img src="/images/icons/arrow-right.svg" alt="Right arrow" />,
   };
 
   return (

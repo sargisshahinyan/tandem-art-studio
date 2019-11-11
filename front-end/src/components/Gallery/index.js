@@ -9,18 +9,10 @@ export class Gallery extends Component {
     super(props);
     autoBind(this);
 
-    this.itemsRefs = Array(props.items.length).fill(null).map(createRef);
     this.activeItemIndex = 0;
     this.slider = createRef();
-  }
-
-  componentDidMount() {
-    return;
-    const { items, active } = this.props;
-
-    if (active && items[0].type === 'video') {
-      this.itemsRefs[0].current.play();
-    }
+    this.gallery = createRef();
+    this.firstPresented = false;
   }
 
   shouldComponentUpdate({ active }) {
@@ -29,25 +21,29 @@ export class Gallery extends Component {
 
   componentDidUpdate() {
     const { active, items } = this.props;
-return;
+
+    if (!this.firstPresented) {
+      this.firstPresented = true;
+      return;
+    }
+
     if (items[this.activeItemIndex].type === 'video') {
       if (active) {
-        this.itemsRefs[this.activeItemIndex].current.play();
+        this.gallery.current.querySelector(`video[data-id="${this.activeItemIndex}"]`).play();
       } else {
-        this.itemsRefs[this.activeItemIndex].current.pause();
+        this.gallery.current.querySelector(`video[data-id="${this.activeItemIndex}"]`).pause();
       }
     }
   }
 
   beforeChange(oldIndex, newIndex) {
-    return;
     const { items } = this.props;
 
     if (items[oldIndex].type === 'video') {
-      this.itemsRefs[oldIndex].current.pause();
+      this.gallery.current.querySelector(`video[data-id="${oldIndex}"]`).pause();
     }
     if (items[newIndex].type === 'video') {
-      this.itemsRefs[newIndex].current.play();
+      this.gallery.current.querySelector(`video[data-id="${newIndex}"]`).play();
     }
     this.activeItemIndex = newIndex;
   }
@@ -75,7 +71,7 @@ return;
     };
 
     return (
-      <div className="gallery">
+      <div className="gallery" ref={this.gallery}>
         <img
           src="/images/icons/arrow-left.svg"
           alt="Left arrow"
@@ -96,7 +92,7 @@ return;
                   return (
                     <video
                       key={i}
-                      ref={this.itemsRefs[i]}
+                      data-id={i}
                       src={content || 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'}
                       controls
                     />
@@ -105,7 +101,7 @@ return;
                   return (
                     <img
                       key={i}
-                      ref={this.itemsRefs[i]}
+                      data-id={i}
                       src={content || 'https://homepages.cae.wisc.edu/~ece533/images/baboon.png'}
                       alt="Gallery item"
                     />

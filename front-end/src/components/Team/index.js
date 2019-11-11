@@ -22,7 +22,7 @@ export function Team({ title, description, members, active }) {
 
   return (
     <article className="bg_team">
-      <Header active={active} />
+      <Header />
       <main className="our_team centering_content">
         <div className="title">
           <div className="wrapper">

@@ -91,3 +91,16 @@ main.index_content {
     }
   }
 }
+
+@media (max-width: 767px) {
+  .home_carousel {
+    height: calc(100% - 30px);
+  }
+  main.index_content {
+    position: relative;
+    height: 100vh;
+    .middle_bg {
+      min-height: 40vh;
+    }
+  }
+}

@@ -174,7 +174,6 @@ main {
     background-size: cover;
     width: 100%;
     background-position: top;
-    animation: MoveUpDown 30s infinite alternate;
   }
 }
 
@@ -189,15 +188,6 @@ main {
 
 .hidden {
   display: none !important;
-}
-
-@keyframes MoveUpDown {
-  0%, 100% {
-    background-position: top;
-  }
-  50% {
-    background-position: bottom;
-  }
 }
 
 @media (max-width: 767px) {
