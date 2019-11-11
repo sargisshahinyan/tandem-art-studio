@@ -17,7 +17,13 @@ function createTransporter() {
 
 class EmailSvc {
   static async sendEmail(mailOptions) {
-    const transporter = createTransporter();
+    let transporter;
+    try {
+      transporter = createTransporter();
+    } catch (e) {
+      console.log(e);
+      return null;
+    }
 
     await transporter.sendMail(mailOptions);
     transporter.close();
