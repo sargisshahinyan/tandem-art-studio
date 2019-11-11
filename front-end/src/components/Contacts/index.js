@@ -55,7 +55,7 @@ class Contacts extends PureComponent {
     this.message.current.value = '';
   };
 
-  setOpened = state => {
+  setOpened(state) {
     this.setState({
       opened: state,
     });
