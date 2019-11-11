@@ -1,5 +1,6 @@
 import React, { PureComponent, createRef } from 'react';
 import { Animated } from 'react-animated-css';
+import autoBind from 'react-autobind';
 
 import EmailSvc from '../../services/EmailSvc';
 
@@ -15,6 +16,7 @@ import './styles.scss';
 class Contacts extends PureComponent {
   constructor(props) {
     super(props);
+    autoBind(this);
 
     this.name = createRef('');
     this.surname = createRef('');
@@ -29,7 +31,7 @@ class Contacts extends PureComponent {
     }
   }
 
-  sendMessage = async e => {
+  async sendMessage(e) {
     e.preventDefault();
     e.stopPropagation();
 
