@@ -180,10 +180,7 @@ function mapToStateProps({ pages, portfolios, common: { width, height } }) {
     data,
     width,
     height,
-    portfolios: portfolios.list.length ? Array(16).fill(null).map(() => ({
-      ...portfolios.list[0],
-      id: Math.random(),
-    })) : [],
+    portfolios: portfolios.list,
   };
 }
 
