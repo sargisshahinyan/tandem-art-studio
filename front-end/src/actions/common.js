@@ -1,6 +1,6 @@
-export const SET_WINDOW_WIDTH = 'SET_WINDOW_WIDTH';
+export const SET_WINDOW_SIZES = 'SET_WINDOW_SIZES';
 
-export const setWindowWidth = width => ({
-  type: SET_WINDOW_WIDTH,
-  payload: width,
+export const setWindowWidth = ({ width, height }) => ({
+  type: SET_WINDOW_SIZES,
+  payload: { width, height },
 });

@@ -12,7 +12,10 @@ let store = null;
 
 if (typeof window === 'object') {
   window.addEventListener('resize', () => {
-    store.dispatch(setWindowWidth(window.innerWidth));
+    store.dispatch(setWindowWidth({
+      width: window.innerWidth,
+      height: window.innerHeight,
+    }));
   });
 }
 
@@ -30,7 +33,12 @@ export function configureStore(props) {
     applyMiddleware(thunkMiddleware),
   );
 
-  if (typeof window === 'object') store.dispatch(setWindowWidth(window.innerWidth));
+  if (typeof window === 'object') {
+    store.dispatch(setWindowWidth({
+      width: window.innerWidth,
+      height: window.innerHeight,
+    }));
+  }
 
   return store;
 }

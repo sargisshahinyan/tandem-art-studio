@@ -1,23 +1,25 @@
 @import "fonts";
 
-.portfolio-wrapper {
-  overflow: hidden;
-  height: calc(100vh - 70px);
+.portfolios-wrapper {
+  height: 100vh;
   font-family: $verdana_r;
+  display: flex;
+  align-items: center;
+  .portfolios-container {
+    width: 100%;
+    overflow: hidden;
+  }
 }
-.portfolio {
+.portfolios {
   position: relative;
   z-index: 1000;
-  display: flex;
-  flex-wrap: wrap;
   max-width: 1920px;
   height: 100%;
   margin: 0 auto;
   .portfolio-item {
-    width: 25vw;
-    max-width: 480px;
-    height: calc(50vh - 35px);
-    padding: 20px 10px;
+    width: 100%;
+    height: 100%;
+    padding: 5px;
     .portfolio-item-wrapper {
       background: no-repeat center center;
       -webkit-background-size: cover;
@@ -25,6 +27,7 @@
       -o-background-size: cover;
       background-size: cover;
       position: relative;
+      width: 100%;
       height: 100%;
       display: block;
     }
@@ -52,23 +55,4 @@
     }
   }
   transition: margin-top 1s;
-}
-
-@media (max-width: 1023px) {
-  .portfolio .portfolio-item {
-    width: calc(100vw / 3);
-    max-width: unset;
-  }
-}
-
-@media (max-width: 767px) {
-  .portfolio .portfolio-item {
-    width: 50vw;
-  }
-}
-
-@media (max-width: 549px) {
-  .portfolio .portfolio-item {
-    width: 100vw;
-  }
 }
