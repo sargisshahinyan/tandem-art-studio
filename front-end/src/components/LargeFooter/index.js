@@ -1,11 +1,13 @@
 import React, { memo } from 'react';
 import { Animated } from 'react-animated-css';
+import { Link } from "react-router-dom";
+
+import AddressLine from '../AddressLine';
 
 import './styles.scss';
-import {Link} from "react-router-dom";
 
 export const LargeFooter = memo(
-  function LargeFooter({ goToPage, active, noPadding }) {
+  function LargeFooter({ goToPage, active, noPadding, address }) {
     const padding = noPadding ? 'noPadding' : '';
     return (
       <footer className="large_footer">
@@ -55,9 +57,7 @@ export const LargeFooter = memo(
                   </ul>
                 </div>
                 <div className="right_side">
-                  <div className="img">
-                    <img src="/images/slogan.png" alt="slogan"/>
-                  </div>
+                  {address && <AddressLine />}
                 </div>
               </div>
             </Animated>
@@ -140,5 +140,9 @@ export const LargeFooter = memo(
     );
   }
 );
+
+LargeFooter.defaultProps = {
+  address: false,
+};
 
 export default LargeFooter;

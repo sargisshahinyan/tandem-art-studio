@@ -21,7 +21,7 @@ export function ContactsDetailed() {
         />
       </main>
       <UglyFooter />
-      <LargeFooter/>
+      <LargeFooter address />
       <HiddenFooter />
     </article>
   );
