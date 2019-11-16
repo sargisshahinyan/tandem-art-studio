@@ -97,19 +97,19 @@ export const LargeFooter = memo(
                   <div className="links">
                     <div className="link link_mail">
                       <div className="icon icon_mail"/>
-                      <div className="text">tandemartstudio@gmail.com</div>
+                      <div className="text"><a href="mailto:tandemartstudio@gmail.com">tandemartstudio@gmail.com</a></div>
                     </div>
                     <div className="link link_facebook">
                       <div className="icon icon_facebook"/>
-                      <div className="text">www.facebook.com/@designstudioTandem</div>
+                      <div className="text"><a href="https://www.facebook.com/designstudioTandem">www.facebook.com/@designstudioTandem</a></div>
                     </div>
                     <div className="link link_instagram">
                       <div className="icon icon_instagram" />
-                      <div className="text">www.instagram.com/tandem_artstudio</div>
+                      <div className="text"><a href="https://www.instagram.com/tandem_artstudio/">www.instagram.com/tandem_artstudio</a></div>
                     </div>
                     <div className="link link_tel_whatsapp_viber">
                       <div className="icon icon_tel"/>
-                      <div className="text">(+374) 93 93 04 12</div>
+                      <div className="text"><a href="tel:+37493930412">(+374) 93 93 04 12</a></div>
                       <div className="icon icon_whatsapp"/>
                       <div className="icon icon_viber"/>
                     </div>
