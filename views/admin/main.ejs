@@ -26,6 +26,9 @@
                 <% if (/^\/portfolio\/\d+$/.test(activePage)) { %>
                     <% include portfolioSingle.ejs %>
                 <% } %>
+                <% if (activePage === '/settings') { %>
+                    <% include settings.ejs %>
+                <% } %>
             </article>
         </main>
     </body>

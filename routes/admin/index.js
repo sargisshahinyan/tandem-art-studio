@@ -238,6 +238,46 @@ router.post(/\/(home|about|team|services|clients)/, async (req, res, next) => {
   }
 });
 
+router.post('/settings', async (req, res, next) => {
+  try {
+    const {
+      currentPassword,
+      newPassword,
+      confirmPassword,
+    } = req.body;
+
+    let isCorrectPassword;
+    try {
+      isCorrectPassword = await UsersSvc.checkPassword(res.locals.userId, currentPassword);
+    } catch (e) {
+      next(e);
+    }
+
+    if (!isCorrectPassword) {
+      return res.render('admin/main', {
+        error: {
+          message: 'Incorrect password',
+        },
+      });
+    }
+
+    if (newPassword !== confirmPassword) {
+      return res.render('admin/main', {
+        error: {
+          message: 'Passwords do not match',
+        },
+      });
+    }
+
+    await UsersSvc.checkPassword(res.locals.userId, newPassword);
+
+    res.redirect(req.originalUrl);
+  } catch (e) {
+    console.error(e);
+    next(e);
+  }
+});
+
 router.post('/portfolio', async (req, res, next) => {
   try {
     await addPortfolio(req);

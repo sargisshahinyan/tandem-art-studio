@@ -27,7 +27,7 @@ class UsersSvc {
     const [{ rows: [{ count }] }] = await doAction([
       {
         method: 'query',
-        args: [`SELECT COUNT(*) AS count FROM ${this.ADMIN_TABLE}`],
+        args: [`SELECT COUNT(*) AS count FROM admins`],
       }
     ]);
 
@@ -40,7 +40,7 @@ class UsersSvc {
     const [{ rowCount }] = await doAction([
       {
         method: 'query',
-        args: [`SELECT id FROM ${this.ADMIN_TABLE} WHERE username = $1`, [username]],
+        args: [`SELECT id FROM admins WHERE username = $1`, [username]],
       }
     ]);
 
@@ -50,7 +50,7 @@ class UsersSvc {
       {
         method: 'query',
         args: [
-          `INSERT INTO ${this.ADMIN_TABLE} ("name", "username", "password") VALUES ($1, $2, $3)`,
+          `INSERT INTO admins ("name", "username", "password") VALUES ($1, $2, $3)`,
           [name, username, password]
         ],
       }
@@ -151,7 +151,7 @@ class UsersSvc {
       {
         method: 'query',
         args: [
-          `SELECT id, name, username, password FROM ${this.ADMIN_TABLE} WHERE username = $1`,
+          `SELECT id, name, username, password FROM admins WHERE username = $1`,
           [username]
         ]
       }
@@ -183,6 +183,48 @@ class UsersSvc {
         ]
       }
     ]);
+  }
+
+  static async checkPassword(id, password) {
+    password = EncryptionSvc.cryptText(password);
+
+    const [{ rows, rowCount }] = await doAction([
+      {
+        method: 'query',
+        args: [`SELECT password FROM admins WHERE id = $1`, [id]],
+      }
+    ]);
+
+    if (!rowCount) {
+      return Promise.reject({
+        message: '¯\\_(ツ)_/¯',
+      });
+    }
+
+    const [{ password: userPassword }] = rows;
+
+    return password === userPassword;
+  }
+
+  static async changePassword(id, password) {
+    password = EncryptionSvc.cryptText(password);
+
+    const [{ rows, rowCount }] = await doAction([
+      {
+        method: 'query',
+        args: [`UPDATE admins SET password = $2 WHERE id = $1`, [id, password]],
+      }
+    ]);
+
+    if (!rowCount) {
+      return Promise.reject({
+        message: '¯\\_(ツ)_/¯',
+      });
+    }
+
+    const [{ password: userPassword }] = rows;
+
+    return password === userPassword;
   }
 }
 

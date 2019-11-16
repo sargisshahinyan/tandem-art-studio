@@ -27,6 +27,10 @@ module.exports = {
       title: 'Portfolio',
       path: 'portfolio',
     },
+    {
+      title: 'Settings',
+      path: 'settings',
+    },
   ],
 
   PORTFOLIO_IMAGES_PATH: '/img/portfolio/',
