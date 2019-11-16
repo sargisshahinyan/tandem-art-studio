@@ -1,18 +1,18 @@
 export const ITEMS_ON_SCREEN = [
   {
-    itemsInPage: 8,
+    itemsInLine: 4,
     width: 1024,
   },
   {
-    itemsInPage: 6,
+    itemsInLine: 3,
     width: 768,
   },
   {
-    itemsInPage: 4,
+    itemsInLine: 2,
     width: 550,
   },
   {
-    itemsInPage: 2,
+    itemsInLine: 1,
     width: 0,
   },
 ];

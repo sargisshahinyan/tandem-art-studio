@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import Slider from 'react-slick';
 
 import TeamWorker from './TeamWorker';
@@ -22,7 +22,7 @@ const TeamSlider = ({ members }) => {
       <div className="slider">
         <Slider { ...settings }>
           {members.map((member, i) =>
-            <TeamWorker key={i} { ...member } />
+            <TeamWorker key={i} {...member} />
           )}
         </Slider>
       </div>

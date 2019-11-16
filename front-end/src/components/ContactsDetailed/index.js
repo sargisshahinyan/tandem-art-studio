@@ -13,6 +13,7 @@ export function ContactsDetailed() {
       <Header />
       <main>
         <iframe
+          title="Studio address"
           src="https://maps.google.com/maps?q=tandem&t=k&z=17&ie=UTF8&iwloc=&output=embed"
           frameBorder="0"
           scrolling="no"

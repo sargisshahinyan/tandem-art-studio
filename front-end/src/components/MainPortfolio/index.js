@@ -11,21 +11,26 @@ import { loadPortfolios } from '../../actions/portfolios';
 
 import './styles.scss';
 
+const FREEZE_PERIOD = 2000;
+
 export class MainPortfolio extends PureComponent {
   constructor(props) {
     super(props);
     autoBind(this);
 
-    const { itemsInPage } = (
+    const { itemsInLine } = (
       ITEMS_ON_SCREEN.find(({ width }) => props.width >= width)
       || ITEMS_ON_SCREEN[0]
     );
 
-    this.portfolio = createRef();
+    this.portfolios = createRef();
     this.animationTimer = 0;
     this.state = {
       level: 0,
-      itemsInPage,
+      height: 0,
+      rowsCount: 0,
+      itemHeight: (props.width / itemsInLine),
+      itemsInLine,
     };
     this.scrolling = false;
   }
@@ -35,6 +40,13 @@ export class MainPortfolio extends PureComponent {
     if (!portfolios.length) loadPortfolios();
 
     window.addEventListener('wheel', this.onScroll, { passive: true });
+    this.onResize();
+  }
+
+  componentDidUpdate({ width: prevWidth, height: prevHeight }) {
+    const { width: currentWidth, height: currentHeight } = this.props;
+
+    if (prevWidth !== currentWidth || prevHeight !== currentHeight) this.onResize();
   }
 
   componentWillUnmount() {
@@ -43,14 +55,14 @@ export class MainPortfolio extends PureComponent {
   }
 
   static getDerivedStateFromProps(props, state) {
-    const { itemsInPage } = (
+    const { itemsInLine } = (
       ITEMS_ON_SCREEN.find(({ width }) => props.width >= width)
       || ITEMS_ON_SCREEN[0]
     );
 
-    if (itemsInPage !== state.itemsInPage) {
+    if (itemsInLine !== state.itemsInLine) {
       return {
-        itemsInPage,
+        itemsInLine,
       };
     }
 
@@ -60,40 +72,43 @@ export class MainPortfolio extends PureComponent {
   onScroll({ deltaY }) {
     if (this.scrolling) return;
 
-    const { level, itemsInPage } = this.state;
+    const { level, itemsInLine, rowsCount } = this.state;
     const { portfolios } = this.props;
 
-    const maxLevels = Math.ceil(portfolios.length / (itemsInPage / 2)) - 2;
+    const maxLevels = Math.ceil(portfolios.length / itemsInLine) - rowsCount;
 
-    if (deltaY > 0 && level < maxLevels) {
-      this.scrolling = true;
-      this.setState({
-        up: false,
-        down: true,
-        level: level + 1,
-      }, () => {
-        this.animationTimer = setTimeout(() => {
-          this.scrolling = false;
-        }, 2000);
-      });
-    }
+    if (deltaY > 0 && level < maxLevels) this.changeLevel(1);
+    if (deltaY < 0 && level > 0) this.changeLevel(-1);
+  }
 
-    if (deltaY < 0 && level > 0) {
-      this.scrolling = true;
-      this.setState({
-        up: true,
-        down: false,
-        level: level - 1,
-      }, () => {
-        this.animationTimer = setTimeout(() => {
-          this.scrolling = false;
-        }, 2000);
-      });
-    }
+  onResize() {
+    const { width } = this.props;
+    const { itemsInLine } = this.state;
+
+    const itemHeight = Math.floor(width / itemsInLine);
+    const rowsCount = Math.floor(this.portfolios.current.clientHeight / itemHeight);
+    const height = rowsCount * itemHeight;
+
+    this.setState({
+      itemHeight,
+      rowsCount,
+      height,
+    });
   }
 
   onSwipeMove({ x, y }) {
     if (Math.abs(x) < Math.abs(y)) this.onScroll({ deltaY: -y });
+  }
+
+  changeLevel(step) {
+    this.scrolling = true;
+    this.setState(({ level }) => ({
+      level: level + step,
+    }), () => {
+      this.animationTimer = setTimeout(() => {
+        this.scrolling = false;
+      }, FREEZE_PERIOD);
+    });
   }
 
   render() {
@@ -103,45 +118,54 @@ export class MainPortfolio extends PureComponent {
     } = this.props;
     const {
       level,
-      itemsInPage,
+      height,
+      rowsCount,
+      itemHeight,
+      itemsInLine,
     } = this.state;
 
     return (
-      <div className="portfolio-wrapper">
+      <div className="portfolios-wrapper" ref={this.portfolios}>
         <Swipe onSwipeMove={this.onSwipeMove}>
-          <div
-            className="portfolio"
-            ref={this.portfolio}
-            style={{
-              marginTop: `calc(${level * 35}px - ${level * 50}vh)`
-            }}
-          >
-            {portfolios.map((portfolio, i) => (
-              <Animated
-                key={portfolio.id}
-                animationIn="fadeIn"
-                animationOut="fadeOut"
-                animationInDelay={500 + (i % (itemsInPage / 2)) * 250}
-                isVisible={
-                  i >= level * (itemsInPage / 2)
-                  && i < itemsInPage + level * (itemsInPage / 2)
-                }
-              >
-                <div className="portfolio-item">
-                  <Link
-                    className="portfolio-item-wrapper"
-                    to={`${path}/${portfolio.id}`}
-                    style={{
-                      backgroundImage: `url('${portfolio.presentable_picture}')`
-                    }}
-                  >
-                    <div className="title">
-                      {portfolio.title}
-                    </div>
-                  </Link>
-                </div>
-              </Animated>
-            ))}
+          <div className="portfolios-container" style={{ height: `${height}px` }}>
+            <div
+              className="portfolios"
+              style={{
+                marginTop: `-${level * itemHeight}px`
+              }}
+            >
+              {portfolios.map((portfolio, i) => (
+                <Animated
+                  key={portfolio.id}
+                  animationIn="fadeIn"
+                  animationOut="fadeOut"
+                  animationInDelay={500 + (i % itemsInLine) * 250}
+                  isVisible={
+                    i >= level * itemsInLine
+                    && i < (rowsCount * itemsInLine) + level * itemsInLine
+                  }
+                  style={{
+                    height: `${itemHeight}px`,
+                    width: `${itemHeight}px`,
+                    display: 'inline-block',
+                  }}
+                >
+                  <div className="portfolio-item">
+                    <Link
+                      className="portfolio-item-wrapper"
+                      to={`${path}/${portfolio.id}`}
+                      style={{
+                        backgroundImage: `url('${portfolio.presentable_picture}')`,
+                      }}
+                    >
+                      <div className="title">
+                        {portfolio.title}
+                      </div>
+                    </Link>
+                  </div>
+                </Animated>
+              ))}
+            </div>
           </div>
         </Swipe>
       </div>
@@ -149,12 +173,13 @@ export class MainPortfolio extends PureComponent {
   }
 }
 
-function mapToStateProps({ pages, portfolios, common: { width } }) {
+function mapToStateProps({ pages, portfolios, common: { width, height } }) {
   const { data } = pages.pagesList.find(item => item.path === '/portfolio') || {};
 
   return {
     data,
     width,
+    height,
     portfolios: portfolios.list,
   };
 }
