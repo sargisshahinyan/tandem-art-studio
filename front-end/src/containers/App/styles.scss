@@ -127,38 +127,36 @@ article {
   @include justify-content(space-between);
 
   .bg_index {
-    background: url("/images/backgrounds/bg_index.png") no-repeat center center;
+    background: url("/images/backgrounds/bg_index.png") #000 no-repeat center center;
     -webkit-background-size: cover;
     background-size: cover;
   }
   &.bg_about {
-    background: url("/images/backgrounds/bg_about.png") no-repeat center center;
+    background: url("/images/backgrounds/bg_about.png") #000 no-repeat center center;
     -webkit-background-size: cover;
     background-size: cover;
   }
   &.bg_clients {
-    background: url("/images/backgrounds/bg_clients.png") no-repeat center center;
+    background: url("/images/backgrounds/bg_clients.png") #000 no-repeat center center;
     -webkit-background-size: cover;
     background-size: cover;
   }
   &.bg_services {
-    background: url("/images/backgrounds/bg_services.png") no-repeat center center;
+    background: url("/images/backgrounds/bg_services.png") #000 no-repeat center center;
     -webkit-background-size: cover;
     background-size: cover;
 
   }
   &.bg_team {
-    background: url("/images/backgrounds/bg_team.png") no-repeat center center;
+    background: url("/images/backgrounds/bg_team.png") #000 no-repeat center center;
     -webkit-background-size: cover;
     background-size: cover;
   }
   &.bg_contact_us, &.bg_location {
-    background: url("/images/backgrounds/bg_contact_us.png") no-repeat center center;
+    background: url("/images/backgrounds/bg_contact_us.png") #000 no-repeat center center;
     -webkit-background-size: cover;
     background-size: cover;
   }
-
-
 }
 
 /* Main content's styles */
