@@ -13,7 +13,7 @@ class PortfolioSvc {
           `SELECT
             portfolio.*
           FROM portfolio
-          GROUP BY portfolio.id
+          ORDER BY position
           LIMIT $1 OFFSET $2;`,
           [per, page - 1],
         ],
@@ -36,7 +36,7 @@ class PortfolioSvc {
               )
             ) AS sections
           FROM portfolio AS p
-          JOIN portfolio_image_sections AS pis on p.id = pis.portfolio_id
+          LEFT JOIN portfolio_image_sections AS pis on p.id = pis.portfolio_id
           WHERE p.id = $1
           GROUP BY p.id`,
           [id]
@@ -84,12 +84,21 @@ class PortfolioSvc {
       sections,
     } = data;
 
+    const [{ rows }] = await doAction([{
+      method: 'query',
+      args: [
+        `SELECT MAX(position) AS position FROM portfolio`
+      ]
+    }]);
+
+    const position = rows.length ? rows[0].position + 1 : 1;
+
     ([{ rows: [{ id }] }] = await doAction([{
       method: 'query',
       args: [
-        `INSERT INTO portfolio (title, description, presentable_picture, main_picture${id ? ', id' : ''})
-         VALUES ($1, $2, $3, $4${id ? ', $5' : ''}) RETURNING *`,
-        [title, description, presentablePicture, mainPicture, ...(id ? [id] : [])],
+        `INSERT INTO portfolio (title, description, presentable_picture, main_picture, position${id ? ', id' : ''})
+         VALUES ($1, $2, $3, $4, $5${id ? ', $6' : ''}) RETURNING *`,
+        [title, description, presentablePicture, mainPicture, position, ...(id ? [id] : [])],
       ],
     }]));
 
@@ -184,6 +193,18 @@ class PortfolioSvc {
         )
       });
     }
+  }
+
+  static changeOrder(portfolios) {
+    return doAction(
+      portfolios.map(({ id, position }) => ({
+        method: 'query',
+        args: [
+          `UPDATE portfolio SET position = $2 WHERE id = $1`,
+          [id, position],
+        ],
+      }))
+    )
   }
 }
 

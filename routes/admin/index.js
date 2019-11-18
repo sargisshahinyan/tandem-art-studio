@@ -269,7 +269,7 @@ router.post('/settings', async (req, res, next) => {
       });
     }
 
-    await UsersSvc.checkPassword(res.locals.userId, newPassword);
+    await UsersSvc.changePassword(res.locals.userId, newPassword);
 
     res.redirect(req.originalUrl);
   } catch (e) {
@@ -284,6 +284,17 @@ router.post('/portfolio', async (req, res, next) => {
     res.status(201).json({
       message: 'Ok',
     });
+  } catch (e) {
+    console.error(e);
+    next(e);
+  }
+});
+
+router.put('/portfolio/order', async (req, res, next) => {
+  try {
+    const { portfolios } = req.body;
+    await PortfolioSvc.changeOrder(portfolios);
+    res.status(204).send();
   } catch (e) {
     console.error(e);
     next(e);

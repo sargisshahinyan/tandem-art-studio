@@ -7,16 +7,16 @@ window.addEventListener('load', function () {
     const body = {
       title: document.getElementById('title').value,
       description: document.getElementById('description').value,
-      presentablePicture: await convertFileToImage(document.getElementById('presentablePicture').files[0]),
-      mainPicture: await convertFileToImage(document.getElementById('mainPicture').files[0]),
+      presentablePicture: await convertFileToImage(document.getElementById('presentablePicture').parentNode.querySelector('img').src),
+      mainPicture: await convertFileToImage(document.getElementById('mainPicture').parentNode.querySelector('img').src),
     };
 
     body.sections = await Promise.all(
       Array.from(document.querySelectorAll('.section')).map(async (section) => ({
         colsCount: Number(section.querySelector('select').value),
         images: await Promise.all(
-          Array.from(section.querySelectorAll('input')).map(({ files: [file] }) => (
-            convertFileToImage(file)
+          Array.from(section.querySelectorAll('input')).map((el) => (
+            el.parentNode.querySelector('img').src
           ))
         )
       })),
@@ -32,4 +32,18 @@ window.addEventListener('load', function () {
     var id = e.target.closest('.portfolio-item').dataset.id;
     axios.delete(baseUrl + '/portfolio/' + id).then(window.location.reload.bind(window.location));
   });
+
+  $('#portfolios-list')
+    .sortable()
+    .disableSelection()
+    .on('sortupdate', function(event, ui) {
+      const body = {
+        portfolios: Array.from(this.children).map((item, i) => ({
+          id: Number(item.dataset.id),
+          position: i + 1,
+        })),
+      };
+
+      axios.put(baseUrl + '/portfolio/order', body)
+    });
 });

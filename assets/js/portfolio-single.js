@@ -31,7 +31,7 @@ window.addEventListener('load', function () {
         images: await Promise.all(
           Array.from(section.querySelectorAll('input')).map((el) => (
             el.files[0] ? (
-              convertFileToImage(el.files[0])
+              el.parentNode.querySelector('img').src
             ) : (
               convertUrlToImage(
                 el.parentNode.querySelector('img').src

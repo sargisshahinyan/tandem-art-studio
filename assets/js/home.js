@@ -49,10 +49,6 @@ window.addEventListener('load', function () {
 
 
   function _handleEvents(section) {
-    if (typeof window.autoPresentImages === 'function') {
-      Array.from(section.querySelectorAll('input')).forEach(window.autoPresentImages);
-    }
-
     section.querySelector('.delete').addEventListener('click', function () {
       section.parentNode.removeChild(section);
     });

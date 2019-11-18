@@ -209,22 +209,12 @@ class UsersSvc {
   static async changePassword(id, password) {
     password = EncryptionSvc.cryptText(password);
 
-    const [{ rows, rowCount }] = await doAction([
+    return doAction([
       {
         method: 'query',
         args: [`UPDATE admins SET password = $2 WHERE id = $1`, [id, password]],
       }
     ]);
-
-    if (!rowCount) {
-      return Promise.reject({
-        message: '¯\\_(ツ)_/¯',
-      });
-    }
-
-    const [{ password: userPassword }] = rows;
-
-    return password === userPassword;
   }
 }
 

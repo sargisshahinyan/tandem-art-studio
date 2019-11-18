@@ -58,9 +58,6 @@ window.addEventListener('load', function () {
 
 
   function _handleEvents(section) {
-    if (typeof window.autoPresentImages === 'function') {
-      Array.from(section.querySelectorAll('input')).forEach(window.autoPresentImages);
-    }
     var order = section.querySelector('.order');
 
     order.value = order.value || document.querySelectorAll('.section').length + 1;
