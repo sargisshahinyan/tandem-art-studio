@@ -50,7 +50,6 @@ exports.down = function (db) {
       ALTER TABLE portfolio ADD COLUMN rows_count SMALLINT NOT NULL DEFAULT 10;
       ALTER TABLE portfolio ADD COLUMN columns_count SMALLINT NOT NULL DEFAULT 10;
       ALTER TABLE portfolio ADD COLUMN row_height VARCHAR(25) NOT NULL DEFAULT '50px';
-      DROP TABLE IF EXISTS portfolio_coords;
       ALTER TABLE portfolio_images RENAME section_id TO portfolio_id;
       UPDATE pages SET data = '${JSON.stringify({
         '1': {
