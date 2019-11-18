@@ -1,3 +1,4 @@
+@import "fonts";
 .modal {
   display: none;
   &.opened {
@@ -13,9 +14,16 @@
   flex-direction: column;
   justify-content: space-between;
   & .close {
-    text-align: center;
-    padding: 30px;
+    transition: all 0.3s ease;
     cursor: pointer;
-
+    border: none;
+    outline: none;
+    background: #004246;
+    color: rgba(255, 255, 255, 0.7);
+    padding: 6px 20px;
+    font-family: "Myriad Pro Bold", sans-serif;
+    font-size: 20px;
+    line-height: 24px;
+    width: 150px;
   }
 }

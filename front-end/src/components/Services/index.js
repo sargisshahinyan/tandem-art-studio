@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Animated } from 'react-animated-css';
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
 
 import BasicFooter from '../BasicFooter';
 import HiddenFooter from '../HiddenFooter';

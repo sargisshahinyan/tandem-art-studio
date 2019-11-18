@@ -134,7 +134,7 @@ class Contacts extends PureComponent {
           animationOut="fadeOut"
           isVisible={this.props.active}
         >
-          <LargeFooter noPadding={true}/>
+          <LargeFooter noPadding  />
         </Animated>
         <Animated
           animationIn="fadeIn"
