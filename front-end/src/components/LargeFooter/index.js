@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
 import { Animated } from 'react-animated-css';
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
 import AddressLine from '../AddressLine';
 
