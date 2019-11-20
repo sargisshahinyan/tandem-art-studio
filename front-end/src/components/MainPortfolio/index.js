@@ -85,7 +85,7 @@ export class MainPortfolio extends PureComponent {
     const { width } = this.props;
     const { itemsInLine } = this.state;
 
-    const itemHeight = Math.floor(width / itemsInLine);
+    const itemHeight = Math.floor(this.portfolios.current.clientWidth / itemsInLine);
     const rowsCount = Math.floor(this.portfolios.current.clientHeight / itemHeight);
     const height = rowsCount * itemHeight;
 

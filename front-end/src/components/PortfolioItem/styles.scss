@@ -1,12 +1,15 @@
 @import "fonts";
 
 .portfolio-single {
+  max-width: 1920px;
+  margin: 0 auto;
   padding: 40px 10px 40px 10px;
   position: relative;
   z-index: 1;
   font-family: $verdana_r;
+  text-align: center;
   .main-picture {
-    width: 100%;
+    max-width: 100%;
     margin-bottom: 40px;
   }
   .title {
@@ -28,6 +31,7 @@
     .section-img-wrapper {
       padding: 0 10px;
       flex: 1;
+      text-align: center;
       &:first-child {
         padding-left: 0;
       }
@@ -35,7 +39,7 @@
         padding-right: 0;
       }
       img {
-        width: 100%;
+        max-width: 100%;
       }
     }
   }
