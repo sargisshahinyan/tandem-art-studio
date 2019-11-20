@@ -20,6 +20,13 @@ export function Services({ services, description, active, width }) {
     if (width > 1023) setGlobal(false);
   }, [width]);
 
+  const serviceIconClick = (i) => {
+    if (width <= 1023) {
+      setGlobal(true);
+      setSelected(i);
+    }
+  };
+
   return (
     <article className="bg_services">
       <Header active={active} />
@@ -45,12 +52,7 @@ export function Services({ services, description, active, width }) {
                   animationInDelay={500 + i * 100}
                   isVisible={active}
                 >
-                  <div className="service_item" onClick={() => {
-                    if (width <= 1023) {
-                      setGlobal(true);
-                      setSelected(i)
-                    }
-                  }}>
+                  <div className="service_item" onClick={() => serviceIconClick(i)}>
                     <div className="item_img">
                       <img src={service.icon} alt="Service icon" />
                     </div>

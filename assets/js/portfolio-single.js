@@ -14,13 +14,13 @@ window.addEventListener('load', function () {
     var presentablePicture = document.getElementById('presentablePicture');
 
     if (mainPicture.files[0]) {
-      body.mainPicture = await convertFileToImage(mainPicture.files[0]);
+      body.mainPicture = mainPicture.parentElement.querySelector('img').src;
     } else {
       body.mainPicture = await convertUrlToImage(mainPicture.parentElement.querySelector('img').src);
     }
 
     if (presentablePicture.files[0]) {
-      body.presentablePicture = await convertFileToImage(presentablePicture.files[0]);
+      body.presentablePicture = presentablePicture.parentElement.querySelector('img').src;
     } else {
       body.presentablePicture = await convertUrlToImage(presentablePicture.parentElement.querySelector('img').src);
     }

@@ -1,9 +1,24 @@
-import React, { memo } from 'react';
+import React, { useState, useEffect, memo } from 'react';
+import { connect } from 'react-redux';
 
 import PageScrollerWrapper from '../../components/PageScrollerWrapper';
 
 import { PAGES } from '../../data/home';
 
-export const Home = memo(() => <PageScrollerWrapper pages={PAGES} />);
+export const Home = memo(({ width }) => {
+  const mobilePages = PAGES.filter(({ id }) => id !== 3);
+  const [pages, setPages] = useState(width > 767 ? PAGES : mobilePages);
 
-export default Home;
+  useEffect(() => {
+    const pages = width > 767 ? PAGES : mobilePages;
+    setPages(pages);
+  }, [width]);
+
+  return <PageScrollerWrapper pages={pages} />;
+});
+
+function mapToStateProps({ common: { width } }) {
+  return { width };
+}
+
+export default connect(mapToStateProps)(Home);

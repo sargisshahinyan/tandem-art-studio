@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import Slider from 'react-slick';
 import { Animated } from 'react-animated-css';
 
 export function CustomCarousel({ items }) {
+  const slider = useRef(null);
+  const [loading, toggleLoading] = useState(true);
   const settings = {
     dots: true,
     infinite: true,
@@ -14,13 +16,13 @@ export function CustomCarousel({ items }) {
     prevArrow: (
       <img
         src="/images/icons/arrow-left.svg"
-        alt="Arrow"
+        alt="Left Arrow"
       />
     ),
     nextArrow: (
       <img
         src="/images/icons/arrow-right.svg"
-        alt="Arrow"
+        alt="Right Arrow"
       />
     ),
     appendDots: dots => (
@@ -30,32 +32,41 @@ export function CustomCarousel({ items }) {
     ),
   };
 
+  useEffect(() => {
+    slider.current.slickGoTo(Math.ceil(items.length / 2) - 1, true);
+    setTimeout(() => {
+      toggleLoading(false);
+    }, 100);
+  }, []);
+
   return (
-    <Slider {...settings}>
-      {items.map(({ main, text }, i) => (
-        <div
-          key={i}
-          className="carousel-item"
-        >
-          <div className="main">
-            <Animated animationIn="fadeInLeft">
-              <img
-                src={main}
-                alt="Slide"
-              />
-            </Animated>
+    <div hidden={loading} style={{ height: '100%' }}>
+      <Slider {...settings} ref={slider}>
+        {items.map(({ main, text }, i) => (
+          <div
+            key={i}
+            className="carousel-item"
+          >
+            <div className="main">
+              <Animated animationIn="fadeInLeft" isVisible={!loading}>
+                <img
+                  src={main}
+                  alt="Slide"
+                />
+              </Animated>
+            </div>
+            <div className="text">
+              <Animated animationIn="fadeInRight" isVisible={!loading}>
+                <img
+                  src={text}
+                  alt="Text"
+                />
+              </Animated>
+            </div>
           </div>
-          <div className="text">
-            <Animated animationIn="fadeInRight">
-              <img
-                src={text}
-                alt="Text"
-              />
-            </Animated>
-          </div>
-        </div>
-      ))}
-    </Slider>
+        ))}
+      </Slider>
+    </div>
   );
 }
 

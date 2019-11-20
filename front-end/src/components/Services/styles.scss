@@ -115,7 +115,7 @@ main{
             & .service_item {
               padding: 0;
               cursor: pointer;
-              width: 25vw;
+              width: 29vw;
             }
 
             & .item_img {
@@ -126,9 +126,14 @@ main{
               }
             }
             & .item_name {
-              font-size: 14px;
               margin-top: 0;
               background: #19191F;
+              height: 28px;
+              line-height: 28px;
+              span {
+                color: rgba(255, 255, 255, 0.6);
+                font-size: 12px;
+              }
             }
             & .item_description {
               &.closed {
@@ -150,7 +155,8 @@ main{
         & .wrapper {
           padding: 0 10px;
           & p {
-            max-width: 100%;
+            max-width: 90%;
+            line-height: 1.1;
           }
         }
       }
