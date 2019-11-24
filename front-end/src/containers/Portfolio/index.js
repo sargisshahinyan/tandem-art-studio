@@ -9,7 +9,7 @@ import HiddenFooter from '../../components/HiddenFooter';
 
 export function Portfolio({ width, match: { path } }) {
   return (
-    <article>
+    <article style={{ overflow: 'hidden' }}>
       {width > 767 && <Header />}
       <div className="bg_sim_styles bg_index" style={{ position: 'fixed' }} />
       <Switch>

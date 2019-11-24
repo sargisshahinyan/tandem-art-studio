@@ -21,17 +21,20 @@
         -moz-box-sizing: border-box;
         box-sizing: border-box;
         padding: 60px;
-        @media(max-width: 1537px) {
+        @media (max-width: 1537px) {
           padding: 40px 60px;
         }
         @include flexbox();
-        @include justify-content(space-between);
+        align-items: center;
         & .signature {
           display: none;
         }
         & > .wrapper {
           width: 100%;
           @include flexbox();
+          max-height: 700px;
+          max-width: 1920px;
+          margin: 0 auto;
         }
       }
       @include flex-wrap(wrap);
@@ -206,7 +209,7 @@
         & > .wrapper {
           margin: 0;
           padding: 0;
-          width: 85%!important;
+          width: 85% !important;
 
           @include flexbox();
           @include flex-direction(column);

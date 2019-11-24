@@ -5,8 +5,9 @@ import PageScrollerWrapper from '../../components/PageScrollerWrapper';
 
 import { PAGES } from '../../data/home';
 
+const mobilePages = PAGES.filter(({ id }) => id !== 3);
+
 export const Home = memo(({ width }) => {
-  const mobilePages = PAGES.filter(({ id }) => id !== 3);
   const [pages, setPages] = useState(width > 767 ? PAGES : mobilePages);
 
   useEffect(() => {

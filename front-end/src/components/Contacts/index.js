@@ -18,17 +18,16 @@ class Contacts extends PureComponent {
     super(props);
     autoBind(this);
 
-    this.name = createRef('');
-    this.surname = createRef('');
-    this.email = createRef('');
-    this.phone = createRef('');
-    this.message = createRef('');
+    this.name = createRef();
+    this.surname = createRef();
+    this.email = createRef();
+    this.phone = createRef();
+    this.message = createRef();
 
     this.state = {
       opened: false,
       text: '',
-      active: props.active
-    }
+    };
   }
 
   async sendMessage(e) {
@@ -53,18 +52,21 @@ class Contacts extends PureComponent {
     this.email.current.value = '';
     this.phone.current.value = '';
     this.message.current.value = '';
-  };
+  }
 
   setOpened(state) {
     this.setState({
       opened: state,
     });
-  };
+  }
 
   render() {
+    const { active, pageNumber } = this.props;
+    const { opened, text } = this.state;
+
     return (
       <article className="bg_contact_us">
-        <Header active={this.props.active}/>
+        <Header active={active} />
         <main className="contact_us centering_content">
           <div className="title">
             <div className="wrapper">
@@ -78,7 +80,7 @@ class Contacts extends PureComponent {
                   animationIn="fadeInLeft"
                   animationInDelay={300}
                   animationOut="fadeOut"
-                  isVisible={this.props.active}
+                  isVisible={active}
                 >
                   <input
                     placeholder="Name:"
@@ -111,7 +113,7 @@ class Contacts extends PureComponent {
                   animationIn="fadeInRight"
                   animationInDelay={300}
                   animationOut="fadeOut"
-                  isVisible={this.props.active}
+                  isVisible={active}
                 >
                   <div className="message_items">
                     <div className="message_content">
@@ -126,13 +128,12 @@ class Contacts extends PureComponent {
             </div>
             <Signature />
           </form>
-
         </main>
         <Animated
           animationIn="fadeIn"
           animationInDelay={300}
           animationOut="fadeOut"
-          isVisible={this.props.active}
+          isVisible={active}
         >
           <LargeFooter noPadding  />
         </Animated>
@@ -140,16 +141,16 @@ class Contacts extends PureComponent {
           animationIn="fadeIn"
           animationInDelay={300}
           animationOut="fadeOut"
-          isVisible={this.props.active}
+          isVisible={active}
         >
           <BasicFooter />
         </Animated>
         <HiddenFooter />
         <Modal
-          opened={this.state.opened}
-          text={this.state.text}
+          opened={opened}
+          text={text}
           setOpened={this.setOpened}
-          pageNumber={this.props.pageNumber}
+          pageNumber={pageNumber}
         />
       </article>
     );
