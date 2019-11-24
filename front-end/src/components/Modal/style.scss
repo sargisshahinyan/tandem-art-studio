@@ -1,29 +1,45 @@
 @import "fonts";
+@import "mixin";
+
 .modal {
   display: none;
+
   &.opened {
     display: flex;
   }
+
   width: 300px;
   height: 200px;
   position: fixed;
+  text-align: center;
+  background: #202027;
   top: calc(50vh - 100px);
   left: calc(50vw - 150px);
-  background: #202027;
   border: 1px solid #636368;
-  flex-direction: column;
-  justify-content: space-between;
+  @include flex-direction(column);
+  @include justify-content(space-between);
+  & > div:first-of-type {
+    font-size: 25px;
+    padding: 20px 0;
+  }
+
   & .close {
-    transition: all 0.3s ease;
-    cursor: pointer;
+    width: 150px;
     border: none;
     outline: none;
-    background: #004246;
-    color: rgba(255, 255, 255, 0.7);
-    padding: 6px 20px;
-    font-family: "Myriad Pro Bold", sans-serif;
+    cursor: pointer;
     font-size: 20px;
+    padding: 6px 20px;
     line-height: 24px;
-    width: 150px;
+    background: #004246;
+    margin-bottom: 20px;
+    transition: all 0.3s ease;
+    @include align-self(center);
+    color: rgba(255, 255, 255, 0.7);
+    font-family: "Myriad Pro Bold", sans-serif;
+
+    &:hover {
+      color: #ccc;
+    }
   }
 }
