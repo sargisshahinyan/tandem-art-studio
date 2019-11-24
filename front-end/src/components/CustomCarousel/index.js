@@ -37,7 +37,7 @@ export function CustomCarousel({ items }) {
     setTimeout(() => {
       toggleLoading(false);
     }, 100);
-  }, []);
+  });
 
   return (
     <div hidden={loading} style={{ height: '100%' }}>

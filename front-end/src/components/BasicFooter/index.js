@@ -15,7 +15,7 @@ export const BasicFooter = memo(
     }
 
     return (
-      <footer className={"basic_footer " + (width <= 767 ? 'mobileBasicFooter' : '')}>
+      <footer className={'basic_footer' + (width <= 767 ? ' mobileBasicFooter' : '')}>
         <div className="wrapper">
           <Animated
             animationIn="fadeIn"
