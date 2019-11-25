@@ -58,10 +58,13 @@
         min-height: 200px;
         .slider {
           padding: 60px;
+          max-width: 1920px;
+          margin: 0 auto;
         }
       }
       .text_content {
-        margin-top: 30px;
+        max-width: 1920px;
+        margin: 30px auto 0;
         .content {
           p {
             max-width: 85%;

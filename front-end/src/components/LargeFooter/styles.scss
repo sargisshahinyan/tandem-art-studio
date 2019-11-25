@@ -130,15 +130,17 @@ footer{
               }
             }
             .text {
-              @include transition();
               display: inline-block;
               vertical-align: middle;
               margin-left: 10px;
               margin-right: 10px;
               font-family: $verdana_r;
               font-size: 10px;
+              a {
+                @include transition();
+              }
               &:hover {
-                .text {
+                a {
                   color: #fff;
                 }
               }

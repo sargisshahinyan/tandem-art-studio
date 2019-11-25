@@ -10,7 +10,7 @@ article.bg_location {
     @include flex-grow(1);
   }
   & > main {
-    background: url(/images/backgrounds/bg_middle.png) no-repeat center center;
+    background: url('/images/backgrounds/bg_middle.png') no-repeat center center;
     background-size: cover;
     @include flex-grow(12);
     @include flexbox();

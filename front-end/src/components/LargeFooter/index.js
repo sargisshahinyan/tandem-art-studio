@@ -50,7 +50,7 @@ export const LargeFooter = memo(
                       </a>
                     </li>
                     <li>
-                      <a href="/">
+                      <a href="mailto:tandemartstudio@gmail.com">
                         <img src="/images/icons/ic_mail.png" alt="mail-icon" />
                       </a>
                     </li>
@@ -97,21 +97,29 @@ export const LargeFooter = memo(
                   <div className="links">
                     <div className="link link_mail">
                       <div className="icon icon_mail"/>
-                      <div className="text"><a href="mailto:tandemartstudio@gmail.com">tandemartstudio@gmail.com</a></div>
+                      <div className="text">
+                        <a target="_blank" href="mailto:tandemartstudio@gmail.com">tandemartstudio@gmail.com</a>
+                      </div>
                     </div>
                     <div className="link link_facebook">
                       <div className="icon icon_facebook"/>
-                      <div className="text"><a href="https://www.facebook.com/designstudioTandem">www.facebook.com/@designstudioTandem</a></div>
+                      <div className="text">
+                        <a target="_blank" href="https://www.facebook.com/designstudioTandem">www.facebook.com/@designstudioTandem</a>
+                      </div>
                     </div>
                     <div className="link link_instagram">
                       <div className="icon icon_instagram" />
-                      <div className="text"><a href="https://www.instagram.com/tandem_artstudio/">www.instagram.com/tandem_artstudio</a></div>
+                      <div className="text">
+                        <a target="_blank" href="https://www.instagram.com/tandem_artstudio/">www.instagram.com/tandem_artstudio</a>
+                      </div>
                     </div>
                     <div className="link link_tel_whatsapp_viber">
                       <div className="icon icon_tel"/>
-                      <div className="text"><a href="tel:+37493930412">(+374) 93 93 04 12</a></div>
-                      <div className="icon icon_whatsapp"/>
-                      <div className="icon icon_viber"/>
+                      <div className="text">
+                        <a href="tel:+37493930412">(+374) 93 93 04 12</a>
+                      </div>
+                      <a className="icon icon_whatsapp" href="https://api.whatsapp.com/send?phone=+37493930412" />
+                      <a className="icon icon_viber" href="viber://chat?number=+37493930412" />
                     </div>
                   </div>
                 </div>

@@ -16,6 +16,8 @@ main.index_content {
   z-index: 1;
   .slick-slider {
     height: inherit;
+    max-width: 1920px;
+    margin: 0 auto;
     .slick-list {
       height: inherit;
     }

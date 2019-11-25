@@ -14,7 +14,6 @@ $myWhite: rgba(255, 255, 255, .6);
       }
       .text_content {
         margin-top: 50px;
-
         @include flexbox();
         @include flex-grow(1);
         @include align-items(center);
@@ -23,7 +22,8 @@ $myWhite: rgba(255, 255, 255, .6);
           height: 250px;
           max-height: 270px;
           overflow-y: auto;
-
+          max-width: 1920px;
+          margin: 0 auto;
           p {
             margin-top: 0;
             font-size: 140%;

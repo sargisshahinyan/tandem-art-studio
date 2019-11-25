@@ -63,7 +63,8 @@ main{
       }
     }
     .text_content {
-      margin-top: 50px;
+      max-width: 1920px;
+      margin: 50px auto 0;
       .content {
         p {
           margin-top: 0;
@@ -147,7 +148,6 @@ main{
 
       & .text_content {
         background: #18191F;
-        margin-top: 0;
         padding: 5px 0;
         &.closed {
           display: none;

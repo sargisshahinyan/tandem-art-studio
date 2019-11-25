@@ -64,54 +64,58 @@ export class Gallery extends Component {
       autoplay: false,
       arrows: false,
       swipe: false,
-      speed: 1500,
+      speed: 1000,
       slidesToShow: 1,
       slidesToScroll: 1,
       beforeChange: this.beforeChange,
     };
 
     return (
-      <div className="gallery" ref={this.gallery}>
-        <img
-          src="/images/icons/arrow-left.svg"
-          alt="Left arrow"
-          className="arrow left"
-          onClick={this.prev}
-        />
-        <img
-          src="/images/icons/arrow-right.svg"
-          alt="Right arrow"
-          className="arrow right"
-          onClick={this.next}
-        />
-        <Slider ref={this.slider} {...settings}>
-          {items.map(({ type, content }, i) => (
-            (() => {
-              switch (type) {
-                case 'video':
-                  return (
-                    <video
-                      key={i}
-                      data-id={i}
-                      src={content || 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'}
-                      controls
-                    />
-                  );
-                case 'picture':
-                  return (
-                    <img
-                      key={i}
-                      data-id={i}
-                      src={content || 'https://homepages.cae.wisc.edu/~ece533/images/baboon.png'}
-                      alt="Gallery item"
-                    />
-                  );
-                default:
-                  return null;
-              }
-            })()
-          ))}
-        </Slider>
+      <div className="gallery-main">
+        <div className="gallery-wrapper">
+          <div className="gallery" ref={this.gallery}>
+            <img
+              src="/images/icons/arrow-left.svg"
+              alt="Left arrow"
+              className="arrow left"
+              onClick={this.prev}
+            />
+            <img
+              src="/images/icons/arrow-right.svg"
+              alt="Right arrow"
+              className="arrow right"
+              onClick={this.next}
+            />
+            <Slider ref={this.slider} {...settings}>
+              {items.map(({ type, content }, i) => (
+                (() => {
+                  switch (type) {
+                    case 'video':
+                      return (
+                        <video
+                          key={i}
+                          data-id={i}
+                          src={content || 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'}
+                          controls
+                        />
+                      );
+                    case 'picture':
+                      return (
+                        <img
+                          key={i}
+                          data-id={i}
+                          src={content || 'https://homepages.cae.wisc.edu/~ece533/images/baboon.png'}
+                          alt="Gallery item"
+                        />
+                      );
+                    default:
+                      return null;
+                  }
+                })()
+              ))}
+            </Slider>
+          </div>
+        </div>
       </div>
     );
   }
