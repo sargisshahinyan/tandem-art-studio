@@ -2,9 +2,9 @@ import React from 'react';
 
 import UglyFooter from '../UglyFooter';
 import HiddenFooter from '../HiddenFooter';
-import Header from '../Header';
-import LargeFooter from '../LargeFooter';
+import NewLargeFooter from "../NewLargeFooter";
 
+import Header from '../Header';
 import './styles.scss';
 
 export function ContactsDetailed() {
@@ -22,7 +22,7 @@ export function ContactsDetailed() {
         />
       </main>
       <UglyFooter />
-      <LargeFooter address />
+      <NewLargeFooter address />
       <HiddenFooter />
     </article>
   );
