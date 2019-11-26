@@ -1,7 +1,19 @@
-.gallery {
+.gallery-main {
+  background: url("/images/backgrounds/bg_index.png") #000 no-repeat center center;
+  background-size: cover;
+  outline: none;
+}
+.gallery-wrapper {
   position: relative;
-  width: 100%;
+  max-width: 1920px;
   height: 100vh;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+}
+.gallery {
+  width: 100%;
+  max-width: 1920px;
   .arrow {
     position: absolute;
     top: calc(50vh - 20px);

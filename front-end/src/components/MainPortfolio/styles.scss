@@ -6,6 +6,7 @@
   display: flex;
   align-items: center;
   margin: 0 80px;
+  max-width: 1920px;
   .portfolios-container {
     width: 100%;
     overflow: hidden;
@@ -14,7 +15,6 @@
 .portfolios {
   position: relative;
   z-index: 1000;
-  max-width: 1920px;
   height: 100%;
   margin: 0 auto;
   .portfolio-item {
@@ -56,4 +56,11 @@
     }
   }
   transition: margin-top 1s;
+}
+
+@media (min-width: 1921px) {
+  .portfolios-wrapper {
+    margin: 0 auto;
+    width: 1920px;
+  }
 }

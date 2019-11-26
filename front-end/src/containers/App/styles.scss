@@ -23,6 +23,13 @@ textarea {
 a {
   outline: none !important;
 }
+* {
+  outline: none;
+}
+
+body {
+  background-color: #000000;
+}
 
 .wrapper {
   position: relative;

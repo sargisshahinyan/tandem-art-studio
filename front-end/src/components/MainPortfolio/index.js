@@ -11,7 +11,7 @@ import { loadPortfolios } from '../../actions/portfolios';
 
 import './styles.scss';
 
-const FREEZE_PERIOD = 2000;
+const FREEZE_PERIOD = 1900;
 
 export class MainPortfolio extends PureComponent {
   constructor(props) {
@@ -82,7 +82,6 @@ export class MainPortfolio extends PureComponent {
   }
 
   onResize() {
-    const { width } = this.props;
     const { itemsInLine } = this.state;
 
     const itemHeight = Math.floor(this.portfolios.current.clientWidth / itemsInLine);
@@ -112,7 +111,7 @@ export class MainPortfolio extends PureComponent {
   }
 
   render() {
-    let {
+    const {
       portfolios,
       match: { path },
     } = this.props;
