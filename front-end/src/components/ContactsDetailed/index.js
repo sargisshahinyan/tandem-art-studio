@@ -1,7 +1,7 @@
 import React from 'react';
 
 import UglyFooter from '../UglyFooter';
-import HiddenFooter from '../HiddenFooter';
+import MobileFooter from '../MobileFooter';
 import NewLargeFooter from "../ContactFooter";
 
 import Header from '../Header';
@@ -23,7 +23,7 @@ export function ContactsDetailed() {
       </main>
       <UglyFooter />
       <NewLargeFooter address />
-      <HiddenFooter />
+      <MobileFooter />
     </article>
   );
 }

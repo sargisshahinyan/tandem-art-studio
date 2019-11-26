@@ -8,7 +8,7 @@ export function CustomCarousel({ items }) {
   const settings = {
     dots: true,
     infinite: true,
-    autoplay: true,
+    autoplay: !true,
     speed: 1500,
     slidesToShow: 1,
     slidesToScroll: 1,
@@ -47,7 +47,7 @@ export function CustomCarousel({ items }) {
             key={i}
             className="carousel-item"
           >
-            <div className="main">
+            <div className={`main ${main.position}`}>
               <Animated animationIn="fadeInLeft" isVisible={!loading}>
                 <img
                   src={main.src}
@@ -55,7 +55,7 @@ export function CustomCarousel({ items }) {
                 />
               </Animated>
             </div>
-            <div className="text">
+            <div className={`text ${main.position}`}>
               <Animated animationIn="fadeInRight" isVisible={!loading}>
                 <img
                   src={text.src}

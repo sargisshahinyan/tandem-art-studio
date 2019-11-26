@@ -106,3 +106,32 @@ main.index_content {
     }
   }
 }
+
+@media (orientation: landscape) {
+  .home_carousel {
+    .carousel-item {
+      .main {
+        &.right {
+          img {
+            height: 100%;
+            width: auto;
+            float: right;
+          }
+        }
+        &.left {
+          img {
+            height: 100%;
+            width: auto;
+            float: left;
+          }
+        }
+        &.top {
+          img {
+            height: auto;
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+}

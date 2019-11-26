@@ -60,7 +60,7 @@
             }
           }
         }
-        & > .teamSlider {
+        .teamSlider {
           display: none;
           position: relative;
           -webkit-background-size: cover;
@@ -99,10 +99,12 @@
   }
 
   @media (max-width: 767px) {
-    & main {
+    main.our_team {
+      height: 100%;
       & .team_items {
-        margin-top: 0 !important;
-        & > .teamSlider {
+        margin-top: 0;
+        min-height: unset;
+        .teamSlider {
           display: block !important;
         }
         & > .wrapper {
@@ -118,7 +120,7 @@
             }
             & p {
               max-width: 90%;
-              max-height: calc(100vh - 480px);
+              max-height: calc(100vh - 410px);
               overflow-y: auto;
             }
           }

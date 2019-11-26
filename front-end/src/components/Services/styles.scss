@@ -1,7 +1,7 @@
 @import "mixin";
 @import "fonts";
 
-main{
+main {
   &.our_services {
     .service_items {
       margin-top: 50px;
@@ -149,6 +149,9 @@ main{
       & .text_content {
         background: #18191F;
         padding: 5px 0;
+        margin: 0;
+        height: calc(100vh - 440px);
+        overflow-y: auto;
         &.closed {
           display: none;
         }

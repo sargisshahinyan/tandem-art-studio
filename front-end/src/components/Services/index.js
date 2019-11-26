@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Animated } from 'react-animated-css';
 import { connect } from 'react-redux';
+import Swipe from 'react-easy-swipe';
 
 import BasicFooter from '../BasicFooter';
-import HiddenFooter from '../HiddenFooter';
+import MobileFooter from '../MobileFooter';
 import Header from '../Header';
 import ServiceSlider from './ServiceSlider';
 
@@ -26,6 +27,7 @@ export function Services({ services, description, active, width }) {
       setSelected(i);
     }
   };
+  const stopPropagation = e => width <= 767 && e.stopPropagation();
 
   return (
     <article className="bg_services">
@@ -36,11 +38,13 @@ export function Services({ services, description, active, width }) {
             <h1>Our Services</h1>
           </div>
         </div>
-        <ServiceSlider
-          services={services}
-          selected={selected}
-          global={global}
-        />
+        <Swipe onSwipeMove={(d, e) => stopPropagation(e)}>
+          <ServiceSlider
+            services={services}
+            selected={selected}
+            global={global}
+          />
+        </Swipe>
         <div className={"service_items items_similar_styles " + (global ? 'globalClosed' : '')}>
           <div className="wrapper">
             <div className="content">
@@ -70,16 +74,18 @@ export function Services({ services, description, active, width }) {
             </div>
           </div>
         </div>
-        <div className={"text_content " + (global ? 'closed' : '')}>
-          <div className="wrapper">
-            <div className="content">
-              <p>{convertText(description)}</p>
+        <Swipe onSwipeMove={(d, e) => stopPropagation(e)}>
+          <div className={"text_content " + (global ? 'closed' : '')}>
+            <div className="wrapper">
+              <div className="content">
+                <p>{convertText(description)}</p>
+              </div>
             </div>
           </div>
-        </div>
+        </Swipe>
       </main>
       <BasicFooter />
-      <HiddenFooter />
+      <MobileFooter />
     </article>
   );
 }

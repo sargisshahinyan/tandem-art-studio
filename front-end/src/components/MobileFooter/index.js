@@ -5,7 +5,7 @@ import {connect} from 'react-redux';
 
 import './style.scss';
 
-const HiddenFooter = ({ scrolling, width }) => width <= 767 && (
+const MobileFooter = ({ scrolling, width }) => width <= 767 && (
   <Animated
     animationIn="fadeIn"
     animationInDelay={300}
@@ -28,4 +28,4 @@ function mapToStateProps({ pages, common: { width } }) {
   };
 }
 
-export default connect(mapToStateProps)(HiddenFooter);
+export default connect(mapToStateProps)(MobileFooter);

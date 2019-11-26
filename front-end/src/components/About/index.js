@@ -1,9 +1,10 @@
 import React, { memo, useState } from 'react';
 import { connect } from 'react-redux';
+import Swipe from 'react-easy-swipe';
 
 import Header from '../Header';
 import BasicFooter from '../BasicFooter';
-import HiddenFooter from '../HiddenFooter'
+import MobileFooter from '../MobileFooter'
 import Signature from '../Signature';
 
 import { convertText } from '../../utils';
@@ -16,12 +17,7 @@ export const About = memo(
     const wrapperHidden = (opened || width > 767) ? 'hidden' : '';
     const arrowHidden = (opened && width <= 767) ? '' : 'hidden';
     const bigContent = (opened && width <= 767) ? 'opened' : '';
-    const eventBinder = {
-      onScroll: e => width <= 767 && e.stopPropagation(),
-      onWheel: e => width <= 767 && e.stopPropagation(),
-      onTouchStart: e => width <= 767 && e.preventDefault(),
-      onTouchMove: e => width <= 767 && e.stopPropagation(),
-    };
+    const stopPropagation = e => width <= 767 && opened && e.stopPropagation();
 
     return (
       <article className="bg_about">
@@ -34,17 +30,19 @@ export const About = memo(
           </div>
           <div className="text_content with_bg">
             <div className="wrapper">
-              <div
-                className={'content ' + bigContent}
-                {...eventBinder}
-              >
-                <p>{convertText(description)}</p>
-                <div className={wrapperHidden + ' textWrapper'} onClick={() => setMode(!opened)}>
-                  {Array(3).fill(null).map((v, i) => (
-                    <span key={i} />
-                  ))}
+              <Swipe onSwipeMove={(d, e) => stopPropagation(e)}>
+                <div
+                  className={'content ' + bigContent}
+                  onWheel={stopPropagation}
+                >
+                  <p>{convertText(description)}</p>
+                  <div className={wrapperHidden + ' textWrapper'} onClick={() => setMode(!opened)}>
+                    {Array(3).fill(null).map((v, i) => (
+                      <span key={i} />
+                    ))}
+                  </div>
                 </div>
-              </div>
+              </Swipe>
               <div className={arrowHidden + ' hiddenArrow'} onClick={() => setMode(!opened)}>
                 <img src="/images/icons/arrow-left.svg" alt="Expand" />
               </div>
@@ -53,7 +51,7 @@ export const About = memo(
           <Signature />
         </main>
         <BasicFooter />
-        <HiddenFooter />
+        <MobileFooter />
       </article>
     );
   }

@@ -32,11 +32,11 @@ exports.up = function (db) {
           {
             main: {
               src: '/img/main/slide/slide-2.png',
-              position: 'center',
+              position: 'right',
             },
             text: {
               src: '/img/main/slide/slide-text-2.png',
-              position: 'center',
+              position: 'right',
             },
           },
           {
@@ -62,11 +62,11 @@ exports.up = function (db) {
           {
             main: {
               src: '/img/main/slide/slide-5.png',
-              position: 'center',
+              position: 'right',
             },
             text: {
               src: '/img/main/slide/slide-text-5.png',
-              position: 'center',
+              position: 'right',
             },
           },
         ]

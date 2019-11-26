@@ -80,9 +80,16 @@
   }
 
   @media (max-width: 767px) {
-    & main {
+    main.our_clients {
       & .clients_slider {
-        margin-top: 0 !important;
+        margin-top: 0;
+        .slider {
+          padding: 60px 26px;
+        }
+        .slick-prev, .slick-next {
+          width: 30px;
+          height: 30px;
+        }
       }
       & .text_content {
         margin-top: 10px !important;;
@@ -94,7 +101,7 @@
             max-width: 100% !important;
             margin-left: 0 !important;
             margin-right: 0 !important;
-            max-height: calc(100vh - 480px);
+            max-height: calc(100vh - 450px);
             overflow-y: auto;
             line-height: 21px;
           }

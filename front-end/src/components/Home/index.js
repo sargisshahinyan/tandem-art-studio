@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import Header from '../Header';
 import BasicFooter from '../BasicFooter';
 import CustomCarousel from '../CustomCarousel';
-import HiddenFooter from '../HiddenFooter';
+import MobileFooter from '../MobileFooter';
 
 import './styles.scss';
 
@@ -21,7 +21,7 @@ export const Home = memo(
           <div className="middle_bg" />
         </main>
         <BasicFooter />
-        <HiddenFooter />
+        <MobileFooter />
       </article>
     );
   }

@@ -1,10 +1,11 @@
 import React from 'react';
+import Swipe from 'react-easy-swipe';
 import { Animated } from 'react-animated-css';
 import { connect } from 'react-redux';
 
 import Header from '../Header';
 import BasicFooter from '../BasicFooter';
-import HiddenFooter from '../HiddenFooter';
+import MobileFooter from '../MobileFooter';
 import TeamSlider from './TeamSlider';
 import Signature from '../Signature';
 
@@ -12,13 +13,8 @@ import { convertText } from '../../utils';
 
 import './styles.scss';
 
-export function Team({ title, description, members, active }) {
-  const eventBinder = {
-    onScroll: e => {e.stopPropagation()},
-    onWheel: e => {e.stopPropagation()},
-    onTouchStart: e => {e.preventDefault()},
-    onTouchMove: e => {e.stopPropagation()},
-  };
+export function Team({ title, description, members, active, width }) {
+  const stopPropagation = e => width <= 767 && e.stopPropagation();
 
   return (
     <article className="bg_team">
@@ -49,20 +45,24 @@ export function Team({ title, description, members, active }) {
               ))}
             </div>
           </div>
-          <TeamSlider members={members} />
+          <Swipe onSwipeMove={(d, e) => stopPropagation(e)}>
+            <TeamSlider members={members} />
+          </Swipe>
         </div>
         <div className="text_content">
           <div className="wrapper">
             <div className="content">
               <h3>{title}</h3>
-              <p {...eventBinder}>{convertText(description)}</p>
+              <Swipe onSwipeMove={(d, e) => stopPropagation(e)}>
+                <p>{convertText(description)}</p>
+              </Swipe>
             </div>
           </div>
         </div>
         <Signature />
       </main>
       <BasicFooter />
-      <HiddenFooter />
+      <MobileFooter />
     </article>
   );
 }

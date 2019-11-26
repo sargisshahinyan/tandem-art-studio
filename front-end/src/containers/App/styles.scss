@@ -196,6 +196,9 @@ main {
 }
 
 @media (max-width: 767px) {
+  article {
+    padding-bottom: 62px;
+  }
   &.bg_services, &.bg_clients, &.bg_team {
     header {
       display: none;

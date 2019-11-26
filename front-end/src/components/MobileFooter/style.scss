@@ -3,6 +3,10 @@
 
 #hiddenFooter {
   display: none;
+  position: absolute;
+  width: 100%;
+  left: 0;
+  bottom: 0;
   @media (max-width: 767px) {
 
     @include flexbox();

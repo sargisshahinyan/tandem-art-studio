@@ -6,7 +6,7 @@ import EmailSvc from '../../services/EmailSvc';
 
 import Header from '../Header';
 import LargeFooter from '../LargeFooter';
-import HiddenFooter from '../HiddenFooter';
+import MobileFooter from '../MobileFooter';
 import BasicFooter from '../BasicFooter';
 import Signature from '../Signature';
 import Modal from '../Modal';
@@ -145,7 +145,7 @@ class Contacts extends PureComponent {
         >
           <BasicFooter />
         </Animated>
-        <HiddenFooter />
+        <MobileFooter />
         <Modal
           opened={opened}
           text={text}

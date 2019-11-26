@@ -1,10 +1,11 @@
 import React, { memo } from 'react';
 import Slider from 'react-slick';
 import { connect } from 'react-redux';
+import Swipe from 'react-easy-swipe';
 
 import Header from '../Header';
 import BasicFooter from '../BasicFooter';
-import HiddenFooter from '../HiddenFooter';
+import MobileFooter from '../MobileFooter';
 import Signature from '../Signature';
 
 import { convertText } from '../../utils';
@@ -37,12 +38,7 @@ export const Clients = memo(
         </div>
       ),
     };
-    const eventBinder = {
-      onScroll: e => {e.stopPropagation()},
-      onWheel: e => {e.stopPropagation()},
-      onTouchStart:e => {e.preventDefault()},
-      onTouchMove:e => {e.stopPropagation()},
-    };
+    const stopPropagation = e => width <= 767 && e.stopPropagation();
 
     clients.sort((a, b) => a.order - b.order);
 
@@ -55,33 +51,38 @@ export const Clients = memo(
               <h1>Our Clients</h1>
             </div>
           </div>
-          <div className="clients_slider">
-            <div className="slider">
-              <Slider {...settings}>
-                {clients.map(({ icon }, i) => (
-                  <div key={i} className="slide_item">
-                    <img
-                      src={icon}
-                      alt="Client"
-                      className="client_logo"
-                    />
-                  </div>
-                ))}
-              </Slider>
+          <Swipe onSwipeMove={(d, e) => stopPropagation(e)}>
+            <div className="clients_slider">
+              <div className="slider">
+                <Slider {...settings}>
+                  {clients.map(({ icon }, i) => (
+                    <div key={i} className="slide_item">
+                      <img
+                        src={icon}
+                        alt="Client"
+                        className="client_logo"
+                      />
+                    </div>
+                  ))}
+                </Slider>
+              </div>
             </div>
-          </div>
-          <div className="text_content" {...eventBinder}>
+          </Swipe>
+
+          <div className="text_content">
             <div className="wrapper">
               <div className="content">
                 <h2>{title}</h2>
-                <p>{convertText(description)}</p>
+                <Swipe onSwipeMove={(d, e) => stopPropagation(e)}>
+                  <p>{convertText(description)}</p>
+                </Swipe>
               </div>
             </div>
           </div>
           <Signature />
         </main>
         <BasicFooter />
-        <HiddenFooter />
+        <MobileFooter />
       </article>
     );
   }
