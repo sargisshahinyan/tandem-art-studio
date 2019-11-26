@@ -7,7 +7,7 @@ function UglyFooter() {
     <div id="uglyFooter">
       <div id="addresses">
         <div className="addressLogo">
-          <img src="/images/icons/placeholder-filled-point.svg" alt=""/>
+          <img src="/images/icons/location.svg" alt=""/>
         </div>
         <div>
           <div className="address">Armenia Yerevan</div>

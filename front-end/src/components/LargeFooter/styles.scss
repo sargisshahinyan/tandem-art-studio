@@ -24,15 +24,15 @@ footer{
       .socialize {
         display: inline-block;
         z-index: 2;
-        ul{
-          li{
+        ul {
+          li {
             display: inline-block;
             vertical-align: middle;
-            a{
+            a {
               @include transition();
               display: block;
               opacity: .65;
-              img{
+              img {
                 height: 20px;
               }
               &:hover {
@@ -69,6 +69,7 @@ footer{
       @include flexbox();
       @include justify-content(space-between);
       @include align-items(center);
+
       .images_and_links {
         .images {
           display: inline-block;
