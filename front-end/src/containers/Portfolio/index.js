@@ -9,15 +9,14 @@ import HiddenFooter from '../../components/HiddenFooter';
 
 export function Portfolio({ width, match: { path } }) {
   return (
-    <article style={{ overflow: 'hidden' }}>
+    <div style={{ overflow: 'hidden' }}>
       {width > 767 && <Header />}
-      <div className="bg_sim_styles bg_index" style={{ position: 'fixed' }} />
       <Switch>
         <Route exact path={`${path}`} component={MainPortfolio} />
         <Route exact path={`${path}/:id`} component={PortfolioItem} />
       </Switch>
       <HiddenFooter />
-    </article>
+    </div>
   );
 }
 

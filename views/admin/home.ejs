@@ -16,6 +16,20 @@
                     accept="image/*"
                     required
                 />
+                <br />
+                <div class="form-group">
+                    <label>Position</label>
+                    <select
+                        class="form-control position"
+                        required
+                    >
+                        <% POSITION_LIST.forEach(position => { %>
+                            <option value="<%= position %>">
+                                <%= position %>
+                            </option>
+                        <% }) %>
+                    </select>
+                </div>
             </div>
             <div class="col-6 form-group">
                 <label>Secondary image</label>
@@ -25,6 +39,20 @@
                     accept="image/*"
                     data-not-required="true"
                 />
+                <br />
+                <div class="form-group">
+                    <label>Position</label>
+                    <select
+                        class="form-control position"
+                        required
+                    >
+                        <% POSITION_LIST.forEach(position => { %>
+                            <option value="<%= position %>">
+                                <%= position %>
+                            </option>
+                        <% }) %>
+                    </select>
+                </div>
             </div>
         </div>
     </div>
@@ -35,9 +63,9 @@
             <div class="section">
                 <div class="row">
                     <div class="col-12 text-right">
-                <span class="badge badge-danger badge-pill delete">
-                   <i class="fas fa-times delete"></i>
-                </span>
+                        <span class="badge badge-danger badge-pill delete">
+                           <i class="fas fa-times delete"></i>
+                        </span>
                     </div>
                 </div>
                 <div class="row">
@@ -51,9 +79,26 @@
                         <div class="presenter-container">
                             <div class="row" style="min-height: 200px; margin: 10px 0;">
                                 <div>
-                                    <img class="img-fluid" src="<%= main %>">
+                                    <img class="img-fluid" src="<%= main.src %>">
                                 </div>
                             </div>
+                        </div>
+                        <br />
+                        <div class="form-group">
+                            <label>Position</label>
+                            <select
+                                class="form-control position"
+                                required
+                            >
+                                <% POSITION_LIST.forEach(position => { %>
+                                    <option
+                                        value="<%= position %>"
+                                        <%= main.position === position ? 'selected' : '' %>
+                                    >
+                                        <%= position %>
+                                    </option>
+                                <% }) %>
+                            </select>
                         </div>
                     </div>
                     <div class="col-6 form-group">
@@ -67,9 +112,26 @@
                         <div class="presenter-container">
                             <div class="row" style="min-height: 200px; margin: 10px 0;">
                                 <div>
-                                    <img class="img-fluid" src="<%= text %>">
+                                    <img class="img-fluid" src="<%= text.src %>">
                                 </div>
                             </div>
+                        </div>
+                        <br />
+                        <div class="form-group">
+                            <label>Position</label>
+                            <select
+                                class="form-control position"
+                                required
+                            >
+                                <% POSITION_LIST.forEach(position => { %>
+                                    <option
+                                        value="<%= position %>"
+                                        <%= main.position === position ? 'selected' : '' %>
+                                    >
+                                        <%= position %>
+                                    </option>
+                                <% }) %>
+                            </select>
                         </div>
                     </div>
                 </div>

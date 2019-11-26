@@ -7,6 +7,7 @@ window.addEventListener('load', function () {
     const body = {
       title: document.getElementById('title').value,
       description: document.getElementById('description').value,
+      color: document.getElementById('color').value,
       presentablePicture: document.getElementById('presentablePicture').parentNode.querySelector('img').src,
       mainPicture: document.getElementById('mainPicture').parentNode.querySelector('img').src,
     };

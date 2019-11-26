@@ -16,7 +16,16 @@ window.addEventListener('load', function () {
           _getImage(section.querySelector('.secondary')),
         ]);
 
-        return { main, text };
+        return {
+          main: {
+            src: main,
+            position: section.querySelector('.position').value,
+          },
+          text: {
+            src: text,
+            position: section.querySelectorAll('.position')[1].value,
+          },
+        };
       }),
     );
 
@@ -34,16 +43,14 @@ window.addEventListener('load', function () {
   Array.from(document.querySelectorAll('.section')).forEach(_handleEvents);
 
   async function _getImage(el) {
-    return el.files[0] ? (
-      convertFileToImage(el.files[0])
-    ) : (
-      (() => {
-        const img = el.parentNode.querySelector('img');
+    const img = el.parentNode.querySelector('img');
 
-        return img && img.src ? convertUrlToImage(
-          el.parentNode.querySelector('img').src
-        ) : null;
-      })()
+    if (!img || !img.src) return null;
+
+    return el.files[0] ? (
+      img.src
+    ) : (
+      convertUrlToImage(img.src)
     );
   }
 
@@ -52,5 +59,9 @@ window.addEventListener('load', function () {
     section.querySelector('.delete').addEventListener('click', function () {
       section.parentNode.removeChild(section);
     });
+
+    if (typeof window.autoPresentImages === 'function') {
+      window.autoPresentImages(section.querySelector('input'));
+    }
   }
 });

@@ -79,6 +79,7 @@ class PortfolioSvc {
     const {
       title,
       description,
+      color,
       presentablePicture,
       mainPicture,
       sections,
@@ -96,9 +97,9 @@ class PortfolioSvc {
     ([{ rows: [{ id }] }] = await doAction([{
       method: 'query',
       args: [
-        `INSERT INTO portfolio (title, description, presentable_picture, main_picture, position${id ? ', id' : ''})
-         VALUES ($1, $2, $3, $4, $5${id ? ', $6' : ''}) RETURNING *`,
-        [title, description, presentablePicture, mainPicture, position, ...(id ? [id] : [])],
+        `INSERT INTO portfolio (title, description, background_color, presentable_picture, main_picture, position${id ? ', id' : ''})
+         VALUES ($1, $2, $3, $4, $5, $6${id ? ', $7' : ''}) RETURNING *`,
+        [title, description, color, presentablePicture, mainPicture, position, ...(id ? [id] : [])],
       ],
     }]));
 

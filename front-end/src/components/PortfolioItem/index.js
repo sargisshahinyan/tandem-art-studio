@@ -11,7 +11,22 @@ export class PortfolioItem extends PureComponent {
   componentDidMount() {
     const { loadPortfolio, portfolio } = this.props;
 
-    if (!portfolio) loadPortfolio();
+    if (portfolio) this.setBackgroundColor();
+    else loadPortfolio();
+  }
+
+  componentDidUpdate(prevProps) {
+    const { portfolio } = this.props;
+
+    if (portfolio !== prevProps.portfolio) this.setBackgroundColor();
+  }
+
+  setBackgroundColor() {
+    const { portfolio } = this.props;
+
+    const { background_color: backgroundColor } = portfolio;
+
+    document.body.style.setProperty('background-color', backgroundColor);
   }
 
   render() {

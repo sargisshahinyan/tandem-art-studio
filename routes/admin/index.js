@@ -18,6 +18,7 @@ const {
   SERVICES_PATH,
   CLIENTS_PATH,
   STATIC_FILES_DIRECTORY,
+  POSITION_LIST,
 } = require(`${APP_PATH}/constants`);
 
 const authCheckingMiddleware = require(`${APP_PATH}/middlewares/authCheckingMiddleware`);
@@ -57,6 +58,7 @@ router.use(async (req, res, next) => {
   res.locals.activePath = req.originalUrl;
   res.locals.activePage = req.path;
   res.locals.baseUrl = req.baseUrl;
+  res.locals.POSITION_LIST = POSITION_LIST;
   const pages = await PagesSvc.getPagesData(req.path);
 
   if (pages && pages.length) res.locals.page = pages[0].data;
@@ -107,26 +109,35 @@ router.post('/home', async (req, res, next) => {
         path.join(
           APP_PATH,
           path.resolve(STATIC_FILES_DIRECTORY),
-          path.resolve(main),
+          path.resolve(main.src),
         ),
       );
       ImagesSvc.deletePhoto(
         path.join(
           APP_PATH,
           path.resolve(STATIC_FILES_DIRECTORY),
-          path.resolve(text),
+          path.resolve(text.src),
         ),
       );
     });
 
     slidePaths = await Promise.all(
       slidePaths.map(async ({ main, text }) => {
-        ([main, text] = await Promise.all([
-          ImagesSvc.createPhoto(main, HOME_SLIDE_PATH + randToken.generate(16), STATIC_FILES_DIRECTORY),
-          text && ImagesSvc.createPhoto(text, HOME_SLIDE_PATH + randToken.generate(16), STATIC_FILES_DIRECTORY),
-        ]));
+        const [mainSrc, textSrc] = await Promise.all([
+          ImagesSvc.createPhoto(main.src, HOME_SLIDE_PATH + randToken.generate(16), STATIC_FILES_DIRECTORY),
+          text && ImagesSvc.createPhoto(text.src, HOME_SLIDE_PATH + randToken.generate(16), STATIC_FILES_DIRECTORY),
+        ]);
 
-        return { main, text };
+        return {
+          main: {
+            ...main,
+            src: mainSrc,
+          },
+          text: {
+            ...text,
+            src: textSrc,
+          },
+        };
       })
     );
 
@@ -333,6 +344,7 @@ async function addPortfolio(req, id = null) {
   let {
     title,
     description,
+    color,
     presentablePicture,
     mainPicture,
     sections,
@@ -364,6 +376,7 @@ async function addPortfolio(req, id = null) {
   await PortfolioSvc.addPortfolio({
     title,
     description,
+    color,
     presentablePicture,
     mainPicture,
     sections,

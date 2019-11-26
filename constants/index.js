@@ -39,4 +39,12 @@ module.exports = {
   SERVICES_PATH: '/img/services/',
   CLIENTS_PATH: '/img/clients/',
   STATIC_FILES_DIRECTORY: '/assets/',
+
+  POSITION_LIST: [
+    'center',
+    'left',
+    'right',
+    'top',
+    'bottom',
+  ]
 };

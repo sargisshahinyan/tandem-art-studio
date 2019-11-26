@@ -65,5 +65,9 @@ window.addEventListener('load', function () {
     section.querySelector('.delete').addEventListener('click', function () {
       section.parentNode.removeChild(section);
     });
+
+    if (typeof window.autoPresentImages === 'function') {
+      window.autoPresentImages(section.querySelector('input'));
+    }
   }
 });

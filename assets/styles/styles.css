@@ -64,3 +64,11 @@ main.wrapper {
     padding: 0 20px;
     margin: 5px 0;
 }
+
+.presenter-container {
+    background: url("/img/transparent-grid.png");
+}
+
+.presenter-container * {
+    background-color: transparent;
+}

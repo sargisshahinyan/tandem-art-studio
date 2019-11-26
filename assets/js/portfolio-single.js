@@ -8,6 +8,7 @@ window.addEventListener('load', function () {
     const body = {
       title: document.getElementById('title').value,
       description: document.getElementById('description').value,
+      color: document.getElementById('color').value,
     };
 
     var mainPicture = document.getElementById('mainPicture');

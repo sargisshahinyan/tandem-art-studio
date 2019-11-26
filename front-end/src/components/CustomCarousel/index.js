@@ -50,7 +50,7 @@ export function CustomCarousel({ items }) {
             <div className="main">
               <Animated animationIn="fadeInLeft" isVisible={!loading}>
                 <img
-                  src={main}
+                  src={main.src}
                   alt="Slide"
                 />
               </Animated>
@@ -58,7 +58,7 @@ export function CustomCarousel({ items }) {
             <div className="text">
               <Animated animationIn="fadeInRight" isVisible={!loading}>
                 <img
-                  src={text}
+                  src={text.src}
                   alt="Text"
                 />
               </Animated>

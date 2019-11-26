@@ -125,6 +125,7 @@ export class MainPortfolio extends PureComponent {
 
     return (
       <div className="portfolios-wrapper" ref={this.portfolios}>
+        <div className="bg_sim_styles bg_index" style={{ position: 'fixed' }} />
         <Swipe onSwipeMove={this.onSwipeMove}>
           <div className="portfolios-container" style={{ height: `${height}px` }}>
             <div
