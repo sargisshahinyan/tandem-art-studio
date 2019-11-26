@@ -1,4 +1,5 @@
 import React, { memo } from 'react';
+import { connect } from 'react-redux';
 import { Animated } from 'react-animated-css';
 import { Link } from 'react-router-dom';
 
@@ -7,7 +8,7 @@ import AddressLine from '../AddressLine';
 import './styles.scss';
 
 export const LargeFooter = memo(
-  function LargeFooter({ goToPage, active, noPadding, address }) {
+  function LargeFooter({ goToPage, scrolling, noPadding, address }) {
     const padding = noPadding ? 'noPadding' : '';
     return (
       <footer className="large_footer">
@@ -17,7 +18,7 @@ export const LargeFooter = memo(
               animationIn="fadeIn"
               animationInDelay={300}
               animationOut="fadeOut"
-              isVisible={!active}
+              isVisible={!scrolling}
             >
               <div className="footer_content">
                 <div className="socialize">
@@ -33,7 +34,7 @@ export const LargeFooter = memo(
                     </li>
                     <li>
                       <a
-                        href="https://www.facebook.com/designstudioTandem/"
+                        href="https://www.facebook.com/designstudioTandem"
                         target="_blank"
                         rel="noopener noreferrer"
                       >
@@ -67,54 +68,66 @@ export const LargeFooter = memo(
               animationIn="fadeIn"
               animationInDelay={300}
               animationOut="fadeOut"
-              isVisible={!active}
+              isVisible={!scrolling}
             >
               <div className="content_with_background">
                 <div className="images_and_links">
                   <div className="images">
                     <div className="img">
-                      <img src="/images/footer_pic_1.png" alt="pic"/>
+                      <img src="/images/footer_pic_1.png" alt="pic" />
                     </div>
                     <div className="img">
-                      <img src="/images/footer_pic_2.png" alt="pic"/>
+                      <img src="/images/footer_pic_2.png" alt="pic" />
                     </div>
                     <div className="img">
-                      <img src="/images/footer_pic_3.png" alt="pic"/>
+                      <img src="/images/footer_pic_3.png" alt="pic" />
                     </div>
                     <div className="img">
-                      <img src="/images/footer_pic_4.png" alt="pic"/>
+                      <img src="/images/footer_pic_4.png" alt="pic" />
                     </div>
                     <div className="img">
-                      <img src="/images/footer_pic_5.png" alt="pic"/>
+                      <img src="/images/footer_pic_5.png" alt="pic" />
                     </div>
                     <div className="img">
-                      <img src="/images/footer_pic_6.png" alt="pic"/>
+                      <img src="/images/footer_pic_6.png" alt="pic" />
                     </div>
                     <div className="img">
-                      <img src="/images/footer_pic_7.png" alt="pic"/>
+                      <img src="/images/footer_pic_7.png" alt="pic" />
                     </div>
                   </div>
                   <div className="links">
                     <div className="link link_mail">
-                      <div className="icon icon_mail"/>
+                      <div className="icon icon_mail" />
                       <div className="text">
-                        <a target="_blank" href="mailto:tandemartstudio@gmail.com">tandemartstudio@gmail.com</a>
+                        <a href="mailto:tandemartstudio@gmail.com">tandemartstudio@gmail.com</a>
                       </div>
                     </div>
                     <div className="link link_facebook">
-                      <div className="icon icon_facebook"/>
+                      <div className="icon icon_facebook" />
                       <div className="text">
-                        <a target="_blank" href="https://www.facebook.com/designstudioTandem">www.facebook.com/@designstudioTandem</a>
+                        <a
+                          href="https://www.facebook.com/designstudioTandem"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          www.facebook.com/@designstudioTandem
+                        </a>
                       </div>
                     </div>
                     <div className="link link_instagram">
                       <div className="icon icon_instagram" />
                       <div className="text">
-                        <a target="_blank" href="https://www.instagram.com/tandem_artstudio/">www.instagram.com/tandem_artstudio</a>
+                        <a
+                          href="https://www.instagram.com/tandem_artstudio"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          www.instagram.com/tandem_artstudio
+                        </a>
                       </div>
                     </div>
                     <div className="link link_tel_whatsapp_viber">
-                      <div className="icon icon_tel"/>
+                      <div className="icon icon_tel" />
                       <div className="text">
                         <a href="tel:+37493930412">(+374) 93 93 04 12</a>
                       </div>
@@ -138,7 +151,7 @@ export const LargeFooter = memo(
               animationIn="fadeIn"
               animationInDelay={300}
               animationOut="fadeOut"
-              isVisible={!active}
+              isVisible={!scrolling}
             >
               <span>© 2019 Tandem Art Studio | All Rights Reserved.</span>
             </Animated>
@@ -153,4 +166,10 @@ LargeFooter.defaultProps = {
   address: false,
 };
 
-export default LargeFooter;
+function mapToStateProps({ pages }) {
+  return {
+    scrolling: pages.scrolling,
+  };
+}
+
+export default connect(mapToStateProps)(LargeFooter);

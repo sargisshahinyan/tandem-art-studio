@@ -2,7 +2,7 @@ import React from 'react';
 
 import UglyFooter from '../UglyFooter';
 import HiddenFooter from '../HiddenFooter';
-import NewLargeFooter from "../NewLargeFooter";
+import NewLargeFooter from "../ContactFooter";
 
 import Header from '../Header';
 import './styles.scss';

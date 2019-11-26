@@ -1,6 +1,8 @@
 @import "mixin";
 @import "fonts";
-.newLargeFooterContainer {
+
+.contact-footer-container {
+  max-height: 340px;
   @include flex-grow(3);
   @include flexbox();
   @include flex-direction(column);
@@ -54,26 +56,30 @@
     }
   }
 
-  .newLargeFooter {
+  .contact-footer {
 
     @include flexbox();
     @include flex-direction(row);
     @include flex-grow(1);
 
-    & > .leftLargeFooter {
+    & > .left-large-footer {
       @include flexbox();
       @include flex-direction(column);
       @include flex-grow(3);
 
-      & > .topLargeFooter {
+      & > .top-large-footer {
         @include flexbox();
         @include flex-direction(row);
-        @include justify-content(space-around);
         @include align-items(center);
         @include flex-grow(1);
         background: url("/images/backgrounds/bg_middle.png") no-repeat center center;
+        background-size: cover;
 
-        .addressBox {
+        .info-block {
+          margin: 0 40px;
+        }
+
+        .address-box {
           @include flexbox();
           @include align-items(center);
           @include flex-direction(row);
@@ -89,11 +95,11 @@
           }
         }
 
-        .footerLogo{
+        .footer-logo{
           font-size: 40px;
           & span {
             font-size: 30px;
-            &.otherColor {
+            &.other-color {
               color: #ccc;
             }
           }
@@ -105,7 +111,7 @@
           }
         }
 
-        .footerLinks {
+        .footer-links {
           margin-left: 20px;
           display: inline-block;
           vertical-align: middle;
@@ -158,16 +164,17 @@
             }
 
             .text {
-              @include transition();
               display: inline-block;
               vertical-align: middle;
               margin-left: 10px;
               margin-right: 10px;
               font-family: $verdana_r;
               font-size: 10px;
-
+              a {
+                @include transition();
+              }
               &:hover {
-                .text {
+                a {
                   color: #fff;
                 }
               }
@@ -176,7 +183,7 @@
         }
       }
 
-      & > .bottomLargeFooter {
+      & > .bottom-large-footer {
         margin-left: 20px;
         font-size: 18px;
         padding: 10px 0;
@@ -184,8 +191,9 @@
       }
     }
 
-    & > .rightLargeFooter {
-      @include flex-grow(2);
+    & > .right-large-footer {
+      max-width: 300px;
+      width: 20vw;
       background: rgba(0, 0, 0, .6);
 
       & .logo {
