@@ -10,7 +10,7 @@ import MobileFooter from '../../components/MobileFooter';
 export function Portfolio({ width, match: { path } }) {
   return (
     <div style={{ overflow: 'hidden' }}>
-      {width > 767 && <Header />}
+      {width > 767 && <Header smallLogo />}
       <Switch>
         <Route exact path={`${path}`} component={MainPortfolio} />
         <Route exact path={`${path}/:id`} component={PortfolioItem} />

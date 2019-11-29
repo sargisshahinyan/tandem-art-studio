@@ -8,7 +8,7 @@ export function CustomCarousel({ items }) {
   const settings = {
     dots: true,
     infinite: true,
-    autoplay: !true,
+    autoplay: true,
     speed: 1500,
     slidesToShow: 1,
     slidesToScroll: 1,

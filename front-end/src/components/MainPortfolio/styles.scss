@@ -1,11 +1,10 @@
 @import "fonts";
 
 .portfolios-wrapper {
-  height: 100vh;
+  height: calc(100vh - 80px);
   font-family: $verdana_r;
   display: flex;
   align-items: center;
-  margin: 0 80px;
   max-width: 1920px;
   .portfolios-container {
     width: 100%;

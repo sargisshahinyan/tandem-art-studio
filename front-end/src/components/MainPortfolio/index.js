@@ -69,8 +69,8 @@ export class MainPortfolio extends PureComponent {
     return null;
   }
 
-  onScroll({ deltaY }) {
-    if (this.scrolling) return;
+  onScroll({ deltaY, ctrlKey = false }) {
+    if (this.scrolling || ctrlKey) return;
 
     const { level, itemsInLine, rowsCount } = this.state;
     const { portfolios } = this.props;
@@ -84,7 +84,7 @@ export class MainPortfolio extends PureComponent {
   onResize() {
     const { itemsInLine } = this.state;
 
-    const itemHeight = Math.floor(this.portfolios.current.clientWidth / itemsInLine);
+    const itemHeight = Math.floor((this.portfolios.current.clientWidth - 160) / itemsInLine);
     const rowsCount = Math.floor(this.portfolios.current.clientHeight / itemHeight);
     const height = rowsCount * itemHeight;
 
@@ -125,7 +125,6 @@ export class MainPortfolio extends PureComponent {
 
     return (
       <div className="portfolios-wrapper" ref={this.portfolios}>
-        <div className="bg_sim_styles bg_index" style={{ position: 'fixed' }} />
         <Swipe onSwipeMove={this.onSwipeMove}>
           <div className="portfolios-container" style={{ height: `${height}px` }}>
             <div
@@ -145,8 +144,8 @@ export class MainPortfolio extends PureComponent {
                     && i < (rowsCount * itemsInLine) + level * itemsInLine
                   }
                   style={{
+                    width: `${itemHeight + 40}px`,
                     height: `${itemHeight}px`,
-                    width: `${itemHeight}px`,
                     display: 'inline-block',
                   }}
                 >
