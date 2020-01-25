@@ -1,0 +1,44 @@
+@import "fonts";
+
+.portfolios-wrapper-mobile {
+  padding: 10px 10px 50px;
+  background: no-repeat center center;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  .portfolio-item {
+    background: no-repeat center center;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    position: relative;
+    width: calc(100vw - 20px);
+    height: calc(100vw - 20px);
+    display: block;
+    margin-bottom: 20px;
+    .title {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      padding: 10px;
+      display: none;
+      align-items: center;
+      height: 40px;
+      width: 100%;
+      background-color: #1f1f23;
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 20px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      font-family: $verdana_r;
+    }
+    &:hover {
+      .title {
+        display: flex;
+      }
+    }
+  }
+}

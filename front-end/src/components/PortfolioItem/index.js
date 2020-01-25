@@ -6,6 +6,7 @@ import { convertText } from '../../utils';
 import { loadPortfolio } from '../../actions/portfolios';
 
 import './styles.scss';
+import MobileFooter from '../MobileFooter';
 
 export class PortfolioItem extends PureComponent {
   componentDidMount() {
@@ -68,6 +69,7 @@ export class PortfolioItem extends PureComponent {
             </section>
           ))}
         </div>
+        <MobileFooter fixed />
       </main>
     );
   }
