@@ -7,8 +7,7 @@ import NewLargeFooter from "../ContactFooter";
 import Header from '../Header';
 import './styles.scss';
 
-export function ContactsDetailed() {
-  return (
+const ContactsDetailed = () => (
     <article className="bg_location">
       <Header />
       <main>
@@ -25,7 +24,6 @@ export function ContactsDetailed() {
       <NewLargeFooter address />
       <MobileFooter />
     </article>
-  );
-}
+);
 
 export default ContactsDetailed;
