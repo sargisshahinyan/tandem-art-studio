@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import Header from '../../components/Header';
 import MainPortfolio from '../../components/MainPortfolio';
 import PortfolioItem from '../../components/PortfolioItem';
-import MobileFooter from '../../components/MobileFooter';
 
 export function Portfolio({ width, match: { path } }) {
   return (
@@ -15,7 +14,6 @@ export function Portfolio({ width, match: { path } }) {
         <Route exact path={`${path}`} component={MainPortfolio} />
         <Route exact path={`${path}/:id`} component={PortfolioItem} />
       </Switch>
-      <MobileFooter />
     </div>
   );
 }
