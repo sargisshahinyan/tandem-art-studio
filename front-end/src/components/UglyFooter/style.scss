@@ -40,54 +40,25 @@ article.bg_location {
       flex-grow: 20;
       width: max-content;
       margin: 0 auto;
+      @include justify-content(space-between);
 
       & > #addresses {
-        font-size: 20px;
-        display: flex;
-        & > *{
-          margin-left: 10px;
-        }
-        & .addressLogo {
-
-          & img {
-            width: auto;
-            height: 50px;
-          }
-        }
-      }
-
-      & > #phones {
-        font-size: 30px;
-        & .phone {
-          @include flexbox();
-          @include align-items(center);
-          & > * {
-            margin-left: 10px;
-          }
-          & img {
-            width: auto;
-            height: 50px;
-          }
-        }
-      }
-      & > #gameChanger {
-         display: block !important;
         text-align: center;
-         #game {
-           font-size: 40px;
-           span {
-             color: #4F4F53;
-           }
-         }
-
-         #changer {
-           font-size: 53px;
-         }
-       }
-      & > #addresses, & #social, & > #gameChanger {
-        margin-top: 40px;
       }
-
+      & > #addresses, & #social, & > #addresses > div:last-child {
+        margin-top: 20px;
+      }
+      & #social {
+        @include justify-content(center);
+        & li {
+          @include flex-grow(0);
+          text-align: center;
+        }
+        img {
+          width: 80%;
+          //height: 40px;
+        }
+      }
     }
   }
 }
